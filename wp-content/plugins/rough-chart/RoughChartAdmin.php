@@ -14,7 +14,7 @@ class RoughChartAdmin {
 	public static function init_hooks() {
 		self::$initiated = true;
 
-		add_action('admin_menu', array('RoughChartAdmin', 'admin_menu'));
+		add_action( 'admin_menu', array( 'RoughChartAdmin', 'admin_menu' ) );
 	}
 
 	public static function admin_menu() {
@@ -24,12 +24,12 @@ class RoughChartAdmin {
 			'Rough Chart Options',
 			'manage_options',
 			'rough_chart',
-			array('RoughChartAdmin', 'render_admin_view')
+			array( 'RoughChartAdmin', 'render_admin_view' )
 		);
 	}
 
 	public static function render_admin_view() {
-		load_plugin_textdomain('rough-chart');
+		load_plugin_textdomain( 'rough-chart' );
 		$adminView = new AdminView();
 		$adminView->render();
 	}
