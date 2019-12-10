@@ -1,4 +1,5 @@
 *
 !.gitignore
 !rough-chart
+!rough-chart/*
 !index.php
