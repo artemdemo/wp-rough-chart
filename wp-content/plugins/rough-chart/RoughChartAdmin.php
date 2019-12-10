@@ -20,8 +20,8 @@ class RoughChartAdmin {
 	public static function admin_menu() {
 		add_submenu_page(
 			'themes.php',
-			'Rough Chart Options',
-			'Rough Chart Options',
+			'Rough Chart Settings',
+			'Rough Chart Settings',
 			'manage_options',
 			'rough_chart',
 			array( 'RoughChartAdmin', 'render_admin_view' )
@@ -29,7 +29,6 @@ class RoughChartAdmin {
 	}
 
 	public static function render_admin_view() {
-		load_plugin_textdomain( 'rough-chart' );
 		$adminView = new AdminView();
 		$adminView->render();
 	}
