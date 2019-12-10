@@ -28,3 +28,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 Copyright 2019 Artem Demo
 */
+
+// Make sure we don't expose any info if called directly
+if (!function_exists( 'add_action')) {
+	echo 'Rough Chart plugin can\'t be called directly.';
+	exit;
+}
+
+define('WP_DEBUG', true);
+
+define('ROUGH_CHART_VERSION', '4.1.3');
+define('ROUGH_CHART_MINIMUM_WP_VERSION', '5.0');
+define('ROUGH_CHART_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
+register_activation_hook(__FILE__, array('RoughChart', 'plugin_activation'));
+register_deactivation_hook(__FILE__, array('RoughChart', 'plugin_deactivation'));
+
+require_once(ROUGH_CHART_PLUGIN_DIR . 'RoughChart.php');
+
+add_action('init', array('RoughChart', 'init'));
+
+if (is_admin()) {
+	require_once(ROUGH_CHART_PLUGIN_DIR . 'RoughChartAdmin.php');
+	add_action('init', array('RoughChartAdmin', 'init'));
+}

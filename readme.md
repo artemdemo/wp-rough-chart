@@ -9,7 +9,7 @@ I'm using docker for development environment.
 Run images:
 
 ```
-docker-compose up -d
+docker-compose up
 ```
 
 You can import DB if you need to:
