@@ -1,4 +1,5 @@
 <?php
+namespace roughChart\views;
 
 require_once( 'View.php' );
 

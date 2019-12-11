@@ -1,4 +1,5 @@
 <?php
+namespace roughChart\views;
 
 class View {
 	private $name = 'view';
