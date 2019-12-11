@@ -9,6 +9,8 @@ use roughChart\views\NewChartView;
 class RoughChartAdmin {
 	private static $initiated = false;
 
+	public static $chart_id_arg = 'chart_id';
+
 	public static function init() {
 		if ( ! self::$initiated ) {
 			self::init_hooks();
@@ -22,6 +24,7 @@ class RoughChartAdmin {
 	}
 
 	public static function admin_menu() {
+		// https://developer.wordpress.org/plugins/administration-menus/sub-menus/
 		add_submenu_page(
 			'themes.php',
 			'Rough Charts',
@@ -30,23 +33,17 @@ class RoughChartAdmin {
 			'rough_chart',
 			array( 'RoughChartAdmin', 'render_admin_view' )
 		);
-
-		add_plugins_page(
-			'Add new Rough Chart',
-			'Add new Rough Chart',
-			'manage_options',
-			'rough_chart_add_new',
-			array( 'RoughChartAdmin', 'render_add_new_view' )
-		);
 	}
 
 	public static function render_admin_view() {
-		$adminView = new AdminView();
-		$adminView->render();
+		if ( array_key_exists( RoughChartAdmin::$chart_id_arg, $_GET ) &&
+		     $_GET[RoughChartAdmin::$chart_id_arg] == 'new' ) {
+			$newChartView = new NewChartView();
+			$newChartView->render();
+		} else {
+			$adminView = new AdminView();
+			$adminView->render();
+		}
 	}
 
-	public static function render_add_new_view() {
-		$newChartView = new NewChartView();
-		$newChartView->render();
-	}
 }
