@@ -11,6 +11,8 @@ class RoughChartAdmin {
 
 	public static $chart_id_arg = 'chart_id';
 
+	public static $menu_slug = 'rough_chart';
+
 	public static function init() {
 		if ( ! self::$initiated ) {
 			self::init_hooks();
@@ -30,7 +32,7 @@ class RoughChartAdmin {
 			'Rough Charts',
 			'Rough Charts',
 			'manage_options',
-			'rough_chart',
+			RoughChartAdmin::$menu_slug,
 			array( 'RoughChartAdmin', 'render_admin_view' )
 		);
 	}

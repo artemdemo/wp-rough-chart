@@ -4,10 +4,9 @@
 	    $link_args[RoughChartAdmin::$chart_id_arg] = 'new';
         return add_query_arg(
 	        $link_args,
-	        menu_page_url( 'rough_chart', false )
+	        menu_page_url( RoughChartAdmin::$menu_slug, false )
         );
     }
-
 ?>
 <div class="wrap">
     <h1 class="wp-heading-inline">Rough Charts</h1>
