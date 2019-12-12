@@ -1,16 +1,10 @@
 <?php
-    function rough_chart_get_url_to_add_new() {
-	    $link_args = array();
-	    $link_args[RoughChartAdmin::$chart_id_arg] = 'new';
-        return add_query_arg(
-	        $link_args,
-	        menu_page_url( RoughChartAdmin::$menu_slug, false )
-        );
-    }
+use roughChart\views\NewChartView;
+
 ?>
 <div class="wrap">
     <h1 class="wp-heading-inline">Rough Charts</h1>
-    <a href="<?= rough_chart_get_url_to_add_new() ?>"
+    <a href="<?= NewChartView::get_url_to_add_new() ?>"
        class="page-title-action">
         Add New
     </a>
