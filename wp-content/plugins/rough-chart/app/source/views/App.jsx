@@ -6,7 +6,7 @@ class App extends Component {
         super(props);
     }
 
-    render(props, state) {
+    render(props, state, context) {
         return (
             <EditChart />
         )
