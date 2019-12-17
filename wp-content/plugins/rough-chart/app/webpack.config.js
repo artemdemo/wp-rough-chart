@@ -38,7 +38,7 @@ module.exports = (env, args) => {
         target: 'web',
         devtool: production ? false : 'source-map',
         optimization: {
-            minimize: true,
+            minimize: production,
             // SplitChunksPlugin
             // https://webpack.js.org/plugins/split-chunks-plugin/
             splitChunks: {

@@ -1,32 +1,17 @@
-import { Component, h } from 'preact';
+import { Component, Fragment, h } from 'preact';
 
 class App extends Component {
-    state = {
-        title: 'local state'
-    };
-
     constructor(props) {
         super(props);
-        this.state.title += ' - ' + props.title;
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            let state = this.state;
-
-            state.title = `Preact's [componentDidMount] worked as expected`;
-            this.setState(state);
-        }, 2000);
     }
 
     render(props, state) {
         return (
-            <div>
-                <h1>{props.title}</h1>
-                <p>
-                    {state.title}
-                </p>
-            </div>
+            <Fragment>
+                <h1 className="wp-heading-inline">New Rough Chart</h1>
+                <hr className="wp-header-end" />
+                <h2 className="screen-reader-text">New Rough Chart options</h2>
+            </Fragment>
         )
     }
 }

@@ -10,8 +10,8 @@ class RoughChartAdmin {
 	private static $initiated = false;
 
 	public static $chart_id_arg = 'chart_id';
-
 	public static $menu_slug = 'rough_chart';
+	public static $js_slug = 'rough-charts-app';
 
 	public static function init() {
 		if ( ! self::$initiated ) {
@@ -23,6 +23,7 @@ class RoughChartAdmin {
 		self::$initiated = true;
 
 		add_action( 'admin_menu', array( 'RoughChartAdmin', 'admin_menu' ) );
+		add_action( 'admin_enqueue_scripts', array( 'RoughChartAdmin', 'add_js_scripts' ) );
 	}
 
 	public static function admin_menu() {
@@ -34,6 +35,20 @@ class RoughChartAdmin {
 			'manage_options',
 			RoughChartAdmin::$menu_slug,
 			array( 'RoughChartAdmin', 'render_admin_view' )
+		);
+	}
+
+	public static function add_js_scripts() {
+		wp_enqueue_script(
+			self::$js_slug,
+			plugin_dir_url( __FILE__ ) . 'app/build/js/rough-chart.js'
+		);
+		wp_localize_script(
+			self::$js_slug,
+			'__roughChartsApp',
+			array(
+				'nonce'  => wp_create_nonce( self::$js_slug )
+			)
 		);
 	}
 
