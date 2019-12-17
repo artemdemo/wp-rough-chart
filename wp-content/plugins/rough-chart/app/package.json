@@ -1,0 +1,29 @@
+{
+	"name": "rough-chart-app",
+	"version": "1.0.0",
+	"description": "Rough chart app",
+	"scripts": {
+		"build": "webpack --config ./webpack.config.js --mode production --progress",
+		"dev": "webpack --config ./webpack.config.js --mode development",
+		"dev:watch": "webpack --config ./webpack.config.js --mode development --watch",
+		"start": "webpack-dev-server --config ./webpack.config.js --mode development"
+	},
+	"license": "ISC",
+	"dependencies": {
+		"preact": "10.0.0"
+	},
+	"devDependencies": {
+		"clean-webpack-plugin": "^3.0.0",
+		"copy-webpack-plugin": "5.0.4",
+		"file-loader": "4.2.0",
+		"html-webpack-plugin": "^3.2.0",
+		"less": "3.10.3",
+		"less-loader": "5.0.0",
+		"less-plugin-clean-css": "1.5.1",
+		"ts-loader": "6.2.0",
+		"typescript": "3.6.4",
+		"webpack": "4.41.2",
+		"webpack-cli": "3.3.9",
+		"webpack-dev-server": "3.7.1"
+	}
+}
