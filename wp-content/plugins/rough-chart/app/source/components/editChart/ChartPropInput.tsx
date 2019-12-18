@@ -9,7 +9,11 @@ interface IState {
 }
 
 class ChartPropInput extends Component<IProps, IState> {
-    state = {
+    static defaultProps = {
+        title: '',
+    };
+
+    public state = {
         inputId: 'chart-stroke-width',
     };
 
