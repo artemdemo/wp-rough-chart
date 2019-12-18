@@ -1,8 +1,15 @@
 import { Component, h } from 'preact';
 
-class ChartPropInput extends Component {
+interface IProps {
+    title?: string;
+}
+
+interface IState {
+    inputId: string;
+}
+
+class ChartPropInput extends Component<IProps, IState> {
     state = {
-        title: 'Stroke Width',
         inputId: 'chart-stroke-width',
     };
 
@@ -11,7 +18,7 @@ class ChartPropInput extends Component {
             <tr className='form-field'>
                 <th scope='row'>
                     <label htmlFor={this.state.inputId}>
-                        {this.state.title}
+                        {props.title}
                     </label>
                 </th>
                 <td>
@@ -19,7 +26,6 @@ class ChartPropInput extends Component {
                         id={this.state.inputId}
                         type='text'
                         aria-required='true'
-                        autoCapitalize='none'
                         autoCorrect='off'
                     />
                 </td>

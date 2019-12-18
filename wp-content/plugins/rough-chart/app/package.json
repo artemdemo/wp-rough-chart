@@ -10,7 +10,8 @@
 	},
 	"license": "ISC",
 	"dependencies": {
-		"preact": "^10.1.1"
+		"preact": "^10.1.1",
+		"prop-types": "^15.7.2"
 	},
 	"devDependencies": {
 		"clean-webpack-plugin": "^3.0.0",

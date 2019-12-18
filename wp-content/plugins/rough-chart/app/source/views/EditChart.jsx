@@ -1,11 +1,6 @@
 import { Component, Fragment, h } from 'preact';
-import ChartTitle from '../components/editChart/ChartTitle';
+import ChartPropInput from '../components/editChart/ChartPropInput';
 import FillStyle from '../components/editChart/FillStyle';
-import StrokeWidth from '../components/editChart/StrokeWidth';
-import FillWeight from '../components/editChart/FillWeight';
-import Roughness from '../components/editChart/Roughness';
-import XLabel from '../components/editChart/XLabel';
-import YLabel from '../components/editChart/YLabel';
 import Data from '../components/editChart/Data';
 
 class EditChart extends Component {
@@ -22,13 +17,13 @@ class EditChart extends Component {
                 <p>Define your new chart by defining options below:</p>
                 <table className='form-table' role='presentation'>
                     <tbody>
-                        <ChartTitle />
+                        <ChartPropInput title='Title' />
                         <FillStyle />
-                        <StrokeWidth />
-                        <FillWeight />
-                        <Roughness />
-                        <XLabel />
-                        <YLabel />
+                        <ChartPropInput title='Stroke Width' />
+                        <ChartPropInput title='Fill Weight' />
+                        <ChartPropInput title='Roughness' />
+                        <ChartPropInput title='X Label' />
+                        <ChartPropInput title='Y Label' />
                     </tbody>
                 </table>
                 <Data />
