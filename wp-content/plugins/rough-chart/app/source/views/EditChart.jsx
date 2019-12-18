@@ -16,7 +16,7 @@ class EditChart extends Component {
                 <h1 className='wp-heading-inline'>New Rough Chart</h1>
                 <hr className='wp-header-end' />
                 <h2 className='screen-reader-text'>New Rough Chart options</h2>
-                <p>Define your new chart by defining options below:</p>
+                <p>Define your new chart by filling options below:</p>
                 <FormTable>
                     <PropInput title='Title' />
                     <PropColor title='Color' />

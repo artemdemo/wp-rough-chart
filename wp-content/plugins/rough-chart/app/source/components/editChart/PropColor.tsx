@@ -17,18 +17,11 @@ class PropColor extends Component<IProps, IState> {
         title: '',
     };
 
-    public state = {
-        inputId: 'prop-color',
-    };
-
     colorRef = createRef();
     colorContainerRef = createRef();
     colorPicker;
 
     componentDidMount(): void {
-        this.setState({
-            inputId: `${this.state.inputId}-${rndSalt()}`,
-        });
         import('@simonwep/pickr')
             .then(({ default: Pickr }) => {
                 this.colorPicker = new Pickr({
@@ -55,7 +48,6 @@ class PropColor extends Component<IProps, IState> {
         return (
             <FormField
                 title={props.title}
-                htmlFor={this.state.inputId}
             >
                 <div ref={this.colorRef} />
                 <div ref={this.colorContainerRef} />
