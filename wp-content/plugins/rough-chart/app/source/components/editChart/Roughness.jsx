@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import ChartPropInput from './ChartPropInput';
 
-class ChartTitle extends ChartPropInput {
+class Roughness extends ChartPropInput {
     state = {
-        title: 'Title',
+        title: 'Roughness',
         inputId: 'chart-title',
     };
 }
 
-export default ChartTitle;
+export default Roughness;

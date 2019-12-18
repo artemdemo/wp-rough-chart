@@ -1,5 +1,12 @@
 import { Component, Fragment, h } from 'preact';
 import ChartTitle from '../components/editChart/ChartTitle';
+import FillStyle from '../components/editChart/FillStyle';
+import StrokeWidth from '../components/editChart/StrokeWidth';
+import FillWeight from '../components/editChart/FillWeight';
+import Roughness from '../components/editChart/Roughness';
+import XLabel from '../components/editChart/XLabel';
+import YLabel from '../components/editChart/YLabel';
+import Data from '../components/editChart/Data';
 
 class EditChart extends Component {
     constructor(props) {
@@ -16,8 +23,15 @@ class EditChart extends Component {
                 <table className='form-table' role='presentation'>
                     <tbody>
                         <ChartTitle />
+                        <FillStyle />
+                        <StrokeWidth />
+                        <FillWeight />
+                        <Roughness />
+                        <XLabel />
+                        <YLabel />
                     </tbody>
                 </table>
+                <Data />
             </Fragment>
         )
     }
