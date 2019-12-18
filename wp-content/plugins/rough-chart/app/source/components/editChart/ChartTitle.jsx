@@ -7,7 +7,7 @@ class ChartTitle extends Component {
 
     render(props, state, context) {
         return (
-            <tr className='form-field form-required'>
+            <tr className='form-field'>
                 <th scope='row'>
                     <label htmlFor={this.state.inputId}>
                         Title
