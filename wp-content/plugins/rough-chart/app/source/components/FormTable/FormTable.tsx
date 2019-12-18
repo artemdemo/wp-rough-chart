@@ -6,7 +6,10 @@ interface IState {}
 class FormTable extends Component<IProps, IState> {
     render(props, state, context) {
         return (
-            <table className='form-table' role='presentation'>
+            <table
+                className='form-table'
+                role='presentation'
+            >
                 <tbody>
                     {props.children}
                 </tbody>
