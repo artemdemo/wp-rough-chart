@@ -1,4 +1,5 @@
 import { Component, h } from 'preact';
+import { rndSalt } from '../../services/utils';
 
 interface IProps {
     title?: string;
@@ -14,8 +15,14 @@ class ChartPropInput extends Component<IProps, IState> {
     };
 
     public state = {
-        inputId: 'chart-stroke-width',
+        inputId: 'chart-prop-input',
     };
+
+    componentDidMount(): void {
+        this.setState({
+            inputId: `${this.state.inputId}-${rndSalt()}`,
+        })
+    }
 
     render(props, state, context) {
         return (
