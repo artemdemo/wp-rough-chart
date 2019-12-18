@@ -1,5 +1,6 @@
 import { Component, h } from 'preact';
 import { rndSalt } from '../../services/utils';
+import FormField from '../FormTable/FormField';
 
 interface IProps {
     title?: string;
@@ -26,21 +27,17 @@ class ChartPropInput extends Component<IProps, IState> {
 
     render(props, state, context) {
         return (
-            <tr className='form-field'>
-                <th scope='row'>
-                    <label htmlFor={this.state.inputId}>
-                        {props.title}
-                    </label>
-                </th>
-                <td>
-                    <input
-                        id={this.state.inputId}
-                        type='text'
-                        aria-required='true'
-                        autoCorrect='off'
-                    />
-                </td>
-            </tr>
+            <FormField
+                title={props.title}
+                htmlFor={this.state.inputId}
+            >
+                <input
+                    id={this.state.inputId}
+                    type='text'
+                    aria-required='true'
+                    autoCorrect='off'
+                />
+            </FormField>
         )
     }
 }
