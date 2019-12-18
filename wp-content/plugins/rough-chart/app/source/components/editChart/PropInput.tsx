@@ -10,13 +10,13 @@ interface IState {
     inputId: string;
 }
 
-class ChartPropInput extends Component<IProps, IState> {
+class PropInput extends Component<IProps, IState> {
     static defaultProps = {
         title: '',
     };
 
     public state = {
-        inputId: 'chart-prop-input',
+        inputId: 'prop-input',
     };
 
     componentDidMount(): void {
@@ -42,4 +42,4 @@ class ChartPropInput extends Component<IProps, IState> {
     }
 }
 
-export default ChartPropInput;
+export default PropInput;

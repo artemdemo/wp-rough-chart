@@ -11,5 +11,7 @@ const docReady = (cb) => {
 };
 
 docReady(() => {
-    render(<App title='Preact boilerplate' />, document.getElementById('app'));
+    const appEl = document.getElementById('app');
+    appEl.innerHTML = '';
+    render(<App title='Preact boilerplate' />, appEl);
 });

@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CleanCSSPlugin = require('less-plugin-clean-css');
 const path = require('path');
 const packageFile = require('./package.json');
 
@@ -14,19 +13,6 @@ module.exports = (env, args) => {
         console.log('== Development mode');
     }
 
-    const lessLoader = production
-        ? {
-            loader: 'less-loader',
-            options: {
-                plugins: [
-                    new CleanCSSPlugin({advanced: true})
-                ]
-            }
-        }
-        : {
-            loader: 'less-loader',
-        };
-
     return {
         entry: {
             'rough-chart': './source/index.jsx',
@@ -34,6 +20,8 @@ module.exports = (env, args) => {
         output: {
             path: path.resolve('./build'),
             filename: './js/[name].js',
+            chunkFilename: './js/rough-chart.[id].chunk.js',
+            publicPath: '/wp-content/plugins/rough-chart/app/build/',
         },
         target: 'web',
         devtool: production ? false : 'source-map',
@@ -41,26 +29,22 @@ module.exports = (env, args) => {
             minimize: production,
             // SplitChunksPlugin
             // https://webpack.js.org/plugins/split-chunks-plugin/
-            splitChunks: {
-                chunks: 'all',
-                minSize: 30000,
-                maxSize: 0,
-                minChunks: 1,
-                maxAsyncRequests: 5,
-                maxInitialRequests: 3,
-                name: true,
-                cacheGroups: {
-                    'default': {
-                        minChunks: 2,
-                        priority: -20,
-                        reuseExistingChunk: true,
-                    },
-                    vendors: {
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: -10,
-                    },
-                },
-            },
+            // splitChunks: {
+            //     chunks: 'all',
+            //     minSize: 30000,
+            //     maxSize: 0,
+            //     minChunks: 1,
+            //     maxAsyncRequests: 5,
+            //     maxInitialRequests: 3,
+            //     name: true,
+            //     cacheGroups: {
+            //         'default': {
+            //             minChunks: 2,
+            //             priority: -20,
+            //             reuseExistingChunk: true,
+            //         },
+            //     },
+            // },
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx', '.html', '.txt'],
@@ -79,17 +63,12 @@ module.exports = (env, args) => {
                 },
                 // app main .less file
                 {
-                    test: /app\.less$/i,
+                    test: /\.(less|css)$/i,
                     use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: 'styles/[name].css',
-                            }
-
-                        },
-                        lessLoader
-                    ]
+                        'style-loader',
+                        { loader: 'css-loader', options: { importLoaders: 1 } },
+                        'less-loader',
+                    ],
                 },
             ],
         },

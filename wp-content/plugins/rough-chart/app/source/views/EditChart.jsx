@@ -1,6 +1,7 @@
 import { Component, Fragment, h } from 'preact';
 import FormTable from '../components/FormTable/FormTable';
-import ChartPropInput from '../components/editChart/ChartPropInput';
+import PropInput from '../components/editChart/PropInput';
+import PropColor from '../components/editChart/PropColor';
 import FillStyle from '../components/editChart/FillStyle';
 import Data from '../components/editChart/Data';
 
@@ -17,13 +18,15 @@ class EditChart extends Component {
                 <h2 className='screen-reader-text'>New Rough Chart options</h2>
                 <p>Define your new chart by defining options below:</p>
                 <FormTable>
-                    <ChartPropInput title='Title' />
+                    <PropInput title='Title' />
+                    <PropColor title='Color' />
+                    <PropColor title='Stroke' />
                     <FillStyle />
-                    <ChartPropInput title='Stroke Width' />
-                    <ChartPropInput title='Fill Weight' />
-                    <ChartPropInput title='Roughness' />
-                    <ChartPropInput title='X Label' />
-                    <ChartPropInput title='Y Label' />
+                    <PropInput title='Stroke Width' />
+                    <PropInput title='Fill Weight' />
+                    <PropInput title='Roughness' />
+                    <PropInput title='X Label' />
+                    <PropInput title='Y Label' />
                 </FormTable>
                 <Data />
             </Fragment>

@@ -1,1 +1,3 @@
-<div class="wrap" id="app" />
+<div class="wrap" id="app">
+	loading...
+</div>
