@@ -1,5 +1,4 @@
 import { Component, h, createRef } from 'preact';
-import { rndSalt } from '../../services/utils';
 import FormField from '../FormTable/FormField';
 
 import './PropColor.less'
@@ -9,12 +8,16 @@ interface IProps {
 }
 
 interface IState {
-    inputId: string;
+    color: string;
 }
 
 class PropColor extends Component<IProps, IState> {
     static defaultProps = {
         title: '',
+    };
+
+    public state = {
+        color: 'rgba(44, 83, 144, 1)',
     };
 
     colorRef = createRef();
@@ -24,33 +27,46 @@ class PropColor extends Component<IProps, IState> {
     componentDidMount(): void {
         import('@simonwep/pickr')
             .then(({ default: Pickr }) => {
+                // @link https://github.com/Simonwep/pickr
                 this.colorPicker = new Pickr({
                     el: this.colorRef.current,
                     container: this.colorContainerRef.current,
                     theme: 'classic',
+                    default: this.state.color,
+                    closeWithKey: 'Escape',
                     components: {
                         preview: true,
-                        //opacity: true,
                         hue: true,
 
                         interaction: {
-                            rgba: true,
                             input: true,
                             save: true
                         }
                     },
                 });
-                this.colorPicker.on('save', console.log);
+                this.colorPicker.on('save', this.onSaveColor);
             });
     }
+
+    onSaveColor = (hsva) => {
+        // In some cases `hsva` can be `null`.
+        // For example if user clicked on `clear` button.
+        // (this button should be presented in UI)
+        if (hsva) {
+            this.setState({
+                color: hsva.toRGBA().toString(0),
+            })
+        }
+    };
 
     render(props, state, context) {
         return (
             <FormField
                 title={props.title}
             >
-                <div ref={this.colorRef} />
-                <div ref={this.colorContainerRef} />
+                <span ref={this.colorRef} />
+                <span ref={this.colorContainerRef} />
+                {this.state.color}
             </FormField>
         )
     }
