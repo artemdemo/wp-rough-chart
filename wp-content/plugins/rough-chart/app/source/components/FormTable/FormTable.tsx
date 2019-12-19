@@ -1,10 +1,12 @@
 import { Component, h } from 'preact';
 
-interface IProps {}
+interface IProps {
+    children: any;
+}
 interface IState {}
 
 class FormTable extends Component<IProps, IState> {
-    render(props, state, context) {
+    render(props: IProps, state: IState, context) {
         return (
             <table
                 className='form-table'

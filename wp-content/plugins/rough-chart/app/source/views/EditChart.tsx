@@ -19,8 +19,8 @@ class EditChart extends Component {
                 <p>Define your new chart by filling options below:</p>
                 <FormTable>
                     <PropInput title='Title' />
-                    <PropColor title='Default Fill' />
-                    <PropColor title='Default Stroke' />
+                    <PropColor title='Default Fill' defaultColor='#427dd9' />
+                    <PropColor title='Default Stroke' defaultColor='#2C5390' />
                     <FillStyle />
                     <PropInput title='Stroke Width' />
                     <PropInput title='Fill Weight' />

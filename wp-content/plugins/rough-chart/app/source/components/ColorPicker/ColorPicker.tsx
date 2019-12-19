@@ -49,9 +49,9 @@ class ColorPicker extends Component<IProps, IState> {
     };
 
     handleClick = () => {
-        this.setState({
-            showPopup: !this.state.showPopup,
-        })
+        this.setState(prevState => ({
+            showPopup: !prevState.showPopup,
+        }));
     };
 
     render(props: IProps, state: IState, context) {

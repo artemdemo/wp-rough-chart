@@ -12,7 +12,7 @@ class FillStyle extends Component<IProps, IState> {
         inputId: 'chart_fill_style',
     };
 
-    render(props, state, context) {
+    render(props: IProps, state: IState, context) {
         return (
             <FormField
                 title='Fill Style'

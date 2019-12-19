@@ -6,6 +6,7 @@ import './PropColor.less';
 
 interface IProps {
     title?: string;
+    defaultColor?: string;
 }
 
 interface IState {
@@ -18,14 +19,23 @@ class PropColor extends Component<IProps, IState> {
     };
 
     public state = {
-        color: 'rgba(44, 83, 144, 1)',
+        color: '#2C5390',
     };
+
+    componentDidMount(): void {
+        const { defaultColor } = this.props;
+        if (defaultColor) {
+            this.setState({
+                color: defaultColor,
+            })
+        }
+    }
 
     onChangeColor = (color: string) => {
         this.setState({ color })
     };
 
-    render(props, state, context) {
+    render(props: IProps, state: IState, context) {
         return (
             <FormField
                 title={props.title}

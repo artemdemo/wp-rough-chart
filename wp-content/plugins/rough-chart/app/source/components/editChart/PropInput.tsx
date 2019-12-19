@@ -27,7 +27,7 @@ class PropInput extends Component<IProps, IState> {
         })
     }
 
-    render(props, state, context) {
+    render(props: IProps, state: IState, context) {
         return (
             <FormField
                 title={props.title}

@@ -30,7 +30,7 @@ class Data extends Component<IProps, IState> {
         });
     }
 
-    render(props, state, context) {
+    render(props: IProps, state: IState, context) {
         return (
             <Fragment>
                 <h2>Chart data</h2>
