@@ -1,5 +1,7 @@
 import { Component, h } from 'preact';
 
+import './FormField.less';
+
 interface IProps {
     title?: string;
     htmlFor?: string;
@@ -12,7 +14,10 @@ class FormField extends Component<IProps, IState> {
     render(props: IProps, state: IState, context) {
         return (
             <tr className='form-field'>
-                <th scope='row'>
+                <th
+                    className='form-field-row'
+                    scope='row'
+                >
                     <label htmlFor={props.htmlFor}>
                         {props.title}
                     </label>
