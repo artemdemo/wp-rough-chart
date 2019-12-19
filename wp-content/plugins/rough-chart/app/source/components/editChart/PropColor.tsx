@@ -25,9 +25,12 @@ class PropColor extends Component<IProps, IState> {
     colorPicker;
 
     componentDidMount(): void {
+        // For some reason if it's not loaded asynchronously it silently kill the whole app.
+        // I assume that the problem is related to the fact that DOM is not ready yet.
+        // ToDo: There is a problem - I'm not sure this dynamic import will work as expected
         import('@simonwep/pickr')
             .then(({ default: Pickr }) => {
-                // @link https://github.com/Simonwep/pickr
+                // @docs https://github.com/Simonwep/pickr
                 this.colorPicker = new Pickr({
                     el: this.colorRef.current,
                     container: this.colorContainerRef.current,

@@ -27,24 +27,6 @@ module.exports = (env, args) => {
         devtool: production ? false : 'source-map',
         optimization: {
             minimize: production,
-            // SplitChunksPlugin
-            // https://webpack.js.org/plugins/split-chunks-plugin/
-            // splitChunks: {
-            //     chunks: 'all',
-            //     minSize: 30000,
-            //     maxSize: 0,
-            //     minChunks: 1,
-            //     maxAsyncRequests: 5,
-            //     maxInitialRequests: 3,
-            //     name: true,
-            //     cacheGroups: {
-            //         'default': {
-            //             minChunks: 2,
-            //             priority: -20,
-            //             reuseExistingChunk: true,
-            //         },
-            //     },
-            // },
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx', '.html', '.txt'],
