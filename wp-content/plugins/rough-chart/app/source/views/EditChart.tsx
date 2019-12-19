@@ -1,44 +1,40 @@
 import { Component, Fragment, h } from 'preact';
-import FormTable from '../components/FormTable/FormTable';
-import PropInput from '../components/editChart/PropInput';
-import PropColor from '../components/editChart/PropColor';
-import FillStyle from '../components/editChart/FillStyle';
-import Data from '../components/editChart/Data';
-import Grid from '../components/Grid/Grid';
-import GridCell from '../components/Grid/GridCell';
+import ChartTypes from '../components/editChart/chartTypes';
+import PieChartFields from '../components/editChart/chartFields/PieChartFields';
 
-class EditChart extends Component {
+interface IProps {
+    type: ChartTypes;
+}
+
+interface IState {}
+
+class EditChart extends Component<IProps, IState> {
     constructor(props) {
         super(props);
     }
 
-    render(props, state, context) {
+    renderFields() {
+        const { type } = this.props;
+        let ChartFieldsComponent;
+        switch (type) {
+            case ChartTypes.Pie:
+                ChartFieldsComponent = PieChartFields;
+                break;
+            default:
+                throw new Error(`No component fround for the given chart type: ${type}`);
+        }
+        return (
+            <ChartFieldsComponent />
+        );
+    }
+
+    render(props: IProps, state: IState, context) {
         return (
             <Fragment>
                 <h1 className='wp-heading-inline'>New Rough Chart</h1>
                 <hr className='wp-header-end' />
                 <h2 className='screen-reader-text'>New Rough Chart options</h2>
-                <FormTable>
-                    <PropInput title='Title' />
-                </FormTable>
-                <p>Define your new chart by filling options below:</p>
-                <Grid size='lg'>
-                    <GridCell columns={3}>
-                        <FormTable>
-                            <PropColor title='Default Fill' defaultColor='#427dd9' />
-                            <PropColor title='Default Stroke' defaultColor='#2C5390' />
-                            <FillStyle />
-                            <PropInput title='Stroke Width' />
-                            <PropInput title='Fill Weight' />
-                            <PropInput title='Roughness' />
-                            <PropInput title='X Label' />
-                            <PropInput title='Y Label' />
-                        </FormTable>
-                    </GridCell>
-                    <GridCell columns={9}>
-                        <Data />
-                    </GridCell>
-                </Grid>
+                {this.renderFields()}
             </Fragment>
         )
     }

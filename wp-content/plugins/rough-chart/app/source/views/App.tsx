@@ -1,5 +1,6 @@
 import { Component, h } from 'preact';
 import EditChart from './EditChart';
+import ChartTypes from '../components/editChart/chartTypes';
 
 class App extends Component {
     constructor(props) {
@@ -8,7 +9,9 @@ class App extends Component {
 
     render(props, state, context) {
         return (
-            <EditChart />
+            <EditChart
+                type={ChartTypes.Pie}
+            />
         )
     }
 }

@@ -1,7 +1,7 @@
 import { Component, h } from 'preact';
 
 interface IProps {
-    children: any;
+    children?: any;
 }
 interface IState {}
 
