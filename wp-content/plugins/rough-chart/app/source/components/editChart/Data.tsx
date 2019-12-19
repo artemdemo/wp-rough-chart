@@ -33,7 +33,7 @@ class Data extends Component<IProps, IState> {
     render(props: IProps, state: IState, context) {
         return (
             <Fragment>
-                <h2>Chart data</h2>
+                <h2>Chart data:</h2>
                 <div ref={this.tableRef} />
             </Fragment>
         );
