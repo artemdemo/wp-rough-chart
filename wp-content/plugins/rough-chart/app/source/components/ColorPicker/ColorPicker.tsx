@@ -1,22 +1,33 @@
 import { Component, h, Fragment, createRef } from 'preact';
 import classnames from 'classnames';
 import iro from '@jaames/iro';
+import ColorPickerPopup from './ColorPickerPopup';
 
 import './ColorPicker.less';
 
 interface IProps {
-    color?: string;
+    color: string;
     className?: string;
     onChange?: (colorHex: string) => void;
 }
 
 interface IState {
-    color: string;
+    showPopup: boolean;
+}
+
+interface IIroColor {
+    hexString: string;
+    rgbString: string;
+    hslString: string;
 }
 
 class ColorPicker extends Component<IProps, IState> {
     private pickerRef = createRef();
     private colorPicker;
+
+    public state = {
+        showPopup: false,
+    };
 
     componentDidMount(): void {
         const { color } = this.props;
@@ -28,9 +39,22 @@ class ColorPicker extends Component<IProps, IState> {
             borderWidth: 1,
             borderColor: '#fff',
         });
+
+        this.colorPicker.on('color:change', this.handleColorChange);
     }
 
-    render(props, state, context) {
+    handleColorChange = (color: IIroColor) => {
+        const { onChange } = this.props;
+        onChange && onChange(color.hexString);
+    };
+
+    handleClick = () => {
+        this.setState({
+            showPopup: !this.state.showPopup,
+        })
+    };
+
+    render(props: IProps, state: IState, context) {
         const { className, color } = props;
         return (
             <Fragment>
@@ -39,8 +63,15 @@ class ColorPicker extends Component<IProps, IState> {
                     style={{
                         backgroundColor: color,
                     }}
+                    onClick={this.handleClick}
                 />
-                <div ref={this.pickerRef} />
+                <div className='color-picker-popup-container'>
+                    <ColorPickerPopup
+                        show={state.showPopup}
+                    >
+                        <div ref={this.pickerRef} />
+                    </ColorPickerPopup>
+                </div>
             </Fragment>
         );
     }

@@ -1,4 +1,4 @@
-import { Component, h, createRef } from 'preact';
+import { Component, h } from 'preact';
 import FormField from '../FormTable/FormField';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
