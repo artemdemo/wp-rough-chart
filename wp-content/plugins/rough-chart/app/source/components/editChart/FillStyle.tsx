@@ -1,7 +1,13 @@
 import { Component, h } from 'preact';
 import FormField from '../FormTable/FormField';
 
-class FillStyle extends Component {
+interface IProps {}
+
+interface IState {
+    inputId: string;
+}
+
+class FillStyle extends Component<IProps, IState> {
     state = {
         inputId: 'chart_fill_style',
     };
