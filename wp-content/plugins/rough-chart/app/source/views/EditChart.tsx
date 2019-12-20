@@ -1,4 +1,4 @@
-import { Component, Fragment, h } from 'preact';
+import {Component, Fragment, h} from 'preact';
 import ChartTypes from '../components/editChart/chartTypes';
 import PieChartFields from '../components/editChart/chartFields/PieChartFields';
 
@@ -20,6 +20,8 @@ class EditChart extends Component<IProps, IState> {
             case ChartTypes.Pie:
                 ChartFieldsComponent = PieChartFields;
                 break;
+            case ChartTypes.Bars:
+            case ChartTypes.Columns:
             default:
                 throw new Error(`No component fround for the given chart type: ${type}`);
         }

@@ -6,6 +6,7 @@ import './PropInput.less';
 
 interface IProps {
     title?: string;
+    description?: string;
 }
 
 interface IState {
@@ -15,6 +16,7 @@ interface IState {
 class PropInput extends Component<IProps, IState> {
     static defaultProps = {
         title: '',
+        description: '',
     };
 
     public state = {
@@ -40,6 +42,9 @@ class PropInput extends Component<IProps, IState> {
                         aria-required='true'
                         autoCorrect='off'
                     />
+                    <p className='description'>
+                        {props.description}
+                    </p>
                 </div>
             </FormField>
         )

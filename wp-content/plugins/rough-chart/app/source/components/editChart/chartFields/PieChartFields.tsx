@@ -22,10 +22,22 @@ class PieChartFields extends ChartFields {
             <Fragment>
                 <FillStyle />
                 <PropInput title='Stroke Width' />
-                <PropInput title='Fill Weight' />
-                <PropInput title='Roughness' />
-                <PropInput title='X Label' />
-                <PropInput title='Y Label' />
+                <PropInput
+                    title='Fill Weight'
+                    description="Weight of inner paths' color. Default: 0.5."
+                />
+                <PropInput
+                    title='Roughness'
+                    description='Roughness level of chart. Default: 1.'
+                />
+                <PropInput
+                    title='X Label'
+                    description='Label for x-axis.'
+                />
+                <PropInput
+                    title='Y Label'
+                    description='Label for y-axis.'
+                />
             </Fragment>
         );
     }

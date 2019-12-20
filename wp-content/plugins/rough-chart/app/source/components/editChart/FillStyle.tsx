@@ -7,6 +7,15 @@ interface IState {
     inputId: string;
 }
 
+const STYLES = [
+    { type: 'hachure', name: 'Hachure' },
+    { type: 'cross-hatch', name: 'Cross-Hatch' },
+    { type: 'zigzag', name: 'Zigzag' },
+    { type: 'dashed', name: 'Dashed' },
+    { type: 'solid', name: 'Solid' },
+    { type: 'zigzag-line', name: 'Zigzag-Line' },
+];
+
 class FillStyle extends Component<IProps, IState> {
     state = {
         inputId: 'chart_fill_style',
@@ -22,7 +31,7 @@ class FillStyle extends Component<IProps, IState> {
                     id={this.state.inputId}
                     className='postform'
                 >
-                    <option value='hachure'>Hachure</option>
+                    <option value='hachure'>hachure</option>
                     <option className='level-0' value='1'>Uncategorized</option>
                 </select>
             </FormField>
