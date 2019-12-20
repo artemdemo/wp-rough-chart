@@ -3,6 +3,7 @@ import jexcel from 'jexcel';
 import * as pieData from './data/pieData';
 import ChartTypes from '../chartTypes';
 import { t } from '../../../services/i18n';
+import contextMenu from './contextMenu';
 
 import './ChartData.less';
 
@@ -28,6 +29,7 @@ class ChartData extends Component<IProps, IState> {
         jexcel(this.tableRef.current, {
             data: chartData.defaultData,
             columns: chartData.columns,
+            contextMenu,
         });
     }
 
