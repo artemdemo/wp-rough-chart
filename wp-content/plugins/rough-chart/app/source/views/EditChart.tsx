@@ -1,6 +1,7 @@
 import {Component, Fragment, h} from 'preact';
 import ChartTypes from '../components/editChart/chartTypes';
 import PieChartFields from '../components/editChart/chartFields/PieChartFields';
+import Button, { BtnAppearance } from '../components/Button/Button';
 
 interface IProps {
     type: ChartTypes;
@@ -37,6 +38,9 @@ class EditChart extends Component<IProps, IState> {
                 <hr className='wp-header-end' />
                 <h2 className='screen-reader-text'>New Rough Chart options</h2>
                 {this.renderFields()}
+                <Button appearance={BtnAppearance.Primary}>
+                    Create new chart
+                </Button>
             </Fragment>
         )
     }

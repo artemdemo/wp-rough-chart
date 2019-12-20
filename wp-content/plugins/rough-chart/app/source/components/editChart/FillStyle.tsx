@@ -31,8 +31,11 @@ class FillStyle extends Component<IProps, IState> {
                     id={this.state.inputId}
                     className='postform'
                 >
-                    <option value='hachure'>hachure</option>
-                    <option className='level-0' value='1'>Uncategorized</option>
+                    {STYLES.map(item => (
+                        <option value={item.type}>
+                            {item.name}
+                        </option>
+                    ))}
                 </select>
             </FormField>
         );
