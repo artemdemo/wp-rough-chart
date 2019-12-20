@@ -4,6 +4,7 @@ import FillStyle from '../FillStyle';
 import ChartFields, { IProps } from './ChartFields';
 import ChartTypes from '../chartTypes';
 import ChartData from '../ChartData/ChartData';
+import { t } from '../../../services/i18n';
 
 interface IPropsPie extends IProps {}
 
@@ -21,22 +22,22 @@ class PieChartFields extends ChartFields {
         return (
             <Fragment>
                 <FillStyle />
-                <PropInput title='Stroke Width' />
+                <PropInput title={t('strokeWidth')} />
                 <PropInput
-                    title='Fill Weight'
-                    description="Weight of inner paths' color. Default: 0.5."
+                    title={t('fillWeight')}
+                    description={t('fillWeightDescription')}
                 />
                 <PropInput
-                    title='Roughness'
-                    description='Roughness level of chart. Default: 1.'
+                    title={t('roughness')}
+                    description={t('roughnessDescription')}
                 />
                 <PropInput
-                    title='X Label'
-                    description='Label for x-axis.'
+                    title={t('xLabel')}
+                    description={t('xLabelDescription')}
                 />
                 <PropInput
-                    title='Y Label'
-                    description='Label for y-axis.'
+                    title={t('yLabel')}
+                    description={t('yLabelDescription')}
                 />
             </Fragment>
         );

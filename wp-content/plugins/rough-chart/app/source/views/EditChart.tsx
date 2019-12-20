@@ -1,7 +1,8 @@
-import {Component, Fragment, h} from 'preact';
+import { Component, Fragment, h } from 'preact';
 import ChartTypes from '../components/editChart/chartTypes';
 import PieChartFields from '../components/editChart/chartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
+import { t } from '../services/i18n';
 
 interface IProps {
     type: ChartTypes;
@@ -12,6 +13,18 @@ interface IState {}
 class EditChart extends Component<IProps, IState> {
     constructor(props) {
         super(props);
+    }
+
+    renderTitle() {
+        const { type } = this.props;
+        switch (type) {
+            case ChartTypes.Pie:
+                return t('newBarChart');
+            case ChartTypes.Bars:
+            case ChartTypes.Columns:
+            default:
+                throw new Error(`No component fround for the given chart type: ${type}`);
+        }
     }
 
     renderFields() {
@@ -34,12 +47,16 @@ class EditChart extends Component<IProps, IState> {
     render(props: IProps, state: IState, context) {
         return (
             <Fragment>
-                <h1 className='wp-heading-inline'>New Rough Chart</h1>
+                <h1 className='wp-heading-inline'>
+                    {this.renderTitle()}
+                </h1>
                 <hr className='wp-header-end' />
-                <h2 className='screen-reader-text'>New Rough Chart options</h2>
+                <h2 className='screen-reader-text'>
+                    {t('newChartOptions')}
+                </h2>
                 {this.renderFields()}
                 <Button appearance={BtnAppearance.Primary}>
-                    Create new chart
+                    {t('createNewChart')}
                 </Button>
             </Fragment>
         )

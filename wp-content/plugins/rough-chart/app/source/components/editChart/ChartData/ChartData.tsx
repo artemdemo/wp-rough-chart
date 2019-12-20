@@ -2,6 +2,7 @@ import { Component, createRef, Fragment, h } from 'preact';
 import jexcel from 'jexcel';
 import * as pieData from './data/pieData';
 import ChartTypes from '../chartTypes';
+import { t } from '../../../services/i18n';
 
 import './ChartData.less';
 
@@ -33,7 +34,7 @@ class ChartData extends Component<IProps, IState> {
     render(props: IProps, state: IState, context) {
         return (
             <Fragment>
-                <h2>Chart data:</h2>
+                <h2>{t('chartData')}:</h2>
                 <div ref={this.tableRef} />
             </Fragment>
         );

@@ -1,5 +1,6 @@
 import { Component, h } from 'preact';
 import FormField from '../FormTable/FormField';
+import { t } from '../../services/i18n';
 
 interface IProps {}
 
@@ -24,7 +25,7 @@ class FillStyle extends Component<IProps, IState> {
     render(props: IProps, state: IState, context) {
         return (
             <FormField
-                title='Fill Style'
+                title={t('fillStyle')}
                 htmlFor={this.state.inputId}
             >
                 <select

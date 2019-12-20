@@ -4,6 +4,7 @@ import PropInput from '../PropInput';
 import ChartTypes from '../chartTypes';
 import Grid from '../../Grid/Grid';
 import GridCell from '../../Grid/GridCell';
+import { t } from '../../../services/i18n';
 
 export interface IProps {}
 
@@ -19,7 +20,7 @@ class ChartFields extends Component<IProps, IState> {
     renderTitle() {
         return (
             <FormTable>
-                <PropInput title='Title' />
+                <PropInput title={t('title')} />
             </FormTable>
         );
     }
@@ -40,7 +41,7 @@ class ChartFields extends Component<IProps, IState> {
         return (
             <Fragment>
                 {this.renderTitle()}
-                <p>Define your new chart by filling options below:</p>
+                <p>{t('defineChart')}</p>
                 <Grid size='lg'>
                     <GridCell columns={3}>
                         <FormTable>
