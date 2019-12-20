@@ -1,4 +1,4 @@
-import { Component, Fragment, h } from 'preact';
+import {Component, createRef, Fragment, h} from 'preact';
 import ChartTypes from '../components/editChart/chartTypes';
 import PieChartFields from '../components/editChart/chartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
@@ -11,9 +11,11 @@ interface IProps {
 interface IState {}
 
 class EditChart extends Component<IProps, IState> {
-    constructor(props) {
-        super(props);
-    }
+    private chartFieldsRef = createRef<PieChartFields>();
+
+    saveChartData = () => {
+        console.log(this.chartFieldsRef?.current?.getData());
+    };
 
     renderTitle() {
         const { type } = this.props;
@@ -40,7 +42,7 @@ class EditChart extends Component<IProps, IState> {
                 throw new Error(`No component fround for the given chart type: ${type}`);
         }
         return (
-            <ChartFieldsComponent />
+            <ChartFieldsComponent ref={this.chartFieldsRef} />
         );
     }
 
@@ -55,7 +57,10 @@ class EditChart extends Component<IProps, IState> {
                     {t('newChartOptions')}
                 </h2>
                 {this.renderFields()}
-                <Button appearance={BtnAppearance.Primary}>
+                <Button
+                    onClick={this.saveChartData}
+                    appearance={BtnAppearance.Primary}
+                >
                     {t('createNewChart')}
                 </Button>
             </Fragment>

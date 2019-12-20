@@ -1,4 +1,4 @@
-import { Fragment, h } from 'preact';
+import { Fragment, createRef, h } from 'preact';
 import PropInput from '../PropInput';
 import FillStyle from '../FillStyle';
 import ChartFields, { IProps } from './ChartFields';
@@ -9,6 +9,8 @@ import { t } from '../../../services/i18n';
 interface IPropsPie extends IProps {}
 
 class PieChartFields extends ChartFields {
+    private chartDataRef = createRef<ChartData>();
+
     constructor(props: IPropsPie) {
         super(props);
 
@@ -16,6 +18,10 @@ class PieChartFields extends ChartFields {
             // @ts-ignore
             ...super.state,
         };
+    }
+
+    public getData() {
+        return this.chartDataRef?.current?.getData();
     }
 
     renderChartFields() {
@@ -47,6 +53,7 @@ class PieChartFields extends ChartFields {
         return (
             <ChartData
                 type={ChartTypes.Pie}
+                ref={this.chartDataRef}
             />
         );
     }

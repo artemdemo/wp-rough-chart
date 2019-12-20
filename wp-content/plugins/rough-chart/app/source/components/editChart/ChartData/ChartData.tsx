@@ -14,7 +14,8 @@ interface IProps {
 interface IState {}
 
 class ChartData extends Component<IProps, IState> {
-    tableRef = createRef();
+    private tableBaseRef = createRef();
+    private table: any = null;
 
     componentDidMount():void {
         const { type } = this.props;
@@ -28,18 +29,22 @@ class ChartData extends Component<IProps, IState> {
             default:
                 throw new Error(`There is no data for given "type",received: ${type}`);
         }
-        jexcel(this.tableRef.current, {
+        this.table = jexcel(this.tableBaseRef.current, {
             data: chartData.defaultData,
             columns: chartData.columns,
             contextMenu,
         });
     }
 
+    public getData() {
+        return this.table.getData();
+    }
+
     render(props: IProps, state: IState, context) {
         return (
             <Fragment>
                 <h2>{t('chartData')}:</h2>
-                <div ref={this.tableRef} />
+                <div ref={this.tableBaseRef} />
             </Fragment>
         );
     }
