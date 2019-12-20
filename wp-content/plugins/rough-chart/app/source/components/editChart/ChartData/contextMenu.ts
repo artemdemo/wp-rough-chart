@@ -67,6 +67,53 @@ type MenuObj = {
 };
 
 /**
+ * Get list of menu items for columns operation
+ * @param obj [MenuObj]
+ * @param xPosNumber [number]
+ */
+const getColumnsFunctionality = (obj: MenuObj, xPosNumber: number): MenuItem[] => {
+    const items: MenuItem[] = [];
+
+    if (obj.options.allowInsertColumn) {
+        items.push({
+            title: obj.options.text.insertANewColumnBefore,
+            onclick: function() {
+                obj.insertColumn(1, xPosNumber, true);
+            }
+        });
+    }
+
+    if (obj.options.allowInsertColumn) {
+        items.push({
+            title: obj.options.text.insertANewColumnAfter,
+            onclick: function() {
+                obj.insertColumn(1, xPosNumber, false);
+            }
+        });
+    }
+
+    if (obj.options.allowDeleteColumn) {
+        items.push({
+            title: obj.options.text.deleteSelectedColumns,
+            onclick: function() {
+                obj.deleteColumn(obj.getSelectedColumns().length ? undefined : xPosNumber);
+            }
+        });
+    }
+
+    if (obj.options.allowRenameColumn) {
+        items.push({
+            title: obj.options.text.renameThisColumn,
+            onclick: function() {
+                obj.setHeader(xPosNumber);
+            }
+        });
+    }
+
+    return items;
+};
+
+/**
  * Define context menu for the table
  * @docs https://bossanova.uk/jexcel/v3/examples/contextmenu
  * @param obj [MenuObj]
@@ -74,50 +121,16 @@ type MenuObj = {
  * @param yPos [null|string]
  * @param e [MouseEvent]
  */
-const contextMenu = (obj: MenuObj, xPos: null|string, yPos: null|string, e: MouseEvent) => {
+const contextMenu = (obj: MenuObj, xPos: null|string, yPos: null|string, e: MouseEvent): MenuItem[] => {
     const items: MenuItem[] = [];
 
     if (yPos == null && xPos !== null) {
         const xPosNumber = parseInt(xPos);
 
-        if (obj.options.allowInsertColumn) {
-            items.push({
-                title: obj.options.text.insertANewColumnBefore,
-                onclick: function() {
-                    obj.insertColumn(1, xPosNumber, true);
-                }
-            });
-        }
-
-        if (obj.options.allowInsertColumn) {
-            items.push({
-                title: obj.options.text.insertANewColumnAfter,
-                onclick: function() {
-                    obj.insertColumn(1, xPosNumber, false);
-                }
-            });
-        }
-
-        if (obj.options.allowDeleteColumn) {
-            items.push({
-                title: obj.options.text.deleteSelectedColumns,
-                onclick: function() {
-                    obj.deleteColumn(obj.getSelectedColumns().length ? undefined : xPosNumber);
-                }
-            });
-        }
-
-        if (obj.options.allowRenameColumn) {
-            items.push({
-                title: obj.options.text.renameThisColumn,
-                onclick: function() {
-                    obj.setHeader(xPosNumber);
-                }
-            });
-        }
+        // items.push(...getColumnsFunctionality(obj, xPosNumber));
 
         if (obj.options.columnSorting) {
-            items.push({ type: 'line' });
+            // items.push({ type: 'line' });
 
             items.push({
                 title: obj.options.text.orderAscending,

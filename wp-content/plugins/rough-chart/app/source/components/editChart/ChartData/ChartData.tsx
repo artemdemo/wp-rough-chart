@@ -23,8 +23,10 @@ class ChartData extends Component<IProps, IState> {
             case ChartTypes.Pie:
                 chartData = pieData;
                 break;
+            case ChartTypes.Bars:
+            case ChartTypes.Columns:
             default:
-                throw new Error('"type" property in <ChartData /> should be defined');
+                throw new Error(`There is no data for given "type",received: ${type}`);
         }
         jexcel(this.tableRef.current, {
             data: chartData.defaultData,
