@@ -10,6 +10,7 @@ interface IProps {
     value: string|number;
     onChange: (value: string|number) => void;
     numeric?: boolean;
+    error?: boolean;
 }
 
 interface IState {
@@ -44,6 +45,7 @@ class PropInput extends Component<IProps, IState> {
             <FormField
                 title={props.title}
                 htmlFor={this.state.inputId}
+                error={props.error}
             >
                 <div className='prop-input-data'>
                     <input

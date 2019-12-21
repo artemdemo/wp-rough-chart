@@ -15,6 +15,7 @@ interface IState {
 class ChartFields extends Component<IProps, IState> {
     public state = {
         title: '',
+        titleErr: false,
     };
 
     updateTitle = (title: string) => {
@@ -30,6 +31,7 @@ class ChartFields extends Component<IProps, IState> {
                     title={t('title')}
                     onChange={this.updateTitle}
                     value={this.state.title}
+                    error={this.state.titleErr}
                 />
             </FormTable>
         );

@@ -5,6 +5,7 @@ import { t } from '../../services/i18n';
 interface IProps {
     value: string;
     onChange: (value: string) => void;
+    error?: boolean;
 }
 
 interface IState {
@@ -35,6 +36,7 @@ class FillStyle extends Component<IProps, IState> {
             <FormField
                 title={t('fillStyle')}
                 htmlFor={this.state.inputId}
+                error={props.error}
             >
                 <select
                     id={this.state.inputId}

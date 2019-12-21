@@ -13,21 +13,20 @@ class PieChartFields extends ChartFields {
 
     public state = {
         title: '',
-        // @ts-ignore
+        titleErr: false,
         fillStyle: 'hachure',
         strokeWidth: 1,
+        strokeWidthErr: false,
         fillWeight: 0.85,
+        fillWeightErr: false,
         roughness: 1,
+        roughnessErr: false,
         xLabel: '',
         yLabel: '',
     };
 
     public getData() {
-
-        const {
-            title,
-            // @ts-ignore
-            fillStyle, strokeWidth, fillWeight, roughness, xLabel, yLabel } = this.state;
+        const { title, fillStyle, strokeWidth, fillWeight, roughness, xLabel, yLabel } = this.state;
         return {
             title,
             fillStyle,
@@ -57,6 +56,7 @@ class PieChartFields extends ChartFields {
                     title={t('strokeWidth')}
                     onChange={this.updateProp.bind(this, 'strokeWidth')}
                     value={this.state.strokeWidth}
+                    error={this.state.strokeWidthErr}
                     numeric
                 />
                 <PropInput
@@ -64,6 +64,7 @@ class PieChartFields extends ChartFields {
                     description={t('fillWeightDescription')}
                     onChange={this.updateProp.bind(this, 'fillWeight')}
                     value={this.state.fillWeight}
+                    error={this.state.fillWeightErr}
                     numeric
                 />
                 <PropInput
@@ -71,6 +72,7 @@ class PieChartFields extends ChartFields {
                     description={t('roughnessDescription')}
                     onChange={this.updateProp.bind(this, 'roughness')}
                     value={this.state.roughness}
+                    error={this.state.roughnessErr}
                     numeric
                 />
                 <PropInput
