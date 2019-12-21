@@ -49,20 +49,20 @@ class RoughChartAdmin {
 			'__roughChartsApp_$8453',
 			array(
 				'nonce' => wp_create_nonce( self::$js_slug ),
-				'ajax_url' => admin_url('admin-ajax.php')
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
 			)
 		);
 	}
 
 	public static function save_chart_data() {
-		$chart = json_decode(stripcslashes($_POST['chart']));
-		wp_send_json($chart);
+		$chart = json_decode( stripcslashes( $_POST[ 'chart' ] ) );
+		wp_send_json( $chart );
 		die();
 	}
 
 	public static function render_admin_view() {
 		if ( array_key_exists( RoughChartAdmin::$chart_id_arg, $_GET ) &&
-		     $_GET[RoughChartAdmin::$chart_id_arg] == 'new' ) {
+		     $_GET[ RoughChartAdmin::$chart_id_arg ] == 'new' ) {
 			$newChartView = new NewChartView();
 			$newChartView->render();
 		} else {

@@ -73,7 +73,9 @@ class RoughChartDB {
 	public static function get_all_charts() {
 		global $wpdb;
 		$table_name = RoughChartDB::get_table_name();
-		return $wpdb->get_results("SELECT id, title, created, last_updated FROM $table_name");
+		return $wpdb->get_results(
+			"SELECT id, title, created, last_updated FROM $table_name"
+		);
 	}
 
 	public static function delete_chart_by_id($id) {
