@@ -21,7 +21,6 @@ module.exports = (env, args) => {
             path: path.resolve('./build'),
             filename: './js/[name].js',
             chunkFilename: './js/rough-chart.[id].chunk.js',
-            publicPath: '/wp-content/plugins/rough-chart/app/build/',
         },
         target: 'web',
         devtool: production ? false : 'source-map',

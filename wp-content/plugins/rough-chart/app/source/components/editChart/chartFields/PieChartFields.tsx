@@ -42,6 +42,9 @@ class PieChartFields extends ChartFields {
     updateProp(propKey: string, value: string|number) {
         this.setState({
             [propKey]: value,
+            // Relatively simple solution for hiding error for the given field.
+            // The alternative (and the better approach) will be to write logic for each field.
+            [`${propKey}Err`]: false,
         })
     };
 
