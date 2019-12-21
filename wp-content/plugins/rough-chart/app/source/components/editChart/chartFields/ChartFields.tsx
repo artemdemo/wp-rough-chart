@@ -17,9 +17,9 @@ class ChartFields extends Component<IProps, IState> {
         title: '',
     };
 
-    updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateTitle = (title: string) => {
         this.setState({
-            title: e.target.value,
+            title,
         })
     };
 
@@ -29,6 +29,7 @@ class ChartFields extends Component<IProps, IState> {
                 <PropInput
                     title={t('title')}
                     onChange={this.updateTitle}
+                    value={this.state.title}
                 />
             </FormTable>
         );

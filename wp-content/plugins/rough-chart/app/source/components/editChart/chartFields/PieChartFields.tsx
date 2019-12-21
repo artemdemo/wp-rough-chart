@@ -11,21 +11,16 @@ interface IPropsPie extends IProps {}
 class PieChartFields extends ChartFields {
     private chartDataRef = createRef<ChartData>();
 
-    constructor(props: IPropsPie) {
-        super(props);
-
-        this.state = {
-            // @ts-ignore
-            ...super.state,
-            // @ts-ignore
-            fillStyle: '',
-            strokeWidth: 1,
-            fillWeight: 0.85,
-            roughness: 1,
-            xLabel: '',
-            yLabel: '',
-        };
-    }
+    public state = {
+        title: '',
+        // @ts-ignore
+        fillStyle: '',
+        strokeWidth: 1,
+        fillWeight: 0.85,
+        roughness: 1,
+        xLabel: '',
+        yLabel: '',
+    };
 
     public getData() {
 
@@ -45,9 +40,9 @@ class PieChartFields extends ChartFields {
         };
     }
 
-    updateProp(propKey: string, e: React.ChangeEvent<HTMLInputElement>) {
+    updateProp(propKey: string, value: string|number) {
         this.setState({
-            [propKey]: e.target.value,
+            [propKey]: value,
         })
     };
 
@@ -58,26 +53,34 @@ class PieChartFields extends ChartFields {
                 <PropInput
                     title={t('strokeWidth')}
                     onChange={this.updateProp.bind(this, 'strokeWidth')}
+                    value={this.state['strokeWidth']}
+                    numeric
                 />
                 <PropInput
                     title={t('fillWeight')}
                     description={t('fillWeightDescription')}
                     onChange={this.updateProp.bind(this, 'fillWeight')}
+                    value={this.state['fillWeight']}
+                    numeric
                 />
                 <PropInput
                     title={t('roughness')}
                     description={t('roughnessDescription')}
                     onChange={this.updateProp.bind(this, 'roughness')}
+                    value={this.state['roughness']}
+                    numeric
                 />
                 <PropInput
                     title={t('xLabel')}
                     description={t('xLabelDescription')}
                     onChange={this.updateProp.bind(this, 'xLabel')}
+                    value={this.state['xLabel']}
                 />
                 <PropInput
                     title={t('yLabel')}
                     description={t('yLabelDescription')}
                     onChange={this.updateProp.bind(this, 'yLabel')}
+                    value={this.state['yLabel']}
                 />
             </Fragment>
         );

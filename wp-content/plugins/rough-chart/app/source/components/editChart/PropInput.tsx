@@ -7,7 +7,9 @@ import './PropInput.less';
 interface IProps {
     title?: string;
     description?: string;
-    onChange?: any;
+    value: string|number;
+    onChange: any;
+    numeric?: boolean;
 }
 
 interface IState {
@@ -18,6 +20,7 @@ class PropInput extends Component<IProps, IState> {
     static defaultProps = {
         title: '',
         description: '',
+        numeric: false,
     };
 
     public state = {
@@ -30,6 +33,12 @@ class PropInput extends Component<IProps, IState> {
         })
     }
 
+    handleChange = (e) => {
+        const { onChange, numeric } = this.props;
+        const value = numeric ? parseFloat(e.target.value) : e.target.value;
+        onChange(value);
+    };
+
     render(props: IProps, state: IState, context) {
         return (
             <FormField
@@ -39,7 +48,8 @@ class PropInput extends Component<IProps, IState> {
                 <div className='prop-input-data'>
                     <input
                         id={this.state.inputId}
-                        onChange={props.onChange}
+                        onChange={this.handleChange}
+                        value={String(props.value)}
                         type='text'
                         aria-required='true'
                         autoCorrect='off'
