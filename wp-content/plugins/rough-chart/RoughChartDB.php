@@ -13,8 +13,9 @@ class RoughChartDB {
 		$table_name = RoughChartDB::get_table_name();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
+		$sql = "CREATE TABLE $table_name (
 		  id mediumint(9) NOT NULL AUTO_INCREMENT,
+		  title tinytext NOT NULL,
 		  chart text NOT NULL,
 		  created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  last_updated datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -67,6 +68,12 @@ class RoughChartDB {
 			$id
 		);
 		return $wpdb->get_row($sql);
+	}
+
+	public static function get_all_charts() {
+		global $wpdb;
+		$table_name = RoughChartDB::get_table_name();
+		return $wpdb->get_results("SELECT id, title, created, last_updated FROM $table_name");
 	}
 
 	public static function delete_chart_by_id($id) {
