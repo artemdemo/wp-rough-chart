@@ -14,7 +14,7 @@ class PieChartFields extends ChartFields {
     public state = {
         title: '',
         // @ts-ignore
-        fillStyle: '',
+        fillStyle: 'hachure',
         strokeWidth: 1,
         fillWeight: 0.85,
         roughness: 1,
@@ -49,38 +49,41 @@ class PieChartFields extends ChartFields {
     renderChartFields() {
         return (
             <Fragment>
-                <FillStyle />
+                <FillStyle
+                    value={this.state.fillStyle}
+                    onChange={this.updateProp.bind(this, 'fillStyle')}
+                />
                 <PropInput
                     title={t('strokeWidth')}
                     onChange={this.updateProp.bind(this, 'strokeWidth')}
-                    value={this.state['strokeWidth']}
+                    value={this.state.strokeWidth}
                     numeric
                 />
                 <PropInput
                     title={t('fillWeight')}
                     description={t('fillWeightDescription')}
                     onChange={this.updateProp.bind(this, 'fillWeight')}
-                    value={this.state['fillWeight']}
+                    value={this.state.fillWeight}
                     numeric
                 />
                 <PropInput
                     title={t('roughness')}
                     description={t('roughnessDescription')}
                     onChange={this.updateProp.bind(this, 'roughness')}
-                    value={this.state['roughness']}
+                    value={this.state.roughness}
                     numeric
                 />
                 <PropInput
                     title={t('xLabel')}
                     description={t('xLabelDescription')}
                     onChange={this.updateProp.bind(this, 'xLabel')}
-                    value={this.state['xLabel']}
+                    value={this.state.xLabel}
                 />
                 <PropInput
                     title={t('yLabel')}
                     description={t('yLabelDescription')}
                     onChange={this.updateProp.bind(this, 'yLabel')}
-                    value={this.state['yLabel']}
+                    value={this.state.yLabel}
                 />
             </Fragment>
         );

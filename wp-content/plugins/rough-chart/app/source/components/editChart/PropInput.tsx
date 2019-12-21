@@ -8,7 +8,7 @@ interface IProps {
     title?: string;
     description?: string;
     value: string|number;
-    onChange: any;
+    onChange: (value: string|number) => void;
     numeric?: boolean;
 }
 

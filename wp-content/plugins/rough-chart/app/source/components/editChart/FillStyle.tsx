@@ -2,7 +2,10 @@ import { Component, h } from 'preact';
 import FormField from '../FormTable/FormField';
 import { t } from '../../services/i18n';
 
-interface IProps {}
+interface IProps {
+    value: string;
+    onChange: (value: string) => void;
+}
 
 interface IState {
     inputId: string;
@@ -22,6 +25,11 @@ class FillStyle extends Component<IProps, IState> {
         inputId: 'chart_fill_style',
     };
 
+    handleChange = (e) => {
+        const { onChange } = this.props;
+        onChange(e.target.value);
+    };
+
     render(props: IProps, state: IState, context) {
         return (
             <FormField
@@ -30,6 +38,8 @@ class FillStyle extends Component<IProps, IState> {
             >
                 <select
                     id={this.state.inputId}
+                    value={props.value}
+                    onChange={this.handleChange}
                     className='postform'
                 >
                     {STYLES.map(item => (
