@@ -4,7 +4,7 @@ class RoughChart {
 	private static $initiated = false;
 
 	public static function init() {
-		if (!self::$initiated) {
+		if ( ! self::$initiated ) {
 			self::init_hooks();
 		}
 	}
@@ -13,7 +13,11 @@ class RoughChart {
 		self::$initiated = true;
 	}
 
-	public static function plugin_activation() {}
+	public static function plugin_activation() {
+		RoughChartDB::init_table();
+	}
 
-	public static function plugin_deactivation() {}
+	public static function plugin_deactivation() {
+		RoughChartDB::drop_table();
+	}
 }
