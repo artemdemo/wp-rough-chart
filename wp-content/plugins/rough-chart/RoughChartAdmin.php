@@ -24,6 +24,7 @@ class RoughChartAdmin {
 
 		add_action( 'admin_menu', array( 'RoughChartAdmin', 'admin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( 'RoughChartAdmin', 'add_js_scripts' ) );
+		add_action( 'wp_ajax_rough_chart_save_chart_data', array( 'RoughChartAdmin', 'save_chart_data' ) );
 	}
 
 	public static function admin_menu() {
@@ -45,11 +46,18 @@ class RoughChartAdmin {
 		);
 		wp_localize_script(
 			self::$js_slug,
-			'__roughChartsApp',
+			'__roughChartsApp_$8453',
 			array(
-				'nonce'  => wp_create_nonce( self::$js_slug )
+				'nonce' => wp_create_nonce( self::$js_slug ),
+				'ajax_url' => admin_url('admin-ajax.php')
 			)
 		);
+	}
+
+	public static function save_chart_data() {
+		$chart = $_POST['chart'];
+		wp_send_json($chart);
+		die();
 	}
 
 	public static function render_admin_view() {
