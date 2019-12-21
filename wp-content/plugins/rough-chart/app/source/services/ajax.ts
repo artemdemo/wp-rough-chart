@@ -10,7 +10,7 @@ export const saveChartData = (chartData = {}) => {
             data: {
                 action: 'rough_chart_save_chart_data',
                 security: appData.nonce,
-                chart: chartData,
+                chart: JSON.stringify(chartData),
             }
         });
 };

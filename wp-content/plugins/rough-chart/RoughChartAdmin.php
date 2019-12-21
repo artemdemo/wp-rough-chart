@@ -55,7 +55,7 @@ class RoughChartAdmin {
 	}
 
 	public static function save_chart_data() {
-		$chart = $_POST['chart'];
+		$chart = json_decode(stripcslashes($_POST['chart']));
 		wp_send_json($chart);
 		die();
 	}
