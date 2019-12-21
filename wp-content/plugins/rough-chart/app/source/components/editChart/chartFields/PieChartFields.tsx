@@ -1,13 +1,11 @@
 import { h } from 'preact';
 import { Fragment, createRef } from 'preact/compat';
 import PropInput from '../PropInput';
-import FillStyle from '../FillStyle';
-import ChartFields, { IProps } from './ChartFields';
+import FillStyle, { defaultStyle } from '../FillStyle';
+import ChartFields from './ChartFields';
 import ChartTypes from '../chartTypes';
 import ChartData from '../ChartData/ChartData';
 import { t } from '../../../services/i18n';
-
-interface IPropsPie extends IProps {}
 
 class PieChartFields extends ChartFields {
     private chartDataRef = createRef<ChartData>();
@@ -15,7 +13,7 @@ class PieChartFields extends ChartFields {
     public state = {
         title: '',
         titleErr: false,
-        fillStyle: 'hachure',
+        fillStyle: defaultStyle.type,
         strokeWidth: 1,
         strokeWidthErr: false,
         fillWeight: 0.85,
@@ -28,6 +26,19 @@ class PieChartFields extends ChartFields {
 
     public getData() {
         const { title, fillStyle, strokeWidth, fillWeight, roughness, xLabel, yLabel } = this.state;
+        let error = false;
+        const newState = {
+            titleErr: false,
+            strokeWidthErr: false,
+            fillWeightErr: false,
+            roughnessErr: false,
+        };
+        if (title === '') { newState.titleErr = true; error = true; }
+        if (strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
+        if (fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
+        if (roughness <= 0) { newState.roughnessErr = true; error = true; }
+        // @ts-ignore
+        this.setState(newState);
         return {
             title,
             fillStyle,
@@ -37,6 +48,7 @@ class PieChartFields extends ChartFields {
             xLabel,
             yLabel,
             data: this.chartDataRef?.current?.getData(),
+            error,
         };
     }
 

@@ -13,8 +13,10 @@ interface IState {
     inputId: string;
 }
 
+export const defaultStyle = { type: 'hachure', name: 'Hachure' };
+
 const STYLES = [
-    { type: 'hachure', name: 'Hachure' },
+    defaultStyle,
     { type: 'cross-hatch', name: 'Cross-Hatch' },
     { type: 'zigzag', name: 'Zigzag' },
     { type: 'dashed', name: 'Dashed' },

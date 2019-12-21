@@ -15,7 +15,13 @@ class EditChart extends PureComponent<IProps, IState> {
     private chartFieldsRef = createRef<PieChartFields>();
 
     saveChartData = () => {
-        console.log(this.chartFieldsRef?.current?.getData());
+        const chartData = this.chartFieldsRef?.current?.getData();
+        console.log(chartData);
+        if (chartData) {
+            if (chartData.error) {
+                console.warn('There is an error in given data');
+            }
+        }
     };
 
     renderTitle() {

@@ -7,7 +7,7 @@ import Grid from '../../Grid/Grid';
 import GridCell from '../../Grid/GridCell';
 import { t } from '../../../services/i18n';
 
-export interface IProps {}
+interface IProps {}
 
 interface IState {
     title: string;
