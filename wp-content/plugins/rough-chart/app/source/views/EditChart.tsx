@@ -1,4 +1,5 @@
-import {Component, createRef, Fragment, h} from 'preact';
+import { h } from 'preact';
+import { PureComponent, createRef, Fragment } from 'preact/compat';
 import ChartTypes from '../components/editChart/chartTypes';
 import PieChartFields from '../components/editChart/chartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
@@ -10,7 +11,7 @@ interface IProps {
 
 interface IState {}
 
-class EditChart extends Component<IProps, IState> {
+class EditChart extends PureComponent<IProps, IState> {
     private chartFieldsRef = createRef<PieChartFields>();
 
     saveChartData = () => {

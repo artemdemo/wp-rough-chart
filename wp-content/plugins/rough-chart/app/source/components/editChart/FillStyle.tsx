@@ -1,4 +1,5 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 import FormField from '../FormTable/FormField';
 import { t } from '../../services/i18n';
 
@@ -21,7 +22,7 @@ const STYLES = [
     { type: 'zigzag-line', name: 'Zigzag-Line' },
 ];
 
-class FillStyle extends Component<IProps, IState> {
+class FillStyle extends PureComponent<IProps, IState> {
     state = {
         inputId: 'chart_fill_style',
     };
@@ -31,16 +32,16 @@ class FillStyle extends Component<IProps, IState> {
         onChange(e.target.value);
     };
 
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             <FormField
                 title={t('fillStyle')}
                 htmlFor={this.state.inputId}
-                error={props.error}
+                error={this.props.error}
             >
                 <select
                     id={this.state.inputId}
-                    value={props.value}
+                    value={this.props.value}
                     onChange={this.handleChange}
                     className='postform'
                 >

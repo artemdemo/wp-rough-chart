@@ -1,5 +1,4 @@
 import { h } from 'preact';
-import classnames from 'classnames';
 
 import './Grid.less';
 

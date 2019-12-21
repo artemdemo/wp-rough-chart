@@ -1,4 +1,5 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 import FormField from '../FormTable/FormField';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
@@ -13,7 +14,7 @@ interface IState {
     color: string;
 }
 
-class PropColor extends Component<IProps, IState> {
+class PropColor extends PureComponent<IProps, IState> {
     static defaultProps = {
         title: '',
     };
@@ -35,10 +36,10 @@ class PropColor extends Component<IProps, IState> {
         this.setState({ color })
     };
 
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             <FormField
-                title={props.title}
+                title={this.props.title}
             >
                 <ColorPicker
                     className='prop-color-picker'

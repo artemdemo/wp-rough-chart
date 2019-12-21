@@ -1,4 +1,5 @@
-import { Component, Fragment, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent, Fragment } from 'preact/compat';
 import FormTable from '../../FormTable/FormTable';
 import PropInput from '../PropInput';
 import ChartTypes from '../chartTypes';
@@ -12,7 +13,7 @@ interface IState {
     title: string;
 }
 
-class ChartFields extends Component<IProps, IState> {
+class ChartFields extends PureComponent<IProps, IState> {
     public state = {
         title: '',
         titleErr: false,

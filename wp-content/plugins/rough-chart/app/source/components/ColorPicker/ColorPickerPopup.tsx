@@ -1,4 +1,5 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 import classnames from 'classnames';
 
 import './ColorPickerPopup.less';
@@ -9,16 +10,16 @@ interface IProps {
 
 interface IState {}
 
-class ColorPickerPopup extends Component<IProps, IState> {
-    render(props, state, context) {
+class ColorPickerPopup extends PureComponent<IProps, IState> {
+    render() {
         return (
             <div
                 className={classnames({
                     'color-picker-popup': true,
-                    'color-picker-popup_show': props.show,
+                    'color-picker-popup_show': this.props.show,
                 })}
             >
-                {props.children}
+                {this.props.children}
             </div>
         );
     }

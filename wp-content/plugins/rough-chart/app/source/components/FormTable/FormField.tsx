@@ -1,7 +1,6 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 import classnames from 'classnames';
-
-// form-invalid
 
 import './FormField.less';
 
@@ -14,23 +13,23 @@ interface IProps {
 
 interface IState {}
 
-class FormField extends Component<IProps, IState> {
-    render(props: IProps, state: IState, context) {
+class FormField extends PureComponent<IProps, IState> {
+    render() {
         return (
             <tr className={classnames({
                 'form-field': true,
-                'form-invalid': props.error,
+                'form-invalid': this.props.error,
             })}>
                 <th
                     className='form-field-row'
                     scope='row'
                 >
-                    <label htmlFor={props.htmlFor}>
-                        {props.title}
+                    <label htmlFor={this.props.htmlFor}>
+                        {this.props.title}
                     </label>
                 </th>
                 <td>
-                    {props.children}
+                    {this.props.children}
                 </td>
             </tr>
         );

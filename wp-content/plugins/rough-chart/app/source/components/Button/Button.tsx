@@ -1,4 +1,5 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 import classnames from 'classnames';
 
 export enum BtnAppearance {
@@ -16,7 +17,7 @@ interface IProps {
 }
 interface IState {}
 
-class Button extends Component<IProps, IState> {
+class Button extends PureComponent<IProps, IState> {
     static defaultPros = {
         type: 'button',
     };
@@ -31,8 +32,8 @@ class Button extends Component<IProps, IState> {
         });
     }
 
-    render(props: IProps, state: IState, context) {
-        const { type, disabled, onClick } = props;
+    render() {
+        const { type, disabled, onClick } = this.props;
         return (
             <button
                 type={type}
@@ -40,7 +41,7 @@ class Button extends Component<IProps, IState> {
                 disabled={disabled}
                 onClick={onClick}
             >
-                {props.children}
+                {this.props.children}
             </button>
         );
     }

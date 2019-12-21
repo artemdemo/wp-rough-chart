@@ -1,4 +1,5 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 import { rndSalt } from '../../services/utils';
 import FormField from '../FormTable/FormField';
 
@@ -17,7 +18,7 @@ interface IState {
     inputId: string;
 }
 
-class PropInput extends Component<IProps, IState> {
+class PropInput extends PureComponent<IProps, IState> {
     static defaultProps = {
         title: '',
         description: '',
@@ -40,24 +41,24 @@ class PropInput extends Component<IProps, IState> {
         onChange(value);
     };
 
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             <FormField
-                title={props.title}
+                title={this.props.title}
                 htmlFor={this.state.inputId}
-                error={props.error}
+                error={this.props.error}
             >
                 <div className='prop-input-data'>
                     <input
                         id={this.state.inputId}
                         onChange={this.handleChange}
-                        value={String(props.value)}
+                        value={String(this.props.value)}
                         type='text'
                         aria-required='true'
                         autoCorrect='off'
                     />
                     <p className='description'>
-                        {props.description}
+                        {this.props.description}
                     </p>
                 </div>
             </FormField>

@@ -1,4 +1,5 @@
-import { Component, createRef, Fragment, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent, Fragment, createRef } from 'preact/compat';
 import jexcel from 'jexcel';
 import * as pieData from './data/pieData';
 import ChartTypes from '../chartTypes';
@@ -13,7 +14,7 @@ interface IProps {
 
 interface IState {}
 
-class ChartData extends Component<IProps, IState> {
+class ChartData extends PureComponent<IProps, IState> {
     private tableBaseRef = createRef();
     private table: any = null;
 
@@ -40,7 +41,7 @@ class ChartData extends Component<IProps, IState> {
         return this.table.getData();
     }
 
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             <Fragment>
                 <h2>{t('chartData')}:</h2>

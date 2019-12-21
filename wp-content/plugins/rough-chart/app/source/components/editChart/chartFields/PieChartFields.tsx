@@ -1,4 +1,5 @@
-import { Fragment, createRef, h } from 'preact';
+import { h } from 'preact';
+import { Fragment, createRef } from 'preact/compat';
 import PropInput from '../PropInput';
 import FillStyle from '../FillStyle';
 import ChartFields, { IProps } from './ChartFields';

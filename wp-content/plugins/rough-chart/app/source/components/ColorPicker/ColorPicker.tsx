@@ -1,4 +1,5 @@
-import { Component, h, Fragment, createRef } from 'preact';
+import { h } from 'preact';
+import { PureComponent, createRef, Fragment } from 'preact/compat';
 import classnames from 'classnames';
 import iro from '@jaames/iro';
 import ColorPickerPopup from './ColorPickerPopup';
@@ -21,7 +22,7 @@ interface IIroColor {
     hslString: string;
 }
 
-class ColorPicker extends Component<IProps, IState> {
+class ColorPicker extends PureComponent<IProps, IState> {
     private pickerRef = createRef();
     private colorPicker;
 
@@ -54,8 +55,8 @@ class ColorPicker extends Component<IProps, IState> {
         }));
     };
 
-    render(props: IProps, state: IState, context) {
-        const { className, color } = props;
+    render() {
+        const { className, color } = this.props;
         return (
             <Fragment>
                 <div
@@ -67,7 +68,7 @@ class ColorPicker extends Component<IProps, IState> {
                 />
                 <div className='color-picker-popup-container'>
                     <ColorPickerPopup
-                        show={state.showPopup}
+                        show={this.state.showPopup}
                     >
                         <div ref={this.pickerRef} />
                     </ColorPickerPopup>

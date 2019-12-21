@@ -1,19 +1,20 @@
-import { Component, h } from 'preact';
+import { h } from 'preact';
+import { PureComponent } from 'preact/compat';
 
 interface IProps {
     children?: any;
 }
 interface IState {}
 
-class FormTable extends Component<IProps, IState> {
-    render(props: IProps, state: IState, context) {
+class FormTable extends PureComponent<IProps, IState> {
+    render() {
         return (
             <table
                 className='form-table'
                 role='presentation'
             >
                 <tbody>
-                    {props.children}
+                    {this.props.children}
                 </tbody>
             </table>
         );
