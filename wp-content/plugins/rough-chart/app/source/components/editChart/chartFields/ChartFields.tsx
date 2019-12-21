@@ -17,10 +17,19 @@ class ChartFields extends Component<IProps, IState> {
         title: '',
     };
 
+    updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            title: e.target.value,
+        })
+    };
+
     renderTitle() {
         return (
             <FormTable>
-                <PropInput title={t('title')} />
+                <PropInput
+                    title={t('title')}
+                    onChange={this.updateTitle}
+                />
             </FormTable>
         );
     }

@@ -7,6 +7,7 @@ import './PropInput.less';
 interface IProps {
     title?: string;
     description?: string;
+    onChange?: any;
 }
 
 interface IState {
@@ -38,6 +39,7 @@ class PropInput extends Component<IProps, IState> {
                 <div className='prop-input-data'>
                     <input
                         id={this.state.inputId}
+                        onChange={props.onChange}
                         type='text'
                         aria-required='true'
                         autoCorrect='off'
