@@ -55,8 +55,31 @@ class RoughChartAdmin {
 	}
 
 	public static function save_chart_data() {
-		$chart = json_decode( stripcslashes( $_POST[ 'chart' ] ) );
-		wp_send_json( $chart );
+		$err = null;
+		try {
+			$chart = json_decode(
+				stripcslashes( $_POST[ 'chart' ] ),
+				true,
+				512,
+				JSON_THROW_ON_ERROR
+			);
+			$title = $chart['title'];
+			unset($chart['title']);
+			$result = RoughChartDB::add_chart( $title, json_encode( $chart ) );
+			if ($result == 1) {
+				wp_send_json( json_decode( $result ) );
+			} else {
+				$err = RoughChartErrorMsg::generalDBError();
+			}
+		} catch (JsonException $e) {
+			$err = RoughChartErrorMsg::fromJsonException($e);
+		}
+		if ($err != null) {
+			wp_send_json(
+				$err -> toArray(),
+				$err -> getStatus()
+			);
+		}
 		die();
 	}
 

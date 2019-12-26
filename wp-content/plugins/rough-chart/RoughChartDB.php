@@ -32,12 +32,13 @@ class RoughChartDB {
 		$wpdb->query( "DROP TABLE IF EXISTS $table_name" );
 	}
 
-	public static function add_chart($chart_str) {
+	public static function add_chart($title, $chart_str) {
 		global $wpdb;
 		$table_name = RoughChartDB::get_table_name();
 		return $wpdb->insert(
 			$table_name,
 			array(
+				'title' => $title,
 				'chart' => $chart_str,
 				'created' => date('Y-m-d H:i:s'),
 				'last_updated' => date('Y-m-d H:i:s'),
