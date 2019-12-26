@@ -1,5 +1,4 @@
 <?php
-use roughChart\views\NewChartView;
 use roughChart\views\AdminView;
 use roughChart\views\View;
 
@@ -8,7 +7,7 @@ use roughChart\views\View;
     <h1 class="wp-heading-inline">
 	    <?= __( 'Rough Charts', View::$text_domain ) ?>
     </h1>
-    <a href="<?= NewChartView::get_url_to_add_new() ?>"
+    <a href="<?= AdminView::get_url_to_chart('new') ?>"
        class="page-title-action"
     >
         <?= __( 'Add New', View::$text_domain ) ?>
@@ -41,7 +40,25 @@ use roughChart\views\View;
         <? if ( count( AdminView::get_charts() ) > 0 ): ?>
 	        <? foreach( AdminView::get_charts() as $chart ): ?>
                 <tr>
-                    <th><?= $chart -> title ?></th>
+                    <th class="has-row-actions column-primary">
+                        <strong>
+                            <a href="<?= AdminView::get_url_to_chart( $chart -> id ) ?>">
+                                <?= $chart -> title ?>
+                            </a>
+                        </strong>
+                        <div class="row-actions">
+                            <span class="edit">
+                                <a href="<?= AdminView::get_url_to_chart( $chart -> id ) ?>">
+                                    <?= __( 'Edit', View::$text_domain ) ?>
+                                </a> |
+                            </span>
+                            <span class="delete">
+                                <a href="#" class="delete-tag" role="button">
+                                    <?= __( 'Delete', View::$text_domain ) ?>
+                                </a>
+                            </span>
+                        </div>
+                    </th>
                     <td><?= $chart -> created ?></td>
                     <td><?= $chart -> last_updated ?></td>
                 </tr>
