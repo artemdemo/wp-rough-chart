@@ -1,7 +1,7 @@
 <?php
 
-require_once('RoughChartDB.php');
-require_once('RoughChartErrorMsg.php');
+require_once( 'RoughChartDB.php' );
+require_once( 'RoughChartErrorMsg.php' );
 
 class RoughChart {
 	private static $initiated = false;

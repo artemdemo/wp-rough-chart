@@ -50,6 +50,7 @@ class RoughChartAdmin {
 			array(
 				'nonce' => wp_create_nonce( self::$js_slug ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'plugin_url' => menu_page_url( self::$menu_slug, false ),
 			)
 		);
 	}
