@@ -1,17 +1,27 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 
-import './GridCell.less';
-
 interface IProps {
     children?: any;
-    columns: number;
+    className?: string;
+    columns: string;
 }
 
-const GridCell = (props: IProps) => (
-    <div className={classnames('grid-cell', `grid-cell_col-${props.columns}`)}>
-        {props.children}
-    </div>
-);
+const GridCell = (props: IProps) => {
+    const { columns, className } = props;
+    const splitCharacter = ' ';
+    const cellClass = columns
+        .replace(/\s+/g, splitCharacter)
+        .toLowerCase()
+        .trim()
+        .split(splitCharacter)
+        .map(name => `col-${name}`)
+        .join(' ');
+    return (
+        <div className={classnames(className, cellClass)}>
+            {props.children}
+        </div>
+    );
+};
 
 export default GridCell;

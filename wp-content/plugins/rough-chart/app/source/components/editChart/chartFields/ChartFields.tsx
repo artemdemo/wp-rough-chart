@@ -55,13 +55,13 @@ class ChartFields extends PureComponent<IProps, IState> {
             <Fragment>
                 {this.renderTitle()}
                 <p>{t('defineChart')}</p>
-                <Grid size='lg'>
-                    <GridCell columns={3}>
+                <Grid>
+                    <GridCell columns='lg-4 md-12'>
                         <FormTable>
                             {this.renderChartFields()}
                         </FormTable>
                     </GridCell>
-                    <GridCell columns={9}>
+                    <GridCell columns='lg-8 md-12'>
                         {this.renderChartData()}
                     </GridCell>
                 </Grid>
