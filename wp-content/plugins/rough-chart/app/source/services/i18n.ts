@@ -1,6 +1,11 @@
 import _get from 'lodash/get';
 
 const defaultTranslations = {
+    roughCharts: 'Rough Charts',
+    addNew: 'Add New',
+    created: 'Created',
+    lastUpdated: 'Last updated',
+    roughChartsList: 'Rough Charts list',
     newBarChart: 'New Bar Chart',
     newChartOptions: 'New Rough Chart options',
     createNewChart: 'Create new chart',

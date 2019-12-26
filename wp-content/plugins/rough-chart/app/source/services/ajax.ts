@@ -14,3 +14,16 @@ export const saveChartData = (chartData = {}) => {
             }
         });
 };
+
+export const getChartsData = () => {
+    const appData = getAppData();
+    return jQuery
+        .ajax({
+            url: appData.ajax_url,
+            type: 'post',
+            data: {
+                action: 'rough_chart_get_charts_data',
+                security: appData.nonce,
+            }
+        });
+};

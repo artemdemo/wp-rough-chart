@@ -25,6 +25,7 @@ class RoughChartAdmin {
 		add_action( 'admin_menu', array( 'RoughChartAdmin', 'admin_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( 'RoughChartAdmin', 'add_js_scripts' ) );
 		add_action( 'wp_ajax_rough_chart_save_chart_data', array( 'RoughChartAdmin', 'save_chart_data' ) );
+		add_action( 'wp_ajax_rough_chart_get_charts_data', array( 'RoughChartAdmin', 'get_charts' ) );
 	}
 
 	public static function admin_menu() {
@@ -82,6 +83,11 @@ class RoughChartAdmin {
 			);
 		}
 		die();
+	}
+
+	public static function get_charts() {
+		$result = RoughChartDB::get_all_charts();
+		wp_send_json( $result );
 	}
 
 	public static function render_admin_view() {

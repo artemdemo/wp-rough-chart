@@ -17,7 +17,8 @@
 		"lodash": "^4.17.15",
 		"preact": "^10.1.1",
 		"query-string": "^6.9.0",
-		"rough-viz": "^1.0.5"
+		"rough-viz": "^1.0.5",
+		"url-parse": "^1.4.7"
 	},
 	"devDependencies": {
 		"@types/react": "^16.9.17",
