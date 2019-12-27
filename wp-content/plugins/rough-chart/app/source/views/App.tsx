@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import queryString from 'query-string';
 import EditChart from './EditChart';
 import ChartsList from './ChartsList';
@@ -12,7 +11,7 @@ interface IState {
     query: any;
 }
 
-class App extends PureComponent<IProps, IState> {
+class App extends React.PureComponent<IProps, IState> {
     state = {
         query: {
             chart_id: null,

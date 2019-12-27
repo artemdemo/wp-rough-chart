@@ -11,8 +11,7 @@
 		"esModuleInterop": true,
 		// `node` make compiler to look better for type definitions inside modules
 		"moduleResolution": "node",
-		"lib": ["es2018", "dom"],
-		"jsxFactory": "h"
+		"lib": ["es2018", "dom"]
 	},
 	"suppressImplicitAnyIndexErrors": true,
 	"lib": [

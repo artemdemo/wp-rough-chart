@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import classnames from 'classnames';
 
 import './ColorPickerPopup.less';
@@ -10,7 +9,7 @@ interface IProps {
 
 interface IState {}
 
-class ColorPickerPopup extends PureComponent<IProps, IState> {
+class ColorPickerPopup extends React.PureComponent<IProps, IState> {
     render() {
         return (
             <div

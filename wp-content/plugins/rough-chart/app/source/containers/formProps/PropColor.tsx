@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import FormField from '../../components/FormTable/FormField';
 import ColorPicker from '../../components/ColorPicker/ColorPicker';
 
@@ -14,7 +13,7 @@ interface IState {
     color: string;
 }
 
-class PropColor extends PureComponent<IProps, IState> {
+class PropColor extends React.PureComponent<IProps, IState> {
     static defaultProps = {
         title: '',
     };

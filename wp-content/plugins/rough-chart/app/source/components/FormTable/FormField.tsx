@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import React from 'react';
 import classnames from 'classnames';
 
 import './FormField.less';

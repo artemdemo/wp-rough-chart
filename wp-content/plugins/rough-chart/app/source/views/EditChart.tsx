@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent, createRef, Fragment } from 'preact/compat';
+import React from 'react';
 import _omit from 'lodash/omit';
 import ChartTypes from '../containers/chartTypes';
 import PieChartFields from '../containers/chartFields/PieChartFields';
@@ -13,8 +12,8 @@ interface IProps {
 
 interface IState {}
 
-class EditChart extends PureComponent<IProps, IState> {
-    private chartFieldsRef = createRef<PieChartFields>();
+class EditChart extends React.PureComponent<IProps, IState> {
+    private chartFieldsRef = React.createRef<PieChartFields>();
 
     saveChartData = () => {
         const chartData = this.chartFieldsRef?.current?.getData();
@@ -57,7 +56,7 @@ class EditChart extends PureComponent<IProps, IState> {
 
     render(props: IProps, state: IState, context) {
         return (
-            <Fragment>
+            <React.Fragment>
                 <h1 className='wp-heading-inline'>
                     {this.renderTitle()}
                 </h1>
@@ -72,7 +71,7 @@ class EditChart extends PureComponent<IProps, IState> {
                 >
                     {t('createNewChart')}
                 </Button>
-            </Fragment>
+            </React.Fragment>
         )
     }
 }

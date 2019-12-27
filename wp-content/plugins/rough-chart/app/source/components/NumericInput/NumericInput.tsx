@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import _omit from 'lodash/omit';
 
 interface IProps {
@@ -12,7 +11,7 @@ interface IState {}
  * It means that it will allow to the user start typing `-`, `.` characters,
  * because you can do it in order to write a number.
  */
-class NumericInput extends PureComponent<IProps, IState> {
+class NumericInput extends React.PureComponent<IProps, IState> {
     numRegex = /^-?\d*\.?\d*$/;
 
     handleChange = (e) => {

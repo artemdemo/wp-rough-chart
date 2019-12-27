@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import { rndSalt } from '../../services/utils';
 import FormField from '../../components/FormTable/FormField';
 import NumericInput from '../../components/NumericInput/NumericInput';
@@ -19,7 +18,7 @@ interface IState {
     inputId: string;
 }
 
-class PropInput extends PureComponent<IProps, IState> {
+class PropInput extends React.PureComponent<IProps, IState> {
     static defaultProps = {
         title: '',
         description: '',

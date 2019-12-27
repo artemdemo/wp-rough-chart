@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent, Fragment } from 'preact/compat';
+import React from 'react';
 import { t } from '../services/i18n';
 import { getUrlToChart } from '../services/appData';
 import { getChartsData } from '../services/ajax';
@@ -15,7 +14,7 @@ interface IState {
     charts: any[];
 }
 
-class ChartsList extends PureComponent<IProps, IState> {
+class ChartsList extends React.PureComponent<IProps, IState> {
     state = {
         charts: [],
     };
@@ -29,7 +28,7 @@ class ChartsList extends PureComponent<IProps, IState> {
 
     render(props: IProps, state: IState, context) {
         return (
-            <Fragment>
+            <React.Fragment>
                 <h1 className='wp-heading-inline'>
                     {t('roughCharts')}
                 </h1>
@@ -56,7 +55,7 @@ class ChartsList extends PureComponent<IProps, IState> {
                         </Tr>
                     </Tbody>
                 </Table>
-            </Fragment>
+            </React.Fragment>
         );
     }
 }

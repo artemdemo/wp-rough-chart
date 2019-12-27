@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { Fragment, createRef } from 'preact/compat';
+import React from 'react';
 import PropInput from '../formProps/PropInput';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import ChartFields from './ChartFields';
@@ -8,7 +7,7 @@ import ChartData from '../ChartData/ChartData';
 import { t } from '../../services/i18n';
 
 class PieChartFields extends ChartFields {
-    private chartDataRef = createRef<ChartData>();
+    private chartDataRef = React.createRef<ChartData>();
 
     public state = {
         title: '',
@@ -63,7 +62,7 @@ class PieChartFields extends ChartFields {
 
     renderChartFields() {
         return (
-            <Fragment>
+            <React.Fragment>
                 <FillStyle
                     value={this.state.fillStyle}
                     onChange={this.updateProp.bind(this, 'fillStyle')}
@@ -103,7 +102,7 @@ class PieChartFields extends ChartFields {
                     onChange={this.updateProp.bind(this, 'yLabel')}
                     value={this.state.yLabel}
                 />
-            </Fragment>
+            </React.Fragment>
         );
     }
 

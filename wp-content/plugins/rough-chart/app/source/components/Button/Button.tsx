@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import classnames from 'classnames';
 
 export enum BtnAppearance {
@@ -17,7 +16,7 @@ interface IProps {
 }
 interface IState {}
 
-class Button extends PureComponent<IProps, IState> {
+class Button extends React.PureComponent<IProps, IState> {
     static defaultPros = {
         type: 'button',
     };

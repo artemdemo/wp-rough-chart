@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent, Fragment } from 'preact/compat';
+import React from 'react';
 import FormTable from '../../components/FormTable/FormTable';
 import PropInput from '../formProps/PropInput';
 import ChartTypes from '../chartTypes';
@@ -13,7 +12,7 @@ interface IState {
     title: string;
 }
 
-class ChartFields extends PureComponent<IProps, IState> {
+class ChartFields extends React.PureComponent<IProps, IState> {
     public state = {
         title: '',
         titleErr: false,
@@ -40,19 +39,19 @@ class ChartFields extends PureComponent<IProps, IState> {
 
     renderChartFields() {
         return (
-            <Fragment />
+            <React.Fragment />
         );
     }
 
     renderChartData(type?: ChartTypes) {
         return (
-            <Fragment />
+            <React.Fragment />
         );
     }
 
     render(props: IProps, state: IState, context) {
         return (
-            <Fragment>
+            <React.Fragment>
                 {this.renderTitle()}
                 <p>{t('defineChart')}</p>
                 <Grid>
@@ -65,7 +64,7 @@ class ChartFields extends PureComponent<IProps, IState> {
                         {this.renderChartData()}
                     </GridCell>
                 </Grid>
-            </Fragment>
+            </React.Fragment>
         );
     }
 }

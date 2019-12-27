@@ -1,5 +1,4 @@
-import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
+import React from 'react';
 import FormField from '../../components/FormTable/FormField';
 import { t } from '../../services/i18n';
 
@@ -24,7 +23,7 @@ const STYLES = [
     { type: 'zigzag-line', name: 'Zigzag-Line' },
 ];
 
-class FillStyle extends PureComponent<IProps, IState> {
+class FillStyle extends React.PureComponent<IProps, IState> {
     state = {
         inputId: 'chart_fill_style',
     };

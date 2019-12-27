@@ -29,9 +29,6 @@ module.exports = (env, args) => {
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx', '.html', '.txt'],
-            alias: {
-                react: 'preact/compat',
-            },
         },
         module: {
             rules: [
