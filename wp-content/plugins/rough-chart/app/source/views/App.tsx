@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import EditChart from './EditChart';
 import ChartsList from './ChartsList';
 import Unknown from './Unknown';
-import ChartTypes from '../components/editChart/chartTypes';
+import ChartTypes from '../containers/chartTypes';
 
 interface IProps {}
 

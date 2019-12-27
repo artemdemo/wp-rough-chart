@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { PureComponent, createRef, Fragment } from 'preact/compat';
 import _omit from 'lodash/omit';
-import ChartTypes from '../components/editChart/chartTypes';
-import PieChartFields from '../components/editChart/chartFields/PieChartFields';
+import ChartTypes from '../containers/chartTypes';
+import PieChartFields from '../containers/chartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import { t } from '../services/i18n';
 import { saveChartData } from '../services/ajax';

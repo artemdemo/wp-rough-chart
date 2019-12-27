@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { Fragment, createRef } from 'preact/compat';
-import PropInput from '../PropInput';
-import FillStyle, { defaultStyle } from '../FillStyle';
+import PropInput from '../../components/formProps/PropInput';
+import FillStyle, { defaultStyle } from '../../components/formProps/FillStyle';
 import ChartFields from './ChartFields';
 import ChartTypes from '../chartTypes';
 import ChartData from '../ChartData/ChartData';
-import { t } from '../../../services/i18n';
+import { t } from '../../services/i18n';
 
 class PieChartFields extends ChartFields {
     private chartDataRef = createRef<ChartData>();

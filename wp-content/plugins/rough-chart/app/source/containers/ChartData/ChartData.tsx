@@ -3,7 +3,7 @@ import { PureComponent, Fragment, createRef } from 'preact/compat';
 import jexcel from 'jexcel';
 import * as pieData from './data/pieData';
 import ChartTypes from '../chartTypes';
-import { t } from '../../../services/i18n';
+import { t } from '../../services/i18n';
 import contextMenu from './contextMenu';
 
 import './ChartData.less';

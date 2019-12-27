@@ -1,5 +1,4 @@
 import { h } from 'preact';
-import { PureComponent } from 'preact/compat';
 
 interface IProps {
     children?: any;

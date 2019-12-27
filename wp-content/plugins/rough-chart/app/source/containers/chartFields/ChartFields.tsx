@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { PureComponent, Fragment } from 'preact/compat';
-import FormTable from '../../FormTable/FormTable';
-import PropInput from '../PropInput';
+import FormTable from '../../components/FormTable/FormTable';
+import PropInput from '../../components/formProps/PropInput';
 import ChartTypes from '../chartTypes';
-import Grid from '../../Grid/Grid';
-import GridCell from '../../Grid/GridCell';
-import { t } from '../../../services/i18n';
+import Grid from '../../components/Grid/Grid';
+import GridCell from '../../components/Grid/GridCell';
+import { t } from '../../services/i18n';
 
 interface IProps {}
 
