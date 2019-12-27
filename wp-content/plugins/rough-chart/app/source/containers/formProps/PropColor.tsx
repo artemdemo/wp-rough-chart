@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { PureComponent } from 'preact/compat';
-import FormField from '../FormTable/FormField';
-import ColorPicker from '../ColorPicker/ColorPicker';
+import FormField from '../../components/FormTable/FormField';
+import ColorPicker from '../../components/ColorPicker/ColorPicker';
 
 import './PropColor.less';
 

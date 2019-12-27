@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { Fragment, createRef } from 'preact/compat';
-import PropInput from '../../components/formProps/PropInput';
-import FillStyle, { defaultStyle } from '../../components/formProps/FillStyle';
+import PropInput from '../formProps/PropInput';
+import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import ChartFields from './ChartFields';
 import ChartTypes from '../chartTypes';
 import ChartData from '../ChartData/ChartData';
@@ -16,7 +16,7 @@ class PieChartFields extends ChartFields {
         fillStyle: defaultStyle.type,
         strokeWidth: 1,
         strokeWidthErr: false,
-        fillWeight: 0.85,
+        fillWeight: 0.5,
         fillWeightErr: false,
         roughness: 1,
         roughnessErr: false,
@@ -52,9 +52,9 @@ class PieChartFields extends ChartFields {
         };
     }
 
-    updateProp(propKey: string, value: string|number) {
+    updateProp(propKey: string, e: any) {
         this.setState({
-            [propKey]: value,
+            [propKey]: e.target.value,
             // Relatively simple solution for hiding error for the given field.
             // The alternative (and the better approach) will be to write logic for each field.
             [`${propKey}Err`]: false,

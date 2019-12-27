@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { PureComponent } from 'preact/compat';
-import FormField from '../FormTable/FormField';
+import FormField from '../../components/FormTable/FormField';
 import { t } from '../../services/i18n';
 
 interface IProps {

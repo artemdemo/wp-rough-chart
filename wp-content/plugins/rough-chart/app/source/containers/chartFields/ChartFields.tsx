@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { PureComponent, Fragment } from 'preact/compat';
 import FormTable from '../../components/FormTable/FormTable';
-import PropInput from '../../components/formProps/PropInput';
+import PropInput from '../formProps/PropInput';
 import ChartTypes from '../chartTypes';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
@@ -19,9 +19,9 @@ class ChartFields extends PureComponent<IProps, IState> {
         titleErr: false,
     };
 
-    updateTitle = (title: string) => {
+    updateTitle = (e) => {
         this.setState({
-            title,
+            title: e.target.value,
         })
     };
 

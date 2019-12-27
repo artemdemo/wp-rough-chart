@@ -1,7 +1,8 @@
 import { h } from 'preact';
 import { PureComponent } from 'preact/compat';
 import { rndSalt } from '../../services/utils';
-import FormField from '../FormTable/FormField';
+import FormField from '../../components/FormTable/FormField';
+import NumericInput from '../../components/NumericInput/NumericInput';
 
 import './PropInput.less';
 
@@ -9,7 +10,7 @@ interface IProps {
     title?: string;
     description?: string;
     value: string|number;
-    onChange: (value: string|number) => void;
+    onChange: (e: any) => void;
     numeric?: boolean;
     error?: boolean;
 }
@@ -35,11 +36,25 @@ class PropInput extends PureComponent<IProps, IState> {
         })
     }
 
-    handleChange = (e) => {
-        const { onChange, numeric } = this.props;
-        const value = numeric ? parseFloat(e.target.value) : e.target.value;
-        onChange(value);
-    };
+    renderInput() {
+        const { numeric, onChange } = this.props;
+        const inputProps = {
+            id: this.state.inputId,
+            onChange,
+            value: String(this.props.value),
+            type: 'text',
+            'aria-required': 'true',
+            autoCorrect: 'off',
+        };
+        if (numeric) {
+            return (
+                <NumericInput {...inputProps} />
+            );
+        }
+        return (
+            <input {...inputProps} />
+        );
+    }
 
     render() {
         return (
@@ -49,14 +64,7 @@ class PropInput extends PureComponent<IProps, IState> {
                 error={this.props.error}
             >
                 <div className='prop-input-data'>
-                    <input
-                        id={this.state.inputId}
-                        onChange={this.handleChange}
-                        value={String(this.props.value)}
-                        type='text'
-                        aria-required='true'
-                        autoCorrect='off'
-                    />
+                    {this.renderInput()}
                     <p className='description'>
                         {this.props.description}
                     </p>

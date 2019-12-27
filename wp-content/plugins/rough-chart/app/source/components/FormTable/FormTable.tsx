@@ -3,7 +3,6 @@ import { h } from 'preact';
 interface IProps {
     children?: any;
 }
-interface IState {}
 
 const FormTable = (props: IProps) => (
     <table
