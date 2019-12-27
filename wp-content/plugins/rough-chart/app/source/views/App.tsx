@@ -12,19 +12,15 @@ interface IState {
 }
 
 class App extends React.PureComponent<IProps, IState> {
-    state = {
-        query: {
-            chart_id: null,
-        },
-    };
+    constructor(props) {
+        super(props);
 
-    componentDidMount(): void {
-        this.setState({
+        this.state = {
             query: queryString.parse(location.search),
-        });
+        };
     }
 
-    render(props: IProps, state: IState, context) {
+    render() {
         if (this.state.query.chart_id === 'new') {
             return (
                 <EditChart

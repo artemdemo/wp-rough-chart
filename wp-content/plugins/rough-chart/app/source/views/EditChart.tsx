@@ -54,7 +54,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
         );
     }
 
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             <React.Fragment>
                 <h1 className='wp-heading-inline'>

@@ -5,7 +5,7 @@ interface IProps {}
 interface IState {}
 
 class Unlnown extends React.PureComponent<IProps, IState> {
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             '404 - no such view'
         );

@@ -47,7 +47,7 @@ class FillStyle extends React.PureComponent<IProps, IState> {
                     className='postform'
                 >
                     {STYLES.map(item => (
-                        <option value={item.type}>
+                        <option value={item.type} key={item.type}>
                             {item.name}
                         </option>
                     ))}
