@@ -40,8 +40,8 @@ class RoughChartDB {
 			array(
 				'title' => $title,
 				'chart' => $chart_str,
-				'created' => date('Y-m-d H:i:s'),
-				'last_updated' => date('Y-m-d H:i:s'),
+				'created' => gmdate('Y-m-d H:i:s'),
+				'last_updated' => gmdate('Y-m-d H:i:s'),
 			)
 		);
 	}
@@ -53,7 +53,7 @@ class RoughChartDB {
 			$table_name,
 			array(
 				'chart' => $chart_str,
-				'last_updated' => date('Y-m-d H:i:s'),
+				'last_updated' => gmdate('Y-m-d H:i:s'),
 			),
 			array(
 				'id' => $id,
