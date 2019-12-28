@@ -12,6 +12,7 @@ import Thead from '../components/Table/Thead';
 import Tbody from '../components/Table/Tbody';
 import Tr from '../components/Table/Tr';
 import Th from '../components/Table/Th';
+import Td from '../components/Table/Td';
 
 interface IProps {}
 
@@ -47,6 +48,25 @@ class ChartsList extends React.PureComponent<IProps, IState> {
             });
     };
 
+    renderCharts() {
+        if (this.state.charts.length > 0) {
+            return this.state.charts.map((chart: Chart) => (
+                <ChartsListItem
+                    chart={chart}
+                    onDelete={this.handleDelete}
+                    key={`chart-table-${chart.id}`}
+                />
+            ));
+        }
+        return (
+            <Tr>
+                <Td colSpan={4}>
+                    {t('noCharts')}
+                </Td>
+            </Tr>
+        );
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -73,13 +93,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {this.state.charts.map((chart: Chart) => (
-                            <ChartsListItem
-                                chart={chart}
-                                onDelete={this.handleDelete}
-                                key={`chart-table-${chart.id}`}
-                            />
-                        ))}
+                        {this.renderCharts()}
                     </Tbody>
                 </Table>
                 <Loading
