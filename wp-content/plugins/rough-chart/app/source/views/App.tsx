@@ -12,7 +12,6 @@ __webpack_public_path__ = getAppData().build_folder;
 interface IProps {}
 
 interface IState {
-    query: any;
     Component: any;
 }
 
@@ -21,18 +20,22 @@ class App extends React.PureComponent<IProps, IState> {
         super(props);
 
         this.state = {
-            query: getQuery(),
             Component: null,
         };
     }
 
     componentDidMount(): void {
-        if (this.state.query.chart_id === 'new') {
-            import('./EditChart')
-                .then(this.handleViewLoad);
-        } else if (!this.state.query.chart_id) {
-            import('./ChartsList')
-                .then(this.handleViewLoad);
+        const query = getQuery();
+        if (query.chart_id === 'new') {
+            if (query.type) {
+                import('./EditChart').then(this.handleViewLoad);
+            } else {
+                import('./NewChart').then(this.handleViewLoad);
+            }
+        } else if (query.chart_id) {
+            import('./EditChart').then(this.handleViewLoad);
+        } else if (!query.chart_id) {
+            import('./ChartsList').then(this.handleViewLoad);
         }
     }
 
@@ -45,7 +48,7 @@ class App extends React.PureComponent<IProps, IState> {
     render() {
         const { Component } = this.state;
         if (Component) {
-            return <Component />;
+            return <Component query={getQuery()} />;
         }
         return null;
     }

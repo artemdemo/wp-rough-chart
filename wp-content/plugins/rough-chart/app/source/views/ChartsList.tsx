@@ -3,6 +3,7 @@ import { t } from '../services/i18n';
 import { getUrlToChart } from '../services/appData';
 import { getChartsData } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
+import Title from '../components/Title/Title';
 import Table from '../components/Table/Table';
 import Thead from '../components/Table/Thead';
 import Tbody from '../components/Table/Tbody';
@@ -32,9 +33,9 @@ class ChartsList extends React.PureComponent<IProps, IState> {
         return (
             <React.Fragment>
                 <Donate />
-                <h1 className='wp-heading-inline'>
+                <Title inline>
                     {t('roughCharts')}
-                </h1>
+                </Title>
                 <a href={getUrlToChart('new')}
                    className='page-title-action'
                 >

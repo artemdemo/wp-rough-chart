@@ -7,7 +7,7 @@ export enum BtnAppearance {
 }
 
 interface IProps {
-    type?: string;
+    type?: 'button' | 'submit' | 'reset' | undefined;
     className?: string;
     children?: any;
     appearance?: BtnAppearance;

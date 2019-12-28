@@ -1,12 +1,16 @@
 import React from 'react';
 import _omit from 'lodash/omit';
+import _get from 'lodash/get';
 import ChartTypes from '../containers/chartTypes';
 import PieChartFields from '../containers/chartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
+import Title from '../components/Title/Title';
 import { t } from '../services/i18n';
 import { saveChartData } from '../services/ajax';
+import { QueryParams } from '../services/routing';
 
 interface IProps {
+    query: QueryParams,
     type: ChartTypes;
 }
 
@@ -26,28 +30,28 @@ class EditChart extends React.PureComponent<IProps, IState> {
     };
 
     renderTitle() {
-        const { type } = this.props;
-        switch (type) {
+        const { query } = this.props;
+        switch (parseInt(_get(query, 'type', '-1'), 10)) {
             case ChartTypes.Pie:
-                return t('newBarChart');
+                return t('newPieChart');
             case ChartTypes.Bars:
             case ChartTypes.Columns:
             default:
-                throw new Error(`No component fround for the given chart type: ${type}`);
+                throw new Error(`No component fround for the given chart type: ${query.type}`);
         }
     }
 
     renderFields() {
-        const { type } = this.props;
+        const { query } = this.props;
         let ChartFieldsComponent;
-        switch (type) {
+        switch (parseInt(_get(query, 'type', '-1'), 10)) {
             case ChartTypes.Pie:
                 ChartFieldsComponent = PieChartFields;
                 break;
             case ChartTypes.Bars:
             case ChartTypes.Columns:
             default:
-                throw new Error(`No component fround for the given chart type: ${type}`);
+                throw new Error(`No component fround for the given chart type: ${query.type}`);
         }
         return (
             <ChartFieldsComponent ref={this.chartFieldsRef} />
@@ -57,9 +61,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
     render() {
         return (
             <React.Fragment>
-                <h1 className='wp-heading-inline'>
+                <Title>
                     {this.renderTitle()}
-                </h1>
+                </Title>
                 <hr className='wp-header-end' />
                 <h2 className='screen-reader-text'>
                     {t('newChartOptions')}
