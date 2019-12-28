@@ -8,7 +8,7 @@ import Thead from '../components/Table/Thead';
 import Tbody from '../components/Table/Tbody';
 import Tr from '../components/Table/Tr';
 import Th from '../components/Table/Th';
-import Td from '../components/Table/Td';
+import ChartsListItem from '../containers/ChartsListItem/ChartsListItem';
 
 interface IProps {}
 
@@ -54,29 +54,10 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                     </Thead>
                     <Tbody>
                         {this.state.charts.map((chart: any) => (
-                            <Tr key={`chart-table-${chart.id}`}>
-                                <Th className='has-row-actions'>
-                                    <strong>
-                                        <a href='#'>
-                                            {chart.title}
-                                        </a>
-                                    </strong>
-                                    <div className='row-actions'>
-                                        <span className="edit">
-                                            <a href='#'>
-                                                Edit**
-                                            </a> |{' '}
-                                        </span>
-                                        <span className='delete'>
-                                            <a href='#' className='delete-tag' role='button'>
-                                                Delete**
-                                            </a>
-                                        </span>
-                                    </div>
-                                </Th>
-                                <Td>{chart.created}</Td>
-                                <Td>{chart.last_updated}</Td>
-                            </Tr>
+                            <ChartsListItem
+                                chart={chart}
+                                key={`chart-table-${chart.id}`}
+                            />
                         ))}
                     </Tbody>
                 </Table>

@@ -4,6 +4,8 @@ const defaultTranslations = {
     roughCharts: 'Rough Charts',
     addNew: 'Add New',
     created: 'Created',
+    edit: 'Edit',
+    delete: 'Delete',
     lastUpdated: 'Last updated',
     roughChartsList: 'Rough Charts list',
     newBarChart: 'New Bar Chart',
