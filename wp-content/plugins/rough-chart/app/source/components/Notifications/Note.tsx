@@ -8,6 +8,7 @@ const Note = styled.div`
     padding: 5px 10px;
     border-radius: 3px;
     border: 1px solid black;
+    opacity: 0.7;
     ${(props) => {
         switch (props.type) {
             case NotificationTypes.Error:

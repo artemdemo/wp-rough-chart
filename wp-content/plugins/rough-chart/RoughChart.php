@@ -2,8 +2,10 @@
 
 require_once( 'models/DB.php' );
 require_once( 'models/ErrorMsg.php' );
+require_once( 'views/ShortcodeView.php' );
 
 use roughChart\models\DB;
+use roughChart\views\ShortcodeView;
 
 class RoughChart {
     private static $initiated = false;
@@ -26,7 +28,12 @@ class RoughChart {
             'title' => '',
         ), $atts );
 
-        return 'roughchart shortcode :) id=' . $chart_ref['id'];
+        $shortcode_view = new ShortcodeView(
+            $chart_ref['id'],
+            $chart_ref['title']
+        );
+
+        return $shortcode_view -> render();
     }
 
     public static function plugin_activation() {

@@ -7,7 +7,7 @@ class View {
     private $name;
 
     public function __construct( $name = 'general-tmpl' ) {
-        $this->name = $name;
+        $this -> name = $name;
     }
 
     public function render() {
