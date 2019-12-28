@@ -52,6 +52,6 @@ require_once( ROUGH_CHART_PLUGIN_DIR . 'RoughChart.php' );
 add_action( 'init', array( 'RoughChart', 'init' ) );
 
 if ( is_admin() ) {
-	require_once( ROUGH_CHART_PLUGIN_DIR . 'RoughChartAdmin.php' );
-	add_action( 'init', array( 'RoughChartAdmin', 'init' ) );
+    require_once( ROUGH_CHART_PLUGIN_DIR . 'RoughChartAdmin.php' );
+    add_action( 'init', array( 'RoughChartAdmin', 'init' ) );
 }
