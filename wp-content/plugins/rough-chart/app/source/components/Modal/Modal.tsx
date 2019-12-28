@@ -35,6 +35,7 @@ const ModalTitle = styled.div`
 
 const ModalButtons = styled.div`
     padding: 5px 10px;
+    text-align: right;
 `;
 
 const ModalContent = styled.div`

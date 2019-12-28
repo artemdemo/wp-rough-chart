@@ -26,12 +26,8 @@ class App extends React.PureComponent<IProps, IState> {
 
     componentDidMount(): void {
         const query = getQuery();
-        if (query.chart_id === 'new') {
-            if (query.type) {
-                import('./EditChart').then(this.handleViewLoad);
-            } else {
-                import('./NewChart').then(this.handleViewLoad);
-            }
+        if (query.chart_id === 'new' && query.type) {
+            import('./EditChart').then(this.handleViewLoad);
         } else if (query.chart_id) {
             import('./EditChart').then(this.handleViewLoad);
         } else if (!query.chart_id) {

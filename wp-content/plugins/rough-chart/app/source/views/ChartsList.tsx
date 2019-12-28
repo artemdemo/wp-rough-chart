@@ -5,6 +5,7 @@ import { getAllChart, deleteChart } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
 import { Chart } from '../containers/chartTypes';
 import ChartsListItem from '../containers/ChartsListItem/ChartsListItem';
+import AddNewChart from '../containers/AddNewChart/AddNewChart';
 import Loading from '../components/Loading/Loading';
 import Title from '../components/Title/Title';
 import Table from '../components/Table/Table';
@@ -85,11 +86,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                 <Title inline>
                     {t('roughCharts')}
                 </Title>
-                <a href={getUrlToChart('new')}
-                   className='page-title-action'
-                >
-                    {t('addNew')}
-                </a>
+                <AddNewChart />
                 <hr className='wp-header-end' />
                 <h2 className='screen-reader-text'>
                     {t('roughChartsList')}
