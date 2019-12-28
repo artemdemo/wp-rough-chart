@@ -2,6 +2,7 @@ import React from 'react';
 import Th from '../../components/Table/Th';
 import Td from '../../components/Table/Td';
 import Tr from '../../components/Table/Tr';
+import RowActions from '../../components/Table/RowActions';
 import { t } from '../../services/i18n';
 import { Chart } from '../chartTypes';
 
@@ -23,13 +24,13 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         const { chart } = this.props;
         return (
             <Tr>
-                <Th className='has-row-actions'>
+                <Th hasRowActions>
                     <strong>
                         <a href='#'>
                             {chart.title}
                         </a>
                     </strong>
-                    <div className='row-actions'>
+                    <RowActions>
                         <a href='#'>
                             {t('edit')}
                         </a> |{' '}
@@ -38,18 +39,18 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                         >
                             {t('delete')}
                         </a>
-                    </div>
+                    </RowActions>
                 </Th>
                 <Td>{chart.chart_type}</Td>
                 <Td>{chart.created}</Td>
                 <Td>{chart.last_updated}</Td>
-                <Td className='has-row-actions'>
+                <Td hasRowActions>
                     [roughchart id="{chart.id}"]
-                    <div className='row-actions'>
+                    <RowActions>
                         <a href='#'>
                             {t('copy')}
                         </a>
-                    </div>
+                    </RowActions>
                 </Td>
             </Tr>
         );
