@@ -1,10 +1,8 @@
 <?php
 
-require_once( 'views/AdminView.php' );
-require_once( 'views/ChartView.php' );
+require_once( 'views/View.php' );
 
-use roughChart\views\AdminView;
-use roughChart\views\ChartView;
+use roughChart\views\View;
 
 class RoughChartAdmin {
     private static $initiated = false;
@@ -115,15 +113,8 @@ class RoughChartAdmin {
     }
 
     public static function render_admin_view() {
-        $has_chart_id = isset( $_GET[ RoughChartAdmin::$chart_id_arg ] ) &&
-                        !empty( $_GET[ RoughChartAdmin::$chart_id_arg ] );
-        if ( array_key_exists( RoughChartAdmin::$chart_id_arg, $_GET ) && $has_chart_id ) {
-            $chartView = new ChartView();
-            $chartView -> render();
-        } else {
-            $adminView = new AdminView();
-            $adminView -> render();
-        }
+        $view = new View();
+        $view -> render();
     }
 
 }

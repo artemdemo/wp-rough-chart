@@ -4,9 +4,9 @@ namespace roughChart\views;
 class View {
     public static $text_domain = 'rough-chart';
 
-    private $name = 'view';
+    private $name;
 
-    public function __construct( $name ) {
+    public function __construct( $name = 'general-tmpl' ) {
         $this->name = $name;
     }
 
