@@ -1,12 +1,14 @@
 import _get from 'lodash/get';
 
 const defaultTranslations = {
+    loading: 'Loading...',
     roughCharts: 'Rough Charts',
     addNew: 'Add New',
     created: 'Created',
     edit: 'Edit',
     delete: 'Delete',
     newChart: 'New Chart',
+    type: 'Type',
     lastUpdated: 'Last updated',
     roughChartsList: 'Rough Charts list',
     newPieChart: 'New Pie Chart',

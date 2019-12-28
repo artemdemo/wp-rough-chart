@@ -8,6 +8,7 @@ interface IProps {
     chart: {
         id: number;
         title: string;
+        chart_type: string;
         created: string;
         last_updated: string;
     };
@@ -35,11 +36,11 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                         <span className='delete'>
                             <a href='#' className='delete-tag' role='button'>
                                 {t('delete')}
-                                Delete**
                             </a>
                         </span>
                     </div>
                 </Th>
+                <Td>{chart.chart_type}</Td>
                 <Td>{chart.created}</Td>
                 <Td>{chart.last_updated}</Td>
             </Tr>

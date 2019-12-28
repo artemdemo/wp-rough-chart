@@ -20,9 +20,14 @@ class EditChart extends React.PureComponent<IProps, IState> {
     private chartFieldsRef = React.createRef<PieChartFields>();
 
     saveChartData = () => {
+        const { query } = this.props;
+        const type = String(ChartTypes[_get(query, 'type', '-1')]).toLowerCase();
         const chartData = this.chartFieldsRef?.current?.getData();
         if (chartData && !chartData.error) {
-            saveChartData(_omit(chartData, ['error']))
+            saveChartData({
+                ..._omit(chartData, ['error']),
+                type,
+            })
                 .done((result) => {
                     console.log(result);
                 });

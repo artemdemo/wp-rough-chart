@@ -3,6 +3,7 @@ import { t } from '../services/i18n';
 import { getUrlToChart } from '../services/appData';
 import { getChartsData } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
+import Loading from '../components/Loading/Loading';
 import Title from '../components/Title/Title';
 import Table from '../components/Table/Table';
 import Thead from '../components/Table/Thead';
@@ -14,18 +15,23 @@ import ChartsListItem from '../containers/ChartsListItem/ChartsListItem';
 interface IProps {}
 
 interface IState {
+    loading: boolean;
     charts: any[];
 }
 
 class ChartsList extends React.PureComponent<IProps, IState> {
     state = {
+        loading: true,
         charts: [],
     };
 
     componentDidMount(): void {
         getChartsData()
             .then((charts) => {
-                this.setState({ charts });
+                this.setState({
+                    charts,
+                    loading: false,
+                });
             });
     }
 
@@ -49,6 +55,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                     <Thead>
                         <Tr>
                             <Th>{t('title')}</Th>
+                            <Th>{t('type')}</Th>
                             <Th>{t('created')}</Th>
                             <Th>{t('lastUpdated')}</Th>
                         </Tr>
@@ -62,6 +69,9 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                         ))}
                     </Tbody>
                 </Table>
+                <Loading
+                    show={this.state.loading}
+                />
             </React.Fragment>
         );
     }
