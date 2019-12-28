@@ -1,6 +1,8 @@
 <?php
 
-class RoughChartDB {
+namespace roughChart\models;
+
+class DB {
     private static $table_name = 'roughcharts';
 
     public static function get_table_name() {
@@ -10,7 +12,7 @@ class RoughChartDB {
 
     public static function init_table() {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         $charset_collate = $wpdb->get_charset_collate();
 
         $sql = "CREATE TABLE $table_name (
@@ -29,13 +31,13 @@ class RoughChartDB {
 
     public static function drop_table() {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
     }
 
     public static function add_chart($title, $type, $chart_str) {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         return $wpdb->insert(
             $table_name,
             array(
@@ -50,7 +52,7 @@ class RoughChartDB {
 
     public static function update_chart($id, $chart_str) {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         return $wpdb->update(
             $table_name,
             array(
@@ -65,7 +67,7 @@ class RoughChartDB {
 
     public static function get_chart_by_id($id) {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         $sql = $wpdb->prepare(
             "SELECT * FROM $table_name WHERE id = %d",
             $id
@@ -75,7 +77,7 @@ class RoughChartDB {
 
     public static function get_all_charts() {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         return $wpdb->get_results(
             "SELECT id, title, chart_type, created, last_updated FROM $table_name"
         );
@@ -83,7 +85,7 @@ class RoughChartDB {
 
     public static function delete_chart_by_id($id) {
         global $wpdb;
-        $table_name = RoughChartDB::get_table_name();
+        $table_name = DB::get_table_name();
         return $wpdb->delete(
             $table_name,
             array(

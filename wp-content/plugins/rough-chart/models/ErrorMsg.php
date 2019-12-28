@@ -1,8 +1,11 @@
 <?php
 
+namespace roughChart\models;
+
+use JsonException;
 use roughChart\views\View;
 
-class RoughChartErrorMsg {
+class ErrorMsg {
     private $msg = 'Error message';
     private $description = 'Error message';
     private $status = 500;
@@ -12,10 +15,11 @@ class RoughChartErrorMsg {
      *
      * @docs https://www.php.net/manual/en/class.jsonexception.php
      * @param JsonException $e
-     * @return RoughChartErrorMsg
+     *
+     * @return ErrorMsg
      */
     public static function fromJsonException(JsonException $e) {
-        return new RoughChartErrorMsg(
+        return new ErrorMsg(
             __('Can\'t parse json', View::$text_domain),
             $e -> getMessage(),
             500
@@ -23,7 +27,7 @@ class RoughChartErrorMsg {
     }
 
     public static function generalDBError() {
-        return new RoughChartErrorMsg(
+        return new ErrorMsg(
             __('DB error', View::$text_domain),
             __('Something went wrong', View::$text_domain),
             500

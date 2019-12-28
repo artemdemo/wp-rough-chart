@@ -1,7 +1,9 @@
 <?php
 
-require_once( 'RoughChartDB.php' );
-require_once( 'RoughChartErrorMsg.php' );
+require_once( 'models/DB.php' );
+require_once( 'models/ErrorMsg.php' );
+
+use roughChart\models\DB;
 
 class RoughChart {
     private static $initiated = false;
@@ -17,10 +19,10 @@ class RoughChart {
     }
 
     public static function plugin_activation() {
-        RoughChartDB::init_table();
+        DB::init_table();
     }
 
     public static function plugin_deactivation() {
-        RoughChartDB::drop_table();
+        DB::drop_table();
     }
 }

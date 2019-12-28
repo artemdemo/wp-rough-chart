@@ -2,12 +2,13 @@
 
 require_once( 'views/View.php' );
 
+use roughChart\models\DB;
+use roughChart\models\ErrorMsg;
 use roughChart\views\View;
 
 class RoughChartAdmin {
     private static $initiated = false;
 
-    public static $chart_id_arg = 'chart_id';
     public static $menu_slug = 'rough_chart';
     public static $js_slug = 'rough-charts-app';
 
@@ -70,14 +71,14 @@ class RoughChartAdmin {
             $type = $chart['type'];
             unset($chart['title']);
             unset($chart['type']);
-            $result = RoughChartDB::add_chart( $title, $type, json_encode( $chart ) );
+            $result = DB::add_chart( $title, $type, json_encode( $chart ) );
             if ($result == 1) {
                 wp_send_json( json_decode( $result ) );
             } else {
-                $err = RoughChartErrorMsg::generalDBError();
+                $err = ErrorMsg::generalDBError();
             }
         } catch ( JsonException $e ) {
-            $err = RoughChartErrorMsg::fromJsonException( $e );
+            $err = ErrorMsg::fromJsonException( $e );
         }
         if ( $err != null ) {
             wp_send_json(
@@ -89,7 +90,7 @@ class RoughChartAdmin {
     }
 
     public static function get_all_charts() {
-        $result = RoughChartDB::get_all_charts();
+        $result = DB::get_all_charts();
         wp_send_json( $result );
         die();
     }
@@ -97,11 +98,11 @@ class RoughChartAdmin {
     public static function delete_chart() {
         $err = null;
         $chart_id = intval( $_POST[ 'chart_id' ] );
-        $result = RoughChartDB::delete_chart_by_id( $chart_id );
+        $result = DB::delete_chart_by_id( $chart_id );
         if ($result == 1) {
             wp_send_json( json_decode( $result ) );
         } else {
-            $err = RoughChartErrorMsg::generalDBError();
+            $err = ErrorMsg::generalDBError();
         }
         if ( $err != null ) {
             wp_send_json(
