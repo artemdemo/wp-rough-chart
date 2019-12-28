@@ -25,6 +25,7 @@ const defaultTranslations = {
     yLabel: 'Y Label',
     yLabelDescription: 'Label for y-axis.',
     chartData: 'Chart Data',
+    chartDataAddRowsHint: 'Rich click on the table will allow you to add more rows or delete existing ones.',
     defineChart: 'Define your new chart by filling options below:',
 };
 

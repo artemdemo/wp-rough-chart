@@ -47,7 +47,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
                 <h2>{t('chartData')}:</h2>
                 <div ref={this.tableBaseRef} />
                 <Description>
-                    Rich click on the table will allow you to add more rows or delete existing ones.
+                    {t('chartDataAddRowsHint')}
                 </Description>
             </React.Fragment>
         );
