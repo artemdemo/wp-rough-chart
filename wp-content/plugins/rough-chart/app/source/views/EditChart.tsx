@@ -2,7 +2,7 @@ import React from 'react';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
 import ChartTypes from '../containers/chartTypes';
-import PieChartFields from '../containers/chartFields/PieChartFields';
+import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import { t } from '../services/i18n';
