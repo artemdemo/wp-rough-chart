@@ -32,6 +32,8 @@ const defaultTranslations = {
     yLabelDescription: 'Label for y-axis.',
     chartData: 'Chart Data',
     noCharts: 'No charts to display (you should create one :)',
+    chartSaved: 'Chart saved',
+    chartDeleted: 'Chart deleted',
     chartDataAddRowsHint: 'Right click on the table will allow you to add more rows or delete existing ones.',
     defineChart: 'Define your new chart by filling options below:',
 };

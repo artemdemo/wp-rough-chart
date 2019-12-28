@@ -1,6 +1,5 @@
 import React from 'react';
 import { t } from '../services/i18n';
-import { getUrlToChart } from '../services/appData';
 import { getAllChart, deleteChart } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
 import { Chart } from '../containers/chartTypes';
@@ -16,6 +15,7 @@ import Th from '../components/Table/Th';
 import Td from '../components/Table/Td';
 import Modal from '../components/Modal/Modal';
 import Button, { BtnAppearance } from '../components/Button/Button';
+import Notifications, { sendNotification } from '../components/Notifications/Notifications';
 
 interface IProps {}
 
@@ -45,6 +45,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
     handelDelete = () => {
         deleteChart(this.state.chartIdToDelete)
             .then(() => {
+                sendNotification(t('chartDeleted'));
                 this.setState(prevState => ({
                     charts: this.state.charts.filter((chart: Chart) => {
                         return chart.id !== prevState.chartIdToDelete;
@@ -131,6 +132,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                 >
                     {t('areYouSureDelete')}
                 </Modal>
+                <Notifications />
             </React.Fragment>
         );
     }

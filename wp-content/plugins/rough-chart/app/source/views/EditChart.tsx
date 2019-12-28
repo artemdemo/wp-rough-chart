@@ -5,6 +5,7 @@ import ChartTypes from '../containers/chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
+import Notifications, { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
 import { saveChartData } from '../services/ajax';
 import { QueryParams } from '../services/routing';
@@ -28,7 +29,8 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 ..._omit(chartData, ['error']),
                 type,
             })
-                .done((result) => {
+                .then((result) => {
+                    sendNotification(t('chartSaved'));
                     console.log(result);
                 });
         }
@@ -80,6 +82,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 >
                     {t('createNewChart')}
                 </Button>
+                <Notifications />
             </React.Fragment>
         )
     }

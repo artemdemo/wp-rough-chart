@@ -43,7 +43,6 @@ class PropInput extends React.PureComponent<IProps, IState> {
             onChange,
             value: String(this.props.value),
             type: 'text',
-            ariaRequired: 'true',
             autoCorrect: 'off',
         };
         if (numeric) {
