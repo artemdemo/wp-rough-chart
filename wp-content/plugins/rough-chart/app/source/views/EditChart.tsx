@@ -36,7 +36,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
 
     renderTitle() {
         const { query } = this.props;
-        switch (parseInt(_get(query, 'type', '-1'), 10)) {
+        switch ( parseInt(_get(query, 'type', '-1'), 10) ) {
             case ChartTypes.Pie:
                 return t('newPieChart');
             case ChartTypes.Bars:

@@ -1,8 +1,10 @@
 import React from 'react';
 import { t } from '../services/i18n';
 import { getUrlToChart } from '../services/appData';
-import { getChartsData } from '../services/ajax';
+import { getAllChart, deleteChart } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
+import { Chart } from '../containers/chartTypes';
+import ChartsListItem from '../containers/ChartsListItem/ChartsListItem';
 import Loading from '../components/Loading/Loading';
 import Title from '../components/Title/Title';
 import Table from '../components/Table/Table';
@@ -10,13 +12,12 @@ import Thead from '../components/Table/Thead';
 import Tbody from '../components/Table/Tbody';
 import Tr from '../components/Table/Tr';
 import Th from '../components/Table/Th';
-import ChartsListItem from '../containers/ChartsListItem/ChartsListItem';
 
 interface IProps {}
 
 interface IState {
     loading: boolean;
-    charts: any[];
+    charts: Chart[];
 }
 
 class ChartsList extends React.PureComponent<IProps, IState> {
@@ -26,7 +27,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
     };
 
     componentDidMount(): void {
-        getChartsData()
+        getAllChart()
             .then((charts) => {
                 this.setState({
                     charts,
@@ -34,6 +35,17 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                 });
             });
     }
+
+    handleDelete = (chartId: number): void => {
+        deleteChart(chartId)
+            .then(() => {
+                this.setState({
+                    charts: this.state.charts.filter((chart: Chart) => {
+                        return chart.id !== chartId;
+                    }),
+                });
+            });
+    };
 
     render() {
         return (
@@ -61,9 +73,10 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {this.state.charts.map((chart: any) => (
+                        {this.state.charts.map((chart: Chart) => (
                             <ChartsListItem
                                 chart={chart}
+                                onDelete={this.handleDelete}
                                 key={`chart-table-${chart.id}`}
                             />
                         ))}

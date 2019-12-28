@@ -15,15 +15,29 @@ export const saveChartData = (chartData = {}) => {
         });
 };
 
-export const getChartsData = () => {
+export const getAllChart = () => {
     const appData = getAppData();
     return jQuery
         .ajax({
             url: appData.ajax_url,
             type: 'post',
             data: {
-                action: 'rough_chart_get_charts_data',
+                action: 'rough_chart_get_all_charts',
                 security: appData.nonce,
+            }
+        });
+};
+
+export const deleteChart = (chartId: number) => {
+    const appData = getAppData();
+    return jQuery
+        .ajax({
+            url: appData.ajax_url,
+            type: 'post',
+            data: {
+                action: 'rough_chart_delete_chart',
+                security: appData.nonce,
+                chart_id: chartId,
             }
         });
 };

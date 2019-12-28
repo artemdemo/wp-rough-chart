@@ -4,6 +4,8 @@ import classnames from 'classnames';
 export enum BtnAppearance {
     Primary,
     Secondary,
+    Link,
+    LinkDelete,
 }
 
 interface IProps {
@@ -28,6 +30,8 @@ class Button extends React.PureComponent<IProps, IState> {
             'button-primary': appearance === BtnAppearance.Primary && !disabled,
             'button-primary-disabled': appearance === BtnAppearance.Primary && disabled,
             'button-disabled': appearance !== BtnAppearance.Primary && disabled,
+            'button-link': appearance === BtnAppearance.Link || appearance === BtnAppearance.LinkDelete,
+            'button-link-delete': appearance === BtnAppearance.LinkDelete,
         });
     }
 
