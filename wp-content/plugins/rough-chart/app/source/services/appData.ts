@@ -3,7 +3,14 @@ import urlParse from 'url-parse';
 
 const globalAppDataRef = '__roughChartsApp_$8453';
 
-export const getAppData = () => {
+type AppData = {
+    nonce: string;
+    ajax_url: string;
+    plugin_url: string;
+    build_folder: string;
+}
+
+export const getAppData = (): AppData => {
     return window[globalAppDataRef];
 };
 

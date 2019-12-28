@@ -41,9 +41,10 @@ class RoughChartAdmin {
 	}
 
 	public static function add_js_scripts() {
+		$build_folder = plugin_dir_url( __FILE__ ) . 'app/build/';
 		wp_enqueue_script(
 			self::$js_slug,
-			plugin_dir_url( __FILE__ ) . 'app/build/js/rough-chart.js'
+			$build_folder . 'js/rough-chart.js'
 		);
 		wp_localize_script(
 			self::$js_slug,
@@ -52,6 +53,7 @@ class RoughChartAdmin {
 				'nonce' => wp_create_nonce( self::$js_slug ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'plugin_url' => menu_page_url( self::$menu_slug, false ),
+				'build_folder' => $build_folder,
 			)
 		);
 	}
@@ -66,17 +68,19 @@ class RoughChartAdmin {
 				JSON_THROW_ON_ERROR
 			);
 			$title = $chart['title'];
+			$type = $chart['type'];
 			unset($chart['title']);
-			$result = RoughChartDB::add_chart( $title, json_encode( $chart ) );
+			unset($chart['type']);
+			$result = RoughChartDB::add_chart( $title, $type, json_encode( $chart ) );
 			if ($result == 1) {
 				wp_send_json( json_decode( $result ) );
 			} else {
 				$err = RoughChartErrorMsg::generalDBError();
 			}
-		} catch (JsonException $e) {
-			$err = RoughChartErrorMsg::fromJsonException($e);
+		} catch ( JsonException $e ) {
+			$err = RoughChartErrorMsg::fromJsonException( $e );
 		}
-		if ($err != null) {
+		if ( $err != null ) {
 			wp_send_json(
 				$err -> toArray(),
 				$err -> getStatus()

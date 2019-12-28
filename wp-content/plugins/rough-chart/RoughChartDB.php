@@ -16,6 +16,7 @@ class RoughChartDB {
 		$sql = "CREATE TABLE $table_name (
 		  id mediumint(9) NOT NULL AUTO_INCREMENT,
 		  title tinytext NOT NULL,
+		  chart_type tinytext NOT NULL,
 		  chart text NOT NULL,
 		  created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  last_updated datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -32,13 +33,14 @@ class RoughChartDB {
 		$wpdb->query( "DROP TABLE IF EXISTS $table_name" );
 	}
 
-	public static function add_chart($title, $chart_str) {
+	public static function add_chart($title, $type, $chart_str) {
 		global $wpdb;
 		$table_name = RoughChartDB::get_table_name();
 		return $wpdb->insert(
 			$table_name,
 			array(
 				'title' => $title,
+				'chart_type' => $type,
 				'chart' => $chart_str,
 				'created' => gmdate('Y-m-d H:i:s'),
 				'last_updated' => gmdate('Y-m-d H:i:s'),
@@ -75,7 +77,7 @@ class RoughChartDB {
 		global $wpdb;
 		$table_name = RoughChartDB::get_table_name();
 		return $wpdb->get_results(
-			"SELECT id, title, created, last_updated FROM $table_name"
+			"SELECT id, title, chart_type, created, last_updated FROM $table_name"
 		);
 	}
 
