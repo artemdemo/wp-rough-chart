@@ -1,6 +1,7 @@
 import React from 'react';
 import { rndSalt } from '../../services/utils';
 import FormField from '../../components/FormTable/FormField';
+import Description from '../../components/Description/Description';
 import NumericInput from '../../components/NumericInput/NumericInput';
 
 import './PropInput.less';
@@ -42,7 +43,7 @@ class PropInput extends React.PureComponent<IProps, IState> {
             onChange,
             value: String(this.props.value),
             type: 'text',
-            'aria-required': 'true',
+            ariaRequired: 'true',
             autoCorrect: 'off',
         };
         if (numeric) {
@@ -64,9 +65,9 @@ class PropInput extends React.PureComponent<IProps, IState> {
             >
                 <div className='prop-input-data'>
                     {this.renderInput()}
-                    <p className='description'>
+                    <Description>
                         {this.props.description}
-                    </p>
+                    </Description>
                 </div>
             </FormField>
         )

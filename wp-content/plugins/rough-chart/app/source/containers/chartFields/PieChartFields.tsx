@@ -52,6 +52,7 @@ class PieChartFields extends ChartFields {
     }
 
     updateProp(propKey: string, e: any) {
+        // @ts-ignore
         this.setState({
             [propKey]: e.target.value,
             // Relatively simple solution for hiding error for the given field.

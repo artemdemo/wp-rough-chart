@@ -22,7 +22,7 @@ interface IIroColor {
 }
 
 class ColorPicker extends React.PureComponent<IProps, IState> {
-    private pickerRef = React.createRef();
+    private pickerRef = React.createRef<HTMLDivElement>();
     private colorPicker;
 
     public state = {

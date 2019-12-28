@@ -4,6 +4,7 @@ import * as pieData from './data/pieData';
 import ChartTypes from '../chartTypes';
 import { t } from '../../services/i18n';
 import contextMenu from './contextMenu';
+import Description from '../../components/Description/Description';
 
 import './ChartData.less';
 
@@ -14,7 +15,7 @@ interface IProps {
 interface IState {}
 
 class ChartData extends React.PureComponent<IProps, IState> {
-    private tableBaseRef = React.createRef();
+    private tableBaseRef = React.createRef<HTMLDivElement>();
     private table: any = null;
 
     componentDidMount():void {
@@ -45,6 +46,9 @@ class ChartData extends React.PureComponent<IProps, IState> {
             <React.Fragment>
                 <h2>{t('chartData')}:</h2>
                 <div ref={this.tableBaseRef} />
+                <Description>
+                    Rich click on the table will allow you to add more rows or delete existing ones.
+                </Description>
             </React.Fragment>
         );
     }
