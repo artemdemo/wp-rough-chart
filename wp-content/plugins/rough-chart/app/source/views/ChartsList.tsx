@@ -13,17 +13,21 @@ import Tbody from '../components/Table/Tbody';
 import Tr from '../components/Table/Tr';
 import Th from '../components/Table/Th';
 import Td from '../components/Table/Td';
+import Modal from '../components/Modal/Modal';
+import Button, { BtnAppearance } from '../components/Button/Button';
 
 interface IProps {}
 
 interface IState {
     loading: boolean;
+    chartIdToDelete: number;
     charts: Chart[];
 }
 
 class ChartsList extends React.PureComponent<IProps, IState> {
     state = {
         loading: true,
+        chartIdToDelete: -1,
         charts: [],
     };
 
@@ -37,15 +41,22 @@ class ChartsList extends React.PureComponent<IProps, IState> {
             });
     }
 
-    handleDelete = (chartId: number): void => {
-        deleteChart(chartId)
+    handelDelete = () => {
+        deleteChart(this.state.chartIdToDelete)
             .then(() => {
-                this.setState({
+                this.setState(prevState => ({
                     charts: this.state.charts.filter((chart: Chart) => {
-                        return chart.id !== chartId;
+                        return chart.id !== prevState.chartIdToDelete;
                     }),
-                });
+                    chartIdToDelete: -1,
+                }));
             });
+    };
+
+    showDeleteWarning = (chartId: number): void => {
+        this.setState({
+            chartIdToDelete: chartId,
+        });
     };
 
     renderCharts() {
@@ -53,7 +64,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
             return this.state.charts.map((chart: Chart) => (
                 <ChartsListItem
                     chart={chart}
-                    onDelete={this.handleDelete}
+                    onDelete={this.showDeleteWarning}
                     key={`chart-table-${chart.id}`}
                 />
             ));
@@ -99,6 +110,30 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                 <Loading
                     show={this.state.loading}
                 />
+                <Modal
+                    title={t('deletingChart')}
+                    show={this.state.chartIdToDelete > -1}
+                    buttons={() => (
+                        <React.Fragment>
+                            <Button
+                                appearance={BtnAppearance.Primary}
+                                onClick={this.handelDelete}
+                            >
+                                {t('yesDelete')}
+                            </Button>
+                            {' '}
+                            <Button
+                                onClick={() => this.setState({
+                                    chartIdToDelete: -1,
+                                })}
+                            >
+                                {t('cancel')}
+                            </Button>
+                        </React.Fragment>
+                    )}
+                >
+                    {t('areYouSureDelete')}
+                </Modal>
             </React.Fragment>
         );
     }
