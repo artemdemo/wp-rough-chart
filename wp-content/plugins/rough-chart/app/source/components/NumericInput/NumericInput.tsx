@@ -29,7 +29,8 @@ class NumericInput extends React.PureComponent<IProps, IState> {
     render() {
         return (
             <input
-                {..._omit(this.props, ['onChange'])}
+                {..._omit(this.props, ['onChange', 'type'])}
+                type='number'
                 onChange={this.handleChange}
             />
         );
