@@ -99,6 +99,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                             <Th>{t('type')}</Th>
                             <Th>{t('created')}</Th>
                             <Th>{t('lastUpdated')}</Th>
+                            <Th>{t('shortcode')}</Th>
                         </Tr>
                     </Thead>
                     <Tbody>

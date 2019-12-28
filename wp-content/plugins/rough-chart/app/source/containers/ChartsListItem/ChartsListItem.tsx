@@ -30,25 +30,27 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                         </a>
                     </strong>
                     <div className='row-actions'>
-                        <span className="edit">
-                            <a href='#'>
-                                {t('edit')}
-                            </a> |{' '}
-                        </span>
-                        <span className='delete'>
-                            <a href='#'
-                               className='delete-tag'
-                               role='button'
-                               onClick={this.handleDelete}
-                            >
-                                {t('delete')}
-                            </a>
-                        </span>
+                        <a href='#'>
+                            {t('edit')}
+                        </a> |{' '}
+                        <a href='#'
+                           onClick={this.handleDelete}
+                        >
+                            {t('delete')}
+                        </a>
                     </div>
                 </Th>
                 <Td>{chart.chart_type}</Td>
                 <Td>{chart.created}</Td>
                 <Td>{chart.last_updated}</Td>
+                <Td className='has-row-actions'>
+                    [roughchart id="{chart.id}"]
+                    <div className='row-actions'>
+                        <a href='#'>
+                            {t('copy')}
+                        </a>
+                    </div>
+                </Td>
             </Tr>
         );
     }

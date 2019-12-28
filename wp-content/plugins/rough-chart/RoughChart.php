@@ -16,6 +16,17 @@ class RoughChart {
 
     private static function init_hooks() {
         self::$initiated = true;
+
+        add_shortcode( 'roughchart', array( 'RoughChart', 'shortcode_roughchart' ) );
+    }
+
+    public static function shortcode_roughchart( $atts ) {
+        $chart_ref = shortcode_atts( array(
+            'id' => -1,
+            'title' => '',
+        ), $atts );
+
+        return 'roughchart shortcode :) id=' . $chart_ref['id'];
     }
 
     public static function plugin_activation() {
