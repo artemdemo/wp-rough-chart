@@ -44,7 +44,9 @@ class RoughChartAdmin {
         $build_folder = plugin_dir_url( __FILE__ ) . 'app/build/';
         wp_enqueue_script(
             self::$js_slug,
-            $build_folder . 'js/rough-chart.js'
+            $build_folder . 'js/rough-chart.js',
+            array(),
+            ROUGH_CHART_VERSION
         );
         wp_localize_script(
             self::$js_slug,

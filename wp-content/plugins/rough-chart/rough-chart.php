@@ -40,7 +40,7 @@ error_reporting( E_ALL );
 ini_set( 'display_errors', 1 );
 
 
-define( 'ROUGH_CHART_VERSION', '4.1.3' );
+define( 'ROUGH_CHART_VERSION', '1.0.0' );
 define( 'ROUGH_CHART_MINIMUM_WP_VERSION', '5.0' );
 define( 'ROUGH_CHART_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
