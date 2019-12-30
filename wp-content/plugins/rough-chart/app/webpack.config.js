@@ -16,7 +16,7 @@ module.exports = (env, args) => {
     return {
         entry: {
             'rough-chart': './source/index.tsx',
-            'rough-chart-shortcode': './source/shortcode.tsx',
+            'rough-chart-shortcode': './source/shortcode.ts',
         },
         output: {
             path: path.resolve('./build'),

@@ -3,8 +3,6 @@ namespace roughChart\views;
 
 use roughChart\models\DB;
 
-require_once( 'View.php' );
-
 class ShortcodeView {
     private $id;
     private $title;
