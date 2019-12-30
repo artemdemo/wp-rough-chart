@@ -1,4 +1,4 @@
-import { getChartBaseEl, getChartDataFromEl } from './shortcode/baseElement';
+import { getChartBaseEl, getChartDataFromEl } from './shortcode/chartElement';
 
 const addRoughChart = (chartId: string|number) => {
     const chartEl = getChartBaseEl(chartId);

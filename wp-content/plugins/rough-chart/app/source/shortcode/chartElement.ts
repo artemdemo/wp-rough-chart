@@ -30,16 +30,21 @@ type ChartElDataset = {
     chart: string;
 };
 
-export const getChartDataFromEl = (el: HTMLDivElement): Chart => {
+export const getChartDataFromEl = (el: HTMLDivElement): Chart|null => {
     const attributesList = [ 'roughchart', 'title', 'type', 'chart' ];
     const dataset = <ChartElDataset> attributesList.reduce((acc, item) => {
         acc[item] = el.getAttribute(`data-${item}`);
         return acc;
     }, {});
-    return {
-        id: parseInt(dataset.roughchart),
-        title: dataset.title,
-        type: dataset.type,
-        chart: JSON.parse(dataset.chart),
-    };
+    try {
+        return {
+            id: parseInt(dataset.roughchart, 10),
+            title: dataset.title,
+            type: dataset.type,
+            chart: JSON.parse(dataset.chart),
+        };
+    } catch (e) {
+        console.error(e);
+    }
+    return null;
 };
