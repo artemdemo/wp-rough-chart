@@ -22,13 +22,18 @@ class ShortcodeView {
             data-type='$chart_data->chart_type'
             data-chart='$chart_data->chart'
         >
-            Chart: $chart_data->title
         </div>
         <script>
             (function() {
                 if (window.__addRoughChart) {
                     var chartId = $this->id;
-                    window.__addRoughChart(chartId);
+                    window.__addRoughChart({
+                        id: chartId,
+                        className: 'rough-chart-$this->id',
+                        title: '$chart_data->title',
+                        type: '$chart_data->chart_type',
+                        chart: '$chart_data->chart',
+                    });
                 } else {
                     console.error('`window.__addRoughChart` is not found');
                 }
