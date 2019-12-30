@@ -1,6 +1,6 @@
 import { getChartBaseEl, getChartDataFromEl } from './shortcode/chartElement';
 
-const addRoughChart = (chartId: string|number) => {
+const __addRoughChart = (chartId: string|number) => {
     const chartEl = getChartBaseEl(chartId);
     if (chartEl) {
         const chartData = getChartDataFromEl(chartEl);
@@ -8,4 +8,4 @@ const addRoughChart = (chartId: string|number) => {
     }
 };
 
-window['addRoughChart'] = addRoughChart;
+window['__addRoughChart'] = __addRoughChart;

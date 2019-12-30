@@ -45,7 +45,7 @@ export const getChartDataFromEl = (el: HTMLDivElement): Chart|null => {
                 chart: JSON.parse(dataset.chart),
             };
         } else {
-            console.warn(JSON.stringify(dataset, null, 2));
+            console.error(JSON.stringify(dataset, null, 2));
             throw new Error('Chart data is missing');
         }
     } catch (e) {

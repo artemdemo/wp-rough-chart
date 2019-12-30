@@ -25,12 +25,14 @@ class ShortcodeView {
             Chart: $chart_data->title
         </div>
         <script>
-            if (window.addRoughChart) {
-                var chartId = $this->id;
-                window.addRoughChart(chartId);
-            } else {
-                console.error('`window.addRoughChart` is not found');
-            }     
+            (function() {
+                if (window.__addRoughChart) {
+                    var chartId = $this->id;
+                    window.__addRoughChart(chartId);
+                } else {
+                    console.error('`window.__addRoughChart` is not found');
+                }
+            })();
         </script>
         ";
     }
