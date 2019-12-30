@@ -24,10 +24,10 @@ type Chart = {
 };
 
 type ChartElDataset = {
-    roughchart: string;
-    title: string;
-    type: string;
-    chart: string;
+    roughchart: string|null;
+    title: string|null;
+    type: string|null;
+    chart: string|null;
 };
 
 export const getChartDataFromEl = (el: HTMLDivElement): Chart|null => {
@@ -37,12 +37,17 @@ export const getChartDataFromEl = (el: HTMLDivElement): Chart|null => {
         return acc;
     }, {});
     try {
-        return {
-            id: parseInt(dataset.roughchart, 10),
-            title: dataset.title,
-            type: dataset.type,
-            chart: JSON.parse(dataset.chart),
-        };
+        if (dataset.roughchart && dataset.title && dataset.type && dataset.chart) {
+            return {
+                id: parseInt(dataset.roughchart, 10),
+                title: dataset.title,
+                type: dataset.type,
+                chart: JSON.parse(dataset.chart),
+            };
+        } else {
+            console.warn(JSON.stringify(dataset, null, 2));
+            throw new Error('Chart data is missing');
+        }
     } catch (e) {
         console.error(e);
     }
