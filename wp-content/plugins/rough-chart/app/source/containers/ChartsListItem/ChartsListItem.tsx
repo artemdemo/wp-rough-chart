@@ -5,6 +5,7 @@ import Tr from '../../components/Table/Tr';
 import RowActions from '../../components/Table/RowActions';
 import { t } from '../../services/i18n';
 import { ChartDB } from '../../chartTypes';
+import copyToClipboard from '../../services/copyToClipboard';
 
 interface IProps {
     chart: ChartDB;
@@ -14,11 +15,33 @@ interface IProps {
 interface IState {}
 
 class ChartsListItem extends React.PureComponent<IProps, IState> {
-    handleDelete = (e): void => {
+    getDefaultShortcode(): string {
+        const { chart } = this.props;
+        return `[roughchart id="${chart.id}"]`
+    }
+
+    handleDelete = (e: any): void => {
         e.preventDefault();
         const { chart, onDelete } = this.props;
         onDelete(chart.id)
     };
+
+    handleCopy = (e: any): void => {
+        e.preventDefault();
+        copyToClipboard(this.getDefaultShortcode());
+    };
+
+    renderTitle() {
+        const { chart } = this.props;
+        if (!chart.title || chart.title === '') {
+            return (
+                <i>
+                    {t('noTitle')}
+                </i>
+            );
+        }
+        return chart.title
+    }
 
     render() {
         const { chart } = this.props;
@@ -27,7 +50,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                 <Th hasRowActions>
                     <strong>
                         <a href='#'>
-                            {chart.title}
+                            {this.renderTitle()}
                         </a>
                     </strong>
                     <RowActions>
@@ -45,9 +68,11 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                 <Td>{chart.created}</Td>
                 <Td>{chart.last_updated}</Td>
                 <Td hasRowActions>
-                    [roughchart id="{chart.id}"]
+                    {this.getDefaultShortcode()}
                     <RowActions>
-                        <a href='#'>
+                        <a href='#'
+                           onClick={this.handleCopy}
+                        >
                             {t('copy')}
                         </a>
                     </RowActions>
