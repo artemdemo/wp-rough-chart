@@ -1,7 +1,6 @@
 import React from 'react';
 import FormTable from '../../components/FormTable/FormTable';
 import PropInput from '../formProps/PropInput';
-import ChartTypes from '../../chartTypes';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import { t } from '../../services/i18n';
@@ -41,7 +40,7 @@ class ChartFields extends React.PureComponent<IProps, IState> {
         );
     }
 
-    renderChartData(type?: ChartTypes) {
+    renderChartData() {
         return (
             <React.Fragment />
         );

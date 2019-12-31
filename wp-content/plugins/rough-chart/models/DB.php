@@ -81,7 +81,7 @@ class DB {
         global $wpdb;
         $table_name = DB::get_table_name();
         return $wpdb->get_results(
-            "SELECT id, title, chart_type, created, last_updated FROM $table_name"
+            "SELECT id, title, chart_type, version, created, last_updated FROM $table_name"
         );
     }
 

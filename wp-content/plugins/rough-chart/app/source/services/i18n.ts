@@ -9,6 +9,7 @@ const defaultTranslations = {
     delete: 'Delete',
     cancel: 'Cancel',
     copy: 'Copy',
+    shortcodeCopied: 'Shortcode copied',
     yesDelete: 'Yes, delete',
     noTitle: 'No title',
     deletingChart: '⚠️ Deleting chart',

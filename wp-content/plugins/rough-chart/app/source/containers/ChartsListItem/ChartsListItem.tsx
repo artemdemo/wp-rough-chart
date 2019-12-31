@@ -3,6 +3,7 @@ import Th from '../../components/Table/Th';
 import Td from '../../components/Table/Td';
 import Tr from '../../components/Table/Tr';
 import RowActions from '../../components/Table/RowActions';
+import { sendNotification } from '../../components/Notifications/Notifications';
 import { t } from '../../services/i18n';
 import { ChartDB } from '../../chartTypes';
 import copyToClipboard from '../../services/copyToClipboard';
@@ -28,7 +29,10 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
 
     handleCopy = (e: any): void => {
         e.preventDefault();
-        copyToClipboard(this.getDefaultShortcode());
+        const copyResult = copyToClipboard(this.getDefaultShortcode());
+        if (!!copyResult) {
+            sendNotification(t('shortcodeCopied'));
+        }
     };
 
     renderTitle() {
