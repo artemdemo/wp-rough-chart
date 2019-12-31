@@ -1,5 +1,6 @@
 import React from 'react';
 import PropInput from '../formProps/PropInput';
+import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import ChartFields from './ChartFields';
 import ChartTypes from '../chartTypes';
@@ -19,12 +20,11 @@ class PieChartFields extends ChartFields {
         fillWeightErr: false,
         roughness: 1,
         roughnessErr: false,
-        xLabel: '',
-        yLabel: '',
+        legend: true,
     };
 
     public getData() {
-        const { title, fillStyle, strokeWidth, fillWeight, roughness, xLabel, yLabel } = this.state;
+        const { title, fillStyle, strokeWidth, fillWeight, roughness, legend } = this.state;
         let error = false;
         const newState = {
             titleErr: false,
@@ -44,8 +44,7 @@ class PieChartFields extends ChartFields {
             strokeWidth,
             fillWeight,
             roughness,
-            xLabel,
-            yLabel,
+            legend,
             data: this.chartDataRef?.current?.getData(),
             error,
         };
@@ -91,17 +90,10 @@ class PieChartFields extends ChartFields {
                     error={this.state.roughnessErr}
                     numeric
                 />
-                <PropInput
-                    title={t('xLabel')}
-                    description={t('xLabelDescription')}
-                    onChange={this.updateProp.bind(this, 'xLabel')}
-                    value={this.state.xLabel}
-                />
-                <PropInput
-                    title={t('yLabel')}
-                    description={t('yLabelDescription')}
-                    onChange={this.updateProp.bind(this, 'yLabel')}
-                    value={this.state.yLabel}
+                <PropCheckbox
+                    title={t('showLegend')}
+                    onChange={this.updateProp.bind(this, 'legend')}
+                    value={this.state.legend}
                 />
             </React.Fragment>
         );

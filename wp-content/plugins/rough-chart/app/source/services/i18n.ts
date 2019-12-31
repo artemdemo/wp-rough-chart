@@ -14,6 +14,7 @@ const defaultTranslations = {
     areYouSureDelete: 'Are, you sure you want to delete chart?',
     newChart: 'New Chart',
     type: 'Type',
+    showLegend: 'Show Legend',
     lastUpdated: 'Last updated',
     roughChartsList: 'Rough Charts list',
     newPieChart: 'New Pie Chart',

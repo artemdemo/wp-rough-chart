@@ -49,7 +49,7 @@ class ChartFields extends React.PureComponent<IProps, IState> {
         );
     }
 
-    render(props: IProps, state: IState, context) {
+    render() {
         return (
             <React.Fragment>
                 {this.renderTitle()}
