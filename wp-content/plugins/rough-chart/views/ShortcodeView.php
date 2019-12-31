@@ -14,6 +14,9 @@ class ShortcodeView {
 
     public function render() {
         $chart_data = DB::get_chart_by_id($this->id);
+        if (!$chart_data) {
+            return "";
+        }
         return "
         <div
             class='rough-chart rough-chart-$this->id'

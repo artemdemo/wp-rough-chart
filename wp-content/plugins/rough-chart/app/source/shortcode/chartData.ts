@@ -3,6 +3,7 @@ type ChartPie = {
     strokeWidth: number;
     fillWeight: number;
     roughness: number;
+    legend: boolean;
     data: {
         labels: string[];
         values: number[];

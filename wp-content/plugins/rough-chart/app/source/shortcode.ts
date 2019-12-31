@@ -19,6 +19,7 @@ const __addRoughChart = (chartInput: ChartData) => {
             fillWeight: chartOptions.fillWeight,
             roughness: chartOptions.roughness,
             strokeWidth: chartOptions.strokeWidth,
+            legend: chartOptions.legend,
             data: {labels: ['a', 'b'], values: [10, 20]}
         });
     }
