@@ -3,6 +3,7 @@ import Th from '../../components/Table/Th';
 import Td from '../../components/Table/Td';
 import Tr from '../../components/Table/Tr';
 import RowActions from '../../components/Table/RowActions';
+import DangerLink from '../../components/Link/DangerLink';
 import { sendNotification } from '../../components/Notifications/Notifications';
 import { t } from '../../services/i18n';
 import { ChartDB } from '../../chartTypes';
@@ -63,11 +64,12 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                         <a href='#'>
                             {t('edit')}
                         </a> |{' '}
-                        <a href='#'
-                           onClick={this.handleDelete}
+                        <DangerLink
+                            href='#'
+                            onClick={this.handleDelete}
                         >
                             {t('delete')}
-                        </a>
+                        </DangerLink>
                     </RowActions>
                 </Th>
                 <Td>{chart.chart_type}</Td>
