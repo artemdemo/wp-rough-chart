@@ -14,17 +14,20 @@ class PieChartFields extends ChartFields {
         title: '',
         titleErr: false,
         fillStyle: defaultStyle.type,
-        strokeWidth: 1,
+        strokeWidth: '1',
         strokeWidthErr: false,
-        fillWeight: 0.5,
+        fillWeight: '0.5',
         fillWeightErr: false,
-        roughness: 1,
+        roughness: '1',
         roughnessErr: false,
         legend: true,
     };
 
     public getData() {
-        const { title, fillStyle, strokeWidth, fillWeight, roughness, legend } = this.state;
+        const { title, fillStyle, legend } = this.state;
+        const strokeWidth = parseFloat(this.state.strokeWidth);
+        const fillWeight = parseFloat(this.state.fillWeight);
+        const roughness = parseFloat(this.state.roughness);
         let error = false;
         const newState = {
             titleErr: false,
@@ -50,10 +53,10 @@ class PieChartFields extends ChartFields {
         };
     }
 
-    updateProp(propKey: string, e: any) {
+    updateProp(propKey: string, value: any) {
         // @ts-ignore
         this.setState({
-            [propKey]: e.target.value,
+            [propKey]: value,
             // Relatively simple solution for hiding error for the given field.
             // The alternative (and the better approach) will be to write logic for each field.
             [`${propKey}Err`]: false,

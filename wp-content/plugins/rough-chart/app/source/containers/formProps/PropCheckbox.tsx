@@ -32,6 +32,11 @@ class PropCheckbox extends React.PureComponent<IProps, IState> {
         })
     }
 
+    handleChange = (e: any) => {
+        const { onChange } = this.props;
+        onChange(e.target.checked);
+    };
+
     render() {
         return (
             <FormField
@@ -43,6 +48,7 @@ class PropCheckbox extends React.PureComponent<IProps, IState> {
                     <input
                         id={this.state.inputId}
                         checked={this.props.value}
+                        onChange={this.handleChange}
                         type='checkbox'
                     />
                     <Description>

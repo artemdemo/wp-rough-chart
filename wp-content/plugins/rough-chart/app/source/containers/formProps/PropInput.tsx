@@ -37,11 +37,16 @@ class PropInput extends React.PureComponent<IProps, IState> {
         })
     }
 
+    handleChange = (e: any) => {
+        const { onChange } = this.props;
+        onChange(e.target.value);
+    };
+
     renderInput() {
-        const { numeric, onChange } = this.props;
+        const { numeric } = this.props;
         const inputProps = {
             id: this.state.inputId,
-            onChange,
+            onChange: this.handleChange,
             value: String(this.props.value),
             type: 'text',
             autoCorrect: 'off',
