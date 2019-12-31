@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 import urlParse from 'url-parse';
-import ChartTypes from '../containers/chartTypes';
+import ChartTypes from '../chartTypes';
 
 const globalAppDataRef = '__roughChartsApp_$8453';
 

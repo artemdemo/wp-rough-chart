@@ -4,10 +4,10 @@ import Td from '../../components/Table/Td';
 import Tr from '../../components/Table/Tr';
 import RowActions from '../../components/Table/RowActions';
 import { t } from '../../services/i18n';
-import { Chart } from '../chartTypes';
+import { ChartDB } from '../../chartTypes';
 
 interface IProps {
-    chart: Chart;
+    chart: ChartDB;
     onDelete: (chartId: number) => void;
 }
 

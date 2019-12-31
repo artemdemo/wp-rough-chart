@@ -1,7 +1,7 @@
 import React from 'react';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
-import ChartTypes from '../containers/chartTypes';
+import { ChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
@@ -39,10 +39,10 @@ class EditChart extends React.PureComponent<IProps, IState> {
     renderTitle() {
         const { query } = this.props;
         switch ( parseInt(_get(query, 'type', '-1'), 10) ) {
-            case ChartTypes.Pie:
+            case ChartTypes.pie:
                 return t('newPieChart');
-            case ChartTypes.Bars:
-            case ChartTypes.Columns:
+            case ChartTypes.bars:
+            case ChartTypes.columns:
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }
@@ -52,11 +52,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const { query } = this.props;
         let ChartFieldsComponent;
         switch (parseInt(_get(query, 'type', '-1'), 10)) {
-            case ChartTypes.Pie:
+            case ChartTypes.pie:
                 ChartFieldsComponent = PieChartFields;
                 break;
-            case ChartTypes.Bars:
-            case ChartTypes.Columns:
+            case ChartTypes.bars:
+            case ChartTypes.columns:
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }

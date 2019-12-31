@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { t } from '../../services/i18n';
 import { getUrlToChart } from '../../services/appData';
 import Modal from '../../components/Modal/Modal';
-import Button from "../../components/Button/Button";
-import ChartTypes from '../chartTypes';
+import Button from '../../components/Button/Button';
+import { ChartTypes } from '../../chartTypes';
 
 const Popup = styled(Modal)`
     min-width: 300px;

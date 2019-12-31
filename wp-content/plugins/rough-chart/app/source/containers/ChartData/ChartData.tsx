@@ -1,7 +1,7 @@
 import React from 'react';
 import jexcel from 'jexcel';
 import * as pieData from './data/pieData';
-import ChartTypes from '../chartTypes';
+import { ChartTypes } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import contextMenu from './contextMenu';
 import Description from '../../components/Description/Description';

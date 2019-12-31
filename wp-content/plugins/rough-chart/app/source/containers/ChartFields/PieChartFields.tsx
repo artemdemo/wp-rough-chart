@@ -3,9 +3,16 @@ import PropInput from '../formProps/PropInput';
 import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import ChartFields from './ChartFields';
-import ChartTypes from '../chartTypes';
+import { ChartTypes, ChartPie } from '../../chartTypes';
 import ChartData from '../ChartData/ChartData';
 import { t } from '../../services/i18n';
+
+type PieChartFieldsData = {
+    title: string;
+    chart_type: string;
+    chart: ChartPie;
+    error: boolean;
+};
 
 class PieChartFields extends ChartFields {
     private chartDataRef = React.createRef<ChartData>();
@@ -22,7 +29,7 @@ class PieChartFields extends ChartFields {
         legend: true,
     };
 
-    public getData() {
+    public getData(): PieChartFieldsData {
         const { title, fillStyle, legend } = this.state;
         const strokeWidth = parseFloat(this.state.strokeWidth);
         const fillWeight = parseFloat(this.state.fillWeight);
@@ -39,16 +46,24 @@ class PieChartFields extends ChartFields {
         if (roughness <= 0) { newState.roughnessErr = true; error = true; }
         // @ts-ignore
         this.setState(newState);
+
         return {
             title,
-            fillStyle,
-            strokeWidth,
-            fillWeight,
-            roughness,
-            legend,
-            data: this.chartDataRef?.current?.getData(),
+            chart_type: ChartTypes[ChartTypes.pie],
+            chart: {
+                fillStyle,
+                strokeWidth,
+                fillWeight,
+                roughness,
+                legend,
+                data: this.getTableData(),
+            },
             error,
         };
+    }
+
+    getTableData(): { labels: string[]; values: number[]; colors: string[]; } {
+        return this.chartDataRef?.current?.getData();
     }
 
     updateProp(propKey: string, value: any) {
@@ -103,7 +118,7 @@ class PieChartFields extends ChartFields {
     renderChartData() {
         return (
             <ChartData
-                type={ChartTypes.Pie}
+                type={ChartTypes.pie}
                 ref={this.chartDataRef}
             />
         );

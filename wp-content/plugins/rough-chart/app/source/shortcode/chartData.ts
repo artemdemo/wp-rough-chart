@@ -1,14 +1,4 @@
-type ChartPie = {
-    fillStyle: string;
-    strokeWidth: number;
-    fillWeight: number;
-    roughness: number;
-    legend: boolean;
-    data: {
-        labels: string[];
-        values: number[];
-    };
-};
+import { ChartPie } from '../chartTypes';
 
 export const parseChart = (data: string): ChartPie|null => {
     try {

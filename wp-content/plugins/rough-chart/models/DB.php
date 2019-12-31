@@ -20,6 +20,7 @@ class DB {
           title tinytext NOT NULL,
           chart_type tinytext NOT NULL,
           chart text NOT NULL,
+          version tinytext NOT NULL,
           created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
           last_updated datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
           PRIMARY KEY (id)
@@ -44,6 +45,7 @@ class DB {
                 'title' => $title,
                 'chart_type' => $type,
                 'chart' => $chart_str,
+                'version' => ROUGH_CHART_VERSION,
                 'created' => gmdate('Y-m-d H:i:s'),
                 'last_updated' => gmdate('Y-m-d H:i:s'),
             )

@@ -69,11 +69,11 @@ class RoughChartAdmin {
                 512,
                 JSON_THROW_ON_ERROR
             );
-            $title = $chart['title'];
-            $type = $chart['type'];
-            unset($chart['title']);
-            unset($chart['type']);
-            $result = DB::add_chart( $title, $type, json_encode( $chart ) );
+            $result = DB::add_chart(
+                $chart['title'],
+                $chart['chart_type'],
+                json_encode( $chart['chart'] )
+            );
             if ($result == 1) {
                 wp_send_json( json_decode( $result ) );
             } else {

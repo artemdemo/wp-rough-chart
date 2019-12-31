@@ -1,15 +1,8 @@
 import roughViz from 'rough-viz';
 import { parseChart } from './shortcode/chartData';
+import { ChartShortcode } from './chartTypes';
 
-type ChartData = {
-    id: number;
-    className: string;
-    title: string;
-    type: string;
-    chart: string;
-};
-
-const __addRoughChart = (chartInput: ChartData) => {
+const __addRoughChart = (chartInput: ChartShortcode) => {
     const chartOptions = parseChart(chartInput.chart);
     if (chartOptions) {
         new roughViz.Pie({
