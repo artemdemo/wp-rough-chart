@@ -17,9 +17,9 @@ class ChartFields extends React.PureComponent<IProps, IState> {
         title: '',  // title can be empty
     };
 
-    updateTitle = (e) => {
+    updateTitle = (title: string) => {
         this.setState({
-            title: e.target.value,
+            title,
         })
     };
 

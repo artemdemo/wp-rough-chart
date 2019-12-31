@@ -48,15 +48,15 @@ class AddNewChart extends React.PureComponent<IProps, IState> {
                         </React.Fragment>
                     )}
                 >
-                    <a href={getUrlToChart('new', ChartTypes.Pie)}>
+                    <a href={getUrlToChart('new', ChartTypes.pie)}>
                         {t('pie')}
                     </a>
                     <br />
-                    <a href={getUrlToChart('new', ChartTypes.Columns)}>
+                    <a href={getUrlToChart('new', ChartTypes.columns)}>
                         {t('columns')}
                     </a>
                     <br />
-                    <a href={getUrlToChart('new', ChartTypes.Bars)}>
+                    <a href={getUrlToChart('new', ChartTypes.bars)}>
                         {t('bars')}
                     </a>
                 </Popup>

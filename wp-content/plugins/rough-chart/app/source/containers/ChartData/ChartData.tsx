@@ -22,11 +22,11 @@ class ChartData extends React.PureComponent<IProps, IState> {
         const { type } = this.props;
         let chartData;
         switch (type) {
-            case ChartTypes.Pie:
+            case ChartTypes.pie:
                 chartData = pieData;
                 break;
-            case ChartTypes.Bars:
-            case ChartTypes.Columns:
+            case ChartTypes.bars:
+            case ChartTypes.columns:
             default:
                 throw new Error(`There is no data for given "type",received: ${type}`);
         }

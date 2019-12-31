@@ -32,7 +32,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
     };
 
     renderTitle() {
-        const { chart } = this.props;
+        const {chart} = this.props;
         if (!chart.title || chart.title === '') {
             return (
                 <i>
@@ -40,7 +40,11 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                 </i>
             );
         }
-        return chart.title
+        return (
+            <strong>
+                {chart.title}
+            </strong>
+        );
     }
 
     render() {
@@ -48,11 +52,9 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         return (
             <Tr>
                 <Th hasRowActions>
-                    <strong>
-                        <a href='#'>
-                            {this.renderTitle()}
-                        </a>
-                    </strong>
+                    <a href='#'>
+                        {this.renderTitle()}
+                    </a>
                     <RowActions>
                         <a href='#'>
                             {t('edit')}

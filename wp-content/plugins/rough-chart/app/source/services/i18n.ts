@@ -10,7 +10,7 @@ const defaultTranslations = {
     cancel: 'Cancel',
     copy: 'Copy',
     yesDelete: 'Yes, delete',
-    toTitle: 'No title',
+    noTitle: 'No title',
     deletingChart: '⚠️ Deleting chart',
     areYouSureDelete: 'Are, you sure you want to delete chart?',
     newChart: 'New Chart',
