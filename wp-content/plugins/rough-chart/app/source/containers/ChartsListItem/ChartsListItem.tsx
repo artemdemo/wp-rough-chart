@@ -6,8 +6,9 @@ import RowActions from '../../components/Table/RowActions';
 import DangerLink from '../../components/Link/DangerLink';
 import { sendNotification } from '../../components/Notifications/Notifications';
 import { t } from '../../services/i18n';
-import { ChartDB } from '../../chartTypes';
+import { ChartDB, ChartTypes } from '../../chartTypes';
 import copyToClipboard from '../../services/copyToClipboard';
+import { getUrlToChart } from '../../services/appData';
 
 interface IProps {
     chart: ChartDB;
@@ -20,6 +21,14 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
     getDefaultShortcode(): string {
         const { chart } = this.props;
         return `[roughchart id="${chart.id}"]`
+    }
+
+    getEditLink() {
+        const { chart } = this.props;
+        return getUrlToChart(
+            String(chart.id),
+            ChartTypes[chart.chart_type],
+        );
     }
 
     handleDelete = (e: any): void => {
@@ -57,11 +66,11 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         return (
             <Tr>
                 <Th hasRowActions>
-                    <a href='#'>
+                    <a href={this.getEditLink()}>
                         {this.renderTitle()}
                     </a>
                     <RowActions>
-                        <a href='#'>
+                        <a href={this.getEditLink()}>
                             {t('edit')}
                         </a> |{' '}
                         <DangerLink
