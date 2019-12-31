@@ -11,8 +11,7 @@ class PieChartFields extends ChartFields {
     private chartDataRef = React.createRef<ChartData>();
 
     public state = {
-        title: '',
-        titleErr: false,
+        title: '',  // title can be empty
         fillStyle: defaultStyle.type,
         strokeWidth: '1',
         strokeWidthErr: false,
@@ -35,7 +34,6 @@ class PieChartFields extends ChartFields {
             fillWeightErr: false,
             roughnessErr: false,
         };
-        if (title === '') { newState.titleErr = true; error = true; }
         if (strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
         if (fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
         if (roughness <= 0) { newState.roughnessErr = true; error = true; }

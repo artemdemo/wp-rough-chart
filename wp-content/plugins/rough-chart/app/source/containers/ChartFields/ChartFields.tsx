@@ -14,8 +14,7 @@ interface IState {
 
 class ChartFields extends React.PureComponent<IProps, IState> {
     public state = {
-        title: '',
-        titleErr: false,
+        title: '',  // title can be empty
     };
 
     updateTitle = (e) => {
@@ -31,7 +30,6 @@ class ChartFields extends React.PureComponent<IProps, IState> {
                     title={t('title')}
                     onChange={this.updateTitle}
                     value={this.state.title}
-                    error={this.state.titleErr}
                 />
             </FormTable>
         );
