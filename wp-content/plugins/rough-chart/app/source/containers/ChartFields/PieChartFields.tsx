@@ -67,6 +67,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                 fillWeight: String(props.data.chart.fillWeight),
                 roughness: String(props.data.chart.roughness),
                 legend: props.data.chart.legend,
+                dataUpdated: true,
             };
         }
         return null;
@@ -156,15 +157,6 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         );
     }
 
-    renderChartData() {
-        return (
-            <ChartData
-                type={TChartTypes.pie}
-                ref={this.chartDataRef}
-            />
-        );
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -183,7 +175,10 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                         </FormTable>
                     </GridCell>
                     <GridCell columns='lg-8 md-12'>
-                        {this.renderChartData()}
+                        <ChartData
+                            type={TChartTypes.pie}
+                            ref={this.chartDataRef}
+                        />
                     </GridCell>
                 </Grid>
             </React.Fragment>
