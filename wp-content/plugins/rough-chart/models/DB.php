@@ -39,7 +39,7 @@ class DB {
     public static function add_chart($title, $type, $chart_str) {
         global $wpdb;
         $table_name = DB::get_table_name();
-        return $wpdb->insert(
+        $inserted_rows = $wpdb->insert(
             $table_name,
             array(
                 'title' => $title,
@@ -50,20 +50,28 @@ class DB {
                 'last_updated' => gmdate('Y-m-d H:i:s'),
             )
         );
+        return array(
+            'inserted_rows' => $inserted_rows,
+            'last_id' => $wpdb->insert_id,
+        );
     }
 
-    public static function update_chart($id, $chart_str) {
+    public static function update_chart($id, $title, $chart_str) {
         global $wpdb;
         $table_name = DB::get_table_name();
-        return $wpdb->update(
+        $updated_rows = $wpdb->update(
             $table_name,
             array(
+                'title' => $title,
                 'chart' => $chart_str,
                 'last_updated' => gmdate('Y-m-d H:i:s'),
             ),
             array(
                 'id' => $id,
             )
+        );
+        return array(
+            'updated_rows' => $updated_rows,
         );
     }
 

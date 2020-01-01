@@ -7,7 +7,7 @@ import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import Notifications, { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
-import { saveChartData, getChartById } from '../services/ajax';
+import { addNewChart, getChartById } from '../services/ajax';
 import { QueryParams } from '../services/routing';
 
 interface IProps {
@@ -48,15 +48,17 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const { query } = this.props;
         const type = String(TChartTypes[_get(query, 'type', '-1')]).toLowerCase();
         const chartData = this.chartFieldsRef?.current?.getData();
-        if (chartData && !chartData.error) {
-            saveChartData({
-                ..._omit(chartData, ['error']),
-                type,
-            })
-                .then((result) => {
-                    sendNotification(t('chartSaved'));
-                    console.log(result);
-                });
+        if (query.chart_id === 'new') {
+            if (chartData && !chartData.error) {
+                addNewChart({
+                    ..._omit(chartData, ['error']),
+                    type,
+                })
+                    .then((result) => {
+                        sendNotification(t('chartSaved'));
+                        console.log(result);
+                    });
+            }
         }
     };
 

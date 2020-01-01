@@ -1,16 +1,31 @@
 declare var jQuery;
 import { getAppData } from './appData';
 
-export const saveChartData = (chartData = {}) => {
+export const addNewChart = (chartData = {}) => {
     const appData = getAppData();
     return jQuery
         .ajax({
             url: appData.ajax_url,
             type: 'post',
             data: {
-                action: 'rough_chart_save_chart_data',
+                action: 'rough_chart_add_new_chart',
                 security: appData.nonce,
                 chart: JSON.stringify(chartData),
+            }
+        });
+};
+
+export const updateChart = (chartId: number, chartData = {}) => {
+    const appData = getAppData();
+    return jQuery
+        .ajax({
+            url: appData.ajax_url,
+            type: 'post',
+            data: {
+                action: 'rough_chart_update_chart',
+                security: appData.nonce,
+                chart: JSON.stringify(chartData),
+                chart_id: chartId,
             }
         });
 };

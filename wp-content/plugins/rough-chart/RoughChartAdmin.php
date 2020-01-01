@@ -23,7 +23,8 @@ class RoughChartAdmin {
 
         add_action( 'admin_menu', array( 'RoughChartAdmin', 'admin_menu' ) );
         add_action( 'admin_enqueue_scripts', array( 'RoughChartAdmin', 'add_js_scripts' ) );
-        add_action( 'wp_ajax_rough_chart_save_chart_data', array( 'RoughChartAdmin', 'save_chart_data' ) );
+        add_action( 'wp_ajax_rough_chart_add_new_chart', array( 'RoughChartAdmin', 'add_new_chart' ) );
+        add_action( 'wp_ajax_rough_chart_update_chart', array( 'RoughChartAdmin', 'update_chart' ) );
         add_action( 'wp_ajax_rough_chart_get_all_charts', array( 'RoughChartAdmin', 'get_all_charts' ) );
         add_action( 'wp_ajax_rough_chart_get_chart_by_id', array( 'RoughChartAdmin', 'get_chart_by_id' ) );
         add_action( 'wp_ajax_rough_chart_delete_chart', array( 'RoughChartAdmin', 'delete_chart' ) );
@@ -61,7 +62,7 @@ class RoughChartAdmin {
         );
     }
 
-    public static function save_chart_data() {
+    public static function add_new_chart() {
         $err = null;
         try {
             $chart = json_decode(
@@ -70,13 +71,52 @@ class RoughChartAdmin {
                 512,
                 JSON_THROW_ON_ERROR
             );
+            $title = $chart[ 'title' ];
+            $chart_type = $chart[ 'chart_type' ];
+            unset( $chart[ 'title' ] );
+            unset( $chart[ 'chart_type' ] );
             $result = DB::add_chart(
-                $chart['title'],
-                $chart['chart_type'],
-                json_encode( $chart['chart'] )
+                $title,
+                $chart_type,
+                json_encode( $chart )
             );
-            if ($result == 1) {
-                wp_send_json( json_decode( $result ) );
+            if ( $result[ 'inserted_rows' ] == 1 ) {
+                wp_send_json( $result );
+            } else {
+                $err = ErrorMsg::generalDBError();
+            }
+        } catch ( JsonException $e ) {
+            $err = ErrorMsg::fromJsonException( $e );
+        }
+        if ( $err != null ) {
+            wp_send_json(
+                $err -> toArray(),
+                $err -> getStatus()
+            );
+        }
+        die();
+    }
+
+    public static function update_chart() {
+        $chart_id = intval( $_POST[ 'chart_id' ] );
+        $err = null;
+        try {
+            $chart = json_decode(
+                stripcslashes( $_POST[ 'chart' ] ),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+            $title = $chart[ 'title' ];
+            unset( $chart[ 'title' ] );
+            unset( $chart[ 'chart_type' ] );
+            $result = DB::update_chart(
+                $chart_id,
+                $title,
+                json_encode( $chart )
+            );
+            if ( $result[ 'updated_rows' ] == 1 ) {
+                wp_send_json( $result );
             } else {
                 $err = ErrorMsg::generalDBError();
             }
@@ -109,7 +149,7 @@ class RoughChartAdmin {
         $err = null;
         $chart_id = intval( $_POST[ 'chart_id' ] );
         $result = DB::delete_chart_by_id( $chart_id );
-        if ($result == 1) {
+        if ( $result == 1 ) {
             wp_send_json( json_decode( $result ) );
         } else {
             $err = ErrorMsg::generalDBError();
