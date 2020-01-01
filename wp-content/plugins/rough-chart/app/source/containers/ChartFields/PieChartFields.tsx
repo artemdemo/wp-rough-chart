@@ -2,20 +2,46 @@ import React from 'react';
 import PropInput from '../formProps/PropInput';
 import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
-import ChartFields from './ChartFields';
-import { ChartTypes, ChartPie } from '../../chartTypes';
+import { ChartTypes, ChartPie, TChartPieTable } from '../../chartTypes';
 import ChartData from '../ChartData/ChartData';
 import { t } from '../../services/i18n';
+import Grid from '../../components/Grid/Grid';
+import GridCell from '../../components/Grid/GridCell';
+import FormTable from '../../components/FormTable/FormTable';
 
-type PieChartFieldsData = {
+interface IPieChartFields {
     title: string;
-    chart_type: string;
     chart: ChartPie;
-    error: boolean;
-};
+}
 
-class PieChartFields extends ChartFields {
+interface IPieChartFieldsOutput extends IPieChartFields {
+    chart_type: string;
+    error: boolean;
+}
+
+interface IProps {
+    data: IPieChartFields;
+}
+
+interface IState {
+    title: string;
+    fillStyle: string;
+    strokeWidth: string;
+    strokeWidthErr: boolean;
+    fillWeight: string;
+    fillWeightErr: boolean;
+    roughness: string;
+    roughnessErr: boolean;
+    legend: boolean;
+    dataUpdated: boolean;
+}
+
+class PieChartFields extends React.PureComponent<IProps, IState> {
     private chartDataRef = React.createRef<ChartData>();
+
+    static defaultPros = {
+        data: null,
+    };
 
     public state = {
         title: '',  // title can be empty
@@ -27,16 +53,32 @@ class PieChartFields extends ChartFields {
         roughness: '1',
         roughnessErr: false,
         legend: true,
+        dataUpdated: false,
     };
 
-    public getData(): PieChartFieldsData {
+    static getDerivedStateFromProps(props: IProps, state) {
+        // I'm updating state only once, when data is received (if it is what will happen).
+        // The assumption here is that I'll receive data only once in the lifecycle.
+        // It doesn't look legit that I'll request server more than once.
+        if (props.data && !state.dataUpdated) {
+            return {
+                title: props.data.title,
+                strokeWidth: String(props.data.chart.strokeWidth),
+                fillWeight: String(props.data.chart.fillWeight),
+                roughness: String(props.data.chart.roughness),
+                legend: props.data.chart.legend,
+            };
+        }
+        return null;
+    }
+
+    public getData(): IPieChartFieldsOutput {
         const { title, fillStyle, legend } = this.state;
         const strokeWidth = parseFloat(this.state.strokeWidth);
         const fillWeight = parseFloat(this.state.fillWeight);
         const roughness = parseFloat(this.state.roughness);
         let error = false;
         const newState = {
-            titleErr: false,
             strokeWidthErr: false,
             fillWeightErr: false,
             roughnessErr: false,
@@ -44,7 +86,6 @@ class PieChartFields extends ChartFields {
         if (strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
         if (fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
         if (roughness <= 0) { newState.roughnessErr = true; error = true; }
-        // @ts-ignore
         this.setState(newState);
 
         return {
@@ -62,7 +103,7 @@ class PieChartFields extends ChartFields {
         };
     }
 
-    getTableData(): { labels: string[]; values: number[]; colors: string[]; } {
+    getTableData(): TChartPieTable {
         return this.chartDataRef?.current?.getData();
     }
 
@@ -121,6 +162,31 @@ class PieChartFields extends ChartFields {
                 type={ChartTypes.pie}
                 ref={this.chartDataRef}
             />
+        );
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <FormTable>
+                    <PropInput
+                        title={t('title')}
+                        onChange={this.updateProp.bind(this, 'title')}
+                        value={this.state.title}
+                    />
+                </FormTable>
+                <p>{t('defineChart')}</p>
+                <Grid>
+                    <GridCell columns='lg-4 md-12'>
+                        <FormTable>
+                            {this.renderChartFields()}
+                        </FormTable>
+                    </GridCell>
+                    <GridCell columns='lg-8 md-12'>
+                        {this.renderChartData()}
+                    </GridCell>
+                </Grid>
+            </React.Fragment>
         );
     }
 }

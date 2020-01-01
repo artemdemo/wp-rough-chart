@@ -12,9 +12,14 @@ interface IState {
     inputId: string;
 }
 
-export const defaultStyle = { type: 'hachure', name: 'Hachure' };
+export type TStyle = {
+    type: string;
+    name: string;
+};
 
-const STYLES = [
+export const defaultStyle: TStyle = { type: 'hachure', name: 'Hachure' };
+
+const STYLES: TStyle[] = [
     defaultStyle,
     { type: 'cross-hatch', name: 'Cross-Hatch' },
     { type: 'zigzag', name: 'Zigzag' },

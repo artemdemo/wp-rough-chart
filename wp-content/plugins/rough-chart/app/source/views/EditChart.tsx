@@ -1,7 +1,7 @@
 import React from 'react';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
-import { ChartTypes } from '../chartTypes';
+import { ChartDB, ChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
@@ -15,16 +15,32 @@ interface IProps {
     type: ChartTypes;
 }
 
-interface IState {}
+interface IState {
+    chartData: any;
+}
 
 class EditChart extends React.PureComponent<IProps, IState> {
     private chartFieldsRef = React.createRef<PieChartFields>();
+
+    public state = {
+        chartData: null,
+    };
 
     componentDidMount(): void {
         const { query } = this.props;
         const chartId = query.chart_id ? parseInt(query.chart_id, 10) : null;
         if (chartId) {
             getChartById(chartId)
+                .then((chartServerData: ChartDB) => {
+                    if (chartServerData.chart) {
+                        this.setState({
+                            chartData: {
+                                title: chartServerData.title,
+                                chart: JSON.parse(chartServerData.chart)
+                            },
+                        });
+                    }
+                });
         }
     }
 
@@ -69,7 +85,10 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }
         return (
-            <ChartFieldsComponent ref={this.chartFieldsRef} />
+            <ChartFieldsComponent
+                ref={this.chartFieldsRef}
+                data={this.state.chartData}
+            />
         );
     }
 
