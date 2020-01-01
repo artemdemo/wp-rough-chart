@@ -1,6 +1,11 @@
 declare var jQuery;
 import { getAppData } from './appData';
 
+export type TAddNewChartResult = {
+    inserted_rows: number;
+    last_id: number;
+};
+
 export const addNewChart = (chartData = {}) => {
     const appData = getAppData();
     return jQuery

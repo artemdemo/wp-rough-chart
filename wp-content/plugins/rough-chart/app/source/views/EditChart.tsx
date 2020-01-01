@@ -7,8 +7,9 @@ import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import Notifications, { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
-import { addNewChart, getChartById } from '../services/ajax';
-import { QueryParams } from '../services/routing';
+import { addNewChart, TAddNewChartResult, getChartById } from '../services/ajax';
+import { QueryParams, pushState } from '../services/routing';
+import { getUrlToChart } from '../services/appData';
 
 interface IProps {
     query: QueryParams,
@@ -54,9 +55,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     ..._omit(chartData, ['error']),
                     type,
                 })
-                    .then((result) => {
+                    .then((result: TAddNewChartResult) => {
                         sendNotification(t('chartSaved'));
-                        console.log(result);
+                        pushState(
+                            getUrlToChart(String(result.last_id), _get(query, 'type')),
+                        );
                     });
             }
         }
