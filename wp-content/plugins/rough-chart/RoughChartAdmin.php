@@ -25,6 +25,7 @@ class RoughChartAdmin {
         add_action( 'admin_enqueue_scripts', array( 'RoughChartAdmin', 'add_js_scripts' ) );
         add_action( 'wp_ajax_rough_chart_save_chart_data', array( 'RoughChartAdmin', 'save_chart_data' ) );
         add_action( 'wp_ajax_rough_chart_get_all_charts', array( 'RoughChartAdmin', 'get_all_charts' ) );
+        add_action( 'wp_ajax_rough_chart_get_chart_by_id', array( 'RoughChartAdmin', 'get_chart_by_id' ) );
         add_action( 'wp_ajax_rough_chart_delete_chart', array( 'RoughChartAdmin', 'delete_chart' ) );
     }
 
@@ -93,6 +94,13 @@ class RoughChartAdmin {
 
     public static function get_all_charts() {
         $result = DB::get_all_charts();
+        wp_send_json( $result );
+        die();
+    }
+
+    public static function get_chart_by_id() {
+        $chart_id = intval( $_POST[ 'chart_id' ] );
+        $result = DB::get_chart_by_id( $chart_id );
         wp_send_json( $result );
         die();
     }

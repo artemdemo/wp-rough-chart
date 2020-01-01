@@ -7,7 +7,7 @@ import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import Notifications, { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
-import { saveChartData } from '../services/ajax';
+import { saveChartData, getChartById } from '../services/ajax';
 import { QueryParams } from '../services/routing';
 
 interface IProps {
@@ -19,6 +19,14 @@ interface IState {}
 
 class EditChart extends React.PureComponent<IProps, IState> {
     private chartFieldsRef = React.createRef<PieChartFields>();
+
+    componentDidMount(): void {
+        const { query } = this.props;
+        const chartId = query.chart_id ? parseInt(query.chart_id, 10) : null;
+        if (chartId) {
+            getChartById(chartId)
+        }
+    }
 
     saveChartData = () => {
         const { query } = this.props;

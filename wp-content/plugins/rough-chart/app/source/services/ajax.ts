@@ -28,6 +28,20 @@ export const getAllChart = () => {
         });
 };
 
+export const getChartById = (chartId: number) => {
+    const appData = getAppData();
+    return jQuery
+        .ajax({
+            url: appData.ajax_url,
+            type: 'post',
+            data: {
+                action: 'rough_chart_get_chart_by_id',
+                security: appData.nonce,
+                chart_id: chartId,
+            }
+        });
+};
+
 export const deleteChart = (chartId: number) => {
     const appData = getAppData();
     return jQuery
