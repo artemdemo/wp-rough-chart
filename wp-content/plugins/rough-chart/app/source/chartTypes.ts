@@ -1,5 +1,5 @@
 // Chart object as it returned from the server DB
-export type ChartDB = {
+export type TChartDB = {
     id: number;
     title: string;
     chart_type: string;
@@ -9,7 +9,7 @@ export type ChartDB = {
 };
 
 // Type that will be used to provide data in output of the shortcode
-export type ChartShortcode = {
+export type TChartShortcode = {
     id: number;
     className: string;
     title: string;
@@ -24,7 +24,7 @@ export type TChartPieTable = {
     colors: string[];
 };
 
-export type ChartPie = {
+export type TChartPie = {
     fillStyle: string;
     strokeWidth: number;
     fillWeight: number;
@@ -33,7 +33,7 @@ export type ChartPie = {
     data: TChartPieTable;
 };
 
-export enum ChartTypes {
+export enum TChartTypes {
     pie,
     bars,
     columns,

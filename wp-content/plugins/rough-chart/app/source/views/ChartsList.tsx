@@ -2,7 +2,7 @@ import React from 'react';
 import { t } from '../services/i18n';
 import { getAllChart, deleteChart } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
-import { ChartDB } from '../chartTypes';
+import { TChartDB } from '../chartTypes';
 import ChartsListItem from '../containers/ChartsListItem/ChartsListItem';
 import AddNewChart from '../containers/AddNewChart/AddNewChart';
 import Loading from '../components/Loading/Loading';
@@ -22,7 +22,7 @@ interface IProps {}
 interface IState {
     loading: boolean;
     chartIdToDelete: number;
-    charts: ChartDB[];
+    charts: TChartDB[];
 }
 
 class ChartsList extends React.PureComponent<IProps, IState> {
@@ -47,7 +47,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
             .then(() => {
                 sendNotification(t('chartDeleted'));
                 this.setState(prevState => ({
-                    charts: this.state.charts.filter((chart: ChartDB) => {
+                    charts: this.state.charts.filter((chart: TChartDB) => {
                         return chart.id !== prevState.chartIdToDelete;
                     }),
                     chartIdToDelete: -1,
@@ -63,7 +63,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
 
     renderCharts() {
         if (this.state.charts.length > 0) {
-            return this.state.charts.map((chart: ChartDB) => (
+            return this.state.charts.map((chart: TChartDB) => (
                 <ChartsListItem
                     chart={chart}
                     onDelete={this.showDeleteWarning}

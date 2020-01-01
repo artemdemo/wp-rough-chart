@@ -4,7 +4,7 @@ import { t } from '../../services/i18n';
 import { getUrlToChart } from '../../services/appData';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
-import { ChartTypes } from '../../chartTypes';
+import { TChartTypes } from '../../chartTypes';
 
 const Popup = styled(Modal)`
     min-width: 300px;
@@ -48,15 +48,15 @@ class AddNewChart extends React.PureComponent<IProps, IState> {
                         </React.Fragment>
                     )}
                 >
-                    <a href={getUrlToChart('new', ChartTypes.pie)}>
+                    <a href={getUrlToChart('new', TChartTypes.pie)}>
                         {t('pie')}
                     </a>
                     <br />
-                    <a href={getUrlToChart('new', ChartTypes.columns)}>
+                    <a href={getUrlToChart('new', TChartTypes.columns)}>
                         {t('columns')}
                     </a>
                     <br />
-                    <a href={getUrlToChart('new', ChartTypes.bars)}>
+                    <a href={getUrlToChart('new', TChartTypes.bars)}>
                         {t('bars')}
                     </a>
                 </Popup>

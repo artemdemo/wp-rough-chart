@@ -1,7 +1,7 @@
 import React from 'react';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
-import { ChartDB, ChartTypes } from '../chartTypes';
+import { TChartDB, TChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
@@ -12,7 +12,7 @@ import { QueryParams } from '../services/routing';
 
 interface IProps {
     query: QueryParams,
-    type: ChartTypes;
+    type: TChartTypes;
 }
 
 interface IState {
@@ -31,7 +31,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const chartId = query.chart_id ? parseInt(query.chart_id, 10) : null;
         if (chartId) {
             getChartById(chartId)
-                .then((chartServerData: ChartDB) => {
+                .then((chartServerData: TChartDB) => {
                     if (chartServerData.chart) {
                         this.setState({
                             chartData: {
@@ -46,7 +46,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
 
     saveChartData = () => {
         const { query } = this.props;
-        const type = String(ChartTypes[_get(query, 'type', '-1')]).toLowerCase();
+        const type = String(TChartTypes[_get(query, 'type', '-1')]).toLowerCase();
         const chartData = this.chartFieldsRef?.current?.getData();
         if (chartData && !chartData.error) {
             saveChartData({
@@ -63,10 +63,10 @@ class EditChart extends React.PureComponent<IProps, IState> {
     renderTitle() {
         const { query } = this.props;
         switch ( parseInt(_get(query, 'type', '-1'), 10) ) {
-            case ChartTypes.pie:
+            case TChartTypes.pie:
                 return t('newPieChart');
-            case ChartTypes.bars:
-            case ChartTypes.columns:
+            case TChartTypes.bars:
+            case TChartTypes.columns:
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }
@@ -76,11 +76,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const { query } = this.props;
         let ChartFieldsComponent;
         switch (parseInt(_get(query, 'type', '-1'), 10)) {
-            case ChartTypes.pie:
+            case TChartTypes.pie:
                 ChartFieldsComponent = PieChartFields;
                 break;
-            case ChartTypes.bars:
-            case ChartTypes.columns:
+            case TChartTypes.bars:
+            case TChartTypes.columns:
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }

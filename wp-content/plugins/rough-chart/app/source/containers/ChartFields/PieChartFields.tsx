@@ -2,7 +2,7 @@ import React from 'react';
 import PropInput from '../formProps/PropInput';
 import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
-import { ChartTypes, ChartPie, TChartPieTable } from '../../chartTypes';
+import { TChartTypes, TChartPie, TChartPieTable } from '../../chartTypes';
 import ChartData from '../ChartData/ChartData';
 import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
@@ -11,7 +11,7 @@ import FormTable from '../../components/FormTable/FormTable';
 
 interface IPieChartFields {
     title: string;
-    chart: ChartPie;
+    chart: TChartPie;
 }
 
 interface IPieChartFieldsOutput extends IPieChartFields {
@@ -90,7 +90,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
 
         return {
             title,
-            chart_type: ChartTypes[ChartTypes.pie],
+            chart_type: TChartTypes[TChartTypes.pie],
             chart: {
                 fillStyle,
                 strokeWidth,
@@ -159,7 +159,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     renderChartData() {
         return (
             <ChartData
-                type={ChartTypes.pie}
+                type={TChartTypes.pie}
                 ref={this.chartDataRef}
             />
         );

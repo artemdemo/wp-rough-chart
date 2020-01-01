@@ -1,7 +1,7 @@
 import React from 'react';
 import jexcel from 'jexcel';
 import * as pieData from './data/pieData';
-import { ChartTypes } from '../../chartTypes';
+import { TChartTypes } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import contextMenu from './contextMenu';
 import Description from '../../components/Description/Description';
@@ -9,7 +9,7 @@ import Description from '../../components/Description/Description';
 import './ChartData.less';
 
 interface IProps {
-    type?: ChartTypes;
+    type?: TChartTypes;
 }
 
 interface IState {}
@@ -22,11 +22,11 @@ class ChartData extends React.PureComponent<IProps, IState> {
         const { type } = this.props;
         let chartData;
         switch (type) {
-            case ChartTypes.pie:
+            case TChartTypes.pie:
                 chartData = pieData;
                 break;
-            case ChartTypes.bars:
-            case ChartTypes.columns:
+            case TChartTypes.bars:
+            case TChartTypes.columns:
             default:
                 throw new Error(`There is no data for given "type",received: ${type}`);
         }

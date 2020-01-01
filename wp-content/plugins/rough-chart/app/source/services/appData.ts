@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 import urlParse from 'url-parse';
-import ChartTypes from '../chartTypes';
+import { TChartTypes } from '../chartTypes';
 
 const globalAppDataRef = '__roughChartsApp_$8453';
 
@@ -15,7 +15,7 @@ export const getAppData = (): AppData => {
     return window[globalAppDataRef];
 };
 
-export const getUrlToChart = (chartId: string, type?: ChartTypes) => {
+export const getUrlToChart = (chartId: string, type?: TChartTypes) => {
     const appData = getAppData();
     const parsedUrl = urlParse(appData.plugin_url);
     const query = {

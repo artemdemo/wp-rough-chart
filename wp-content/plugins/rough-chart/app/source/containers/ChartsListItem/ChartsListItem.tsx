@@ -6,12 +6,12 @@ import RowActions from '../../components/Table/RowActions';
 import DangerLink from '../../components/Link/DangerLink';
 import { sendNotification } from '../../components/Notifications/Notifications';
 import { t } from '../../services/i18n';
-import { ChartDB, ChartTypes } from '../../chartTypes';
+import { TChartDB, TChartTypes } from '../../chartTypes';
 import copyToClipboard from '../../services/copyToClipboard';
 import { getUrlToChart } from '../../services/appData';
 
 interface IProps {
-    chart: ChartDB;
+    chart: TChartDB;
     onDelete: (chartId: number) => void;
 }
 
@@ -27,7 +27,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         const { chart } = this.props;
         return getUrlToChart(
             String(chart.id),
-            ChartTypes[chart.chart_type],
+            TChartTypes[chart.chart_type],
         );
     }
 
