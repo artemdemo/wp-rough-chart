@@ -66,8 +66,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const { query } = this.props;
         switch ( parseInt(_get(query, 'type', '-1'), 10) ) {
             case TChartTypes.pie:
-                return t('newPieChart');
+                return query.chart_id === 'new' ? t('newPieChart') : t('editPieChart');
             case TChartTypes.bars:
+                return query.chart_id === 'new' ? t('newBarChart') : t('editBarChart');
             case TChartTypes.columns:
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
@@ -95,6 +96,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
     }
 
     render() {
+        const { query } = this.props;
         return (
             <React.Fragment>
                 <Title>
@@ -109,7 +111,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     onClick={this.saveChartData}
                     appearance={BtnAppearance.Primary}
                 >
-                    {t('createNewChart')}
+                    {query.chart_id === 'new' ? t('createNewChart') : t('saveChart')}
                 </Button>
                 <Notifications />
             </React.Fragment>
