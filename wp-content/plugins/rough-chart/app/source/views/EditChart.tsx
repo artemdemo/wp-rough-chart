@@ -10,6 +10,7 @@ import { t } from '../services/i18n';
 import { addNewChart, TAddNewChartResult, updateChart, getChartById } from '../services/ajax';
 import { QueryParams, pushState } from '../routing/routing';
 import { getUrlToChart, getUrlToChartsList } from '../services/appData';
+import { getIntFromString } from '../services/utils';
 
 interface IProps {
     query: QueryParams,
@@ -29,7 +30,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
 
     componentDidMount(): void {
         const { query } = this.props;
-        const chartId = query.chart_id ? parseInt(query.chart_id, 10) : null;
+        const chartId = getIntFromString(query.chart_id);
         if (chartId) {
             getChartById(chartId)
                 .then((chartServerData: TChartDB) => {
@@ -64,7 +65,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
             }
         } else if (query.chart_id) {
             updateChart(
-                parseInt(query.chart_id, 10),
+                getIntFromString(query.chart_id),
                 _omit(chartData, ['error']),
             )
                 .then((result: TAddNewChartResult) => {
@@ -103,6 +104,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
             <ChartFieldsComponent
                 ref={this.chartFieldsRef}
                 data={this.state.chartData}
+                chartId={getIntFromString(query.chart_id)}
             />
         );
     }

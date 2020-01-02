@@ -8,6 +8,8 @@ import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
+import FormField from '../../components/FormTable/FormField';
+import Shortcode from '../Shortcode/Shortcode';
 
 interface IPieChartFields {
     title: string;
@@ -21,6 +23,7 @@ interface IPieChartFieldsOutput extends IPieChartFields {
 
 interface IProps {
     data: IPieChartFields;
+    chartId?: number;
 }
 
 interface IState {
@@ -41,6 +44,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
 
     static defaultPros = {
         data: null,
+        chartId: undefined,
     };
 
     public state = {
@@ -157,6 +161,20 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         );
     }
 
+    renderShortcode() {
+        const { chartId } = this.props;
+        if ( chartId !== undefined ) {
+            return (
+                <FormField
+                    title={t('shortcode')}
+                >
+                    <Shortcode chartId={chartId} />
+                </FormField>
+            );
+        }
+        return null;
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -166,6 +184,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                         onChange={this.updateProp.bind(this, 'title')}
                         value={this.state.title}
                     />
+                    {this.renderShortcode()}
                 </FormTable>
                 <p>{t('defineChart')}</p>
                 <Grid>
