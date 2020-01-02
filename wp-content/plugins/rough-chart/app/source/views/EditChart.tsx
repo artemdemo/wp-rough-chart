@@ -7,7 +7,7 @@ import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
-import { addNewChart, TAddNewChartResult, getChartById } from '../services/ajax';
+import { addNewChart, TAddNewChartResult, updateChart, getChartById } from '../services/ajax';
 import { QueryParams, pushState } from '../routing/routing';
 import { getUrlToChart } from '../services/appData';
 
@@ -62,6 +62,14 @@ class EditChart extends React.PureComponent<IProps, IState> {
                         );
                     });
             }
+        } else if (query.chart_id) {
+            updateChart(
+                parseInt(query.chart_id, 10),
+                _omit(chartData, ['error']),
+            )
+                .then((result: TAddNewChartResult) => {
+                    sendNotification(t('chartSaved'));
+                });
         }
     };
 
