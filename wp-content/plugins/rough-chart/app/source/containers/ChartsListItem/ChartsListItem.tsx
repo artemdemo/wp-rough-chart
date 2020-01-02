@@ -9,6 +9,7 @@ import { t } from '../../services/i18n';
 import { TChartDB, TChartTypes } from '../../chartTypes';
 import copyToClipboard from '../../services/copyToClipboard';
 import { getUrlToChart } from '../../services/appData';
+import { pushState } from '../../routing/routing';
 
 interface IProps {
     chart: TChartDB;
@@ -31,6 +32,11 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         );
     }
 
+    handleLinkClick = (e: any): void => {
+        e.preventDefault();
+        pushState(e.target.getAttribute('href'));
+    };
+
     handleDelete = (e: any): void => {
         e.preventDefault();
         const { chart, onDelete } = this.props;
@@ -50,13 +56,17 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         if (!chart.title || chart.title === '') {
             return (
                 <i>
-                    {t('noTitle')}
+                    <a href={this.getEditLink()} onClick={this.handleLinkClick}>
+                        {t('noTitle')}
+                    </a>
                 </i>
             );
         }
         return (
             <strong>
-                {chart.title}
+                <a href={this.getEditLink()} onClick={this.handleLinkClick}>
+                    {chart.title}
+                </a>
             </strong>
         );
     }
@@ -66,11 +76,9 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
         return (
             <Tr>
                 <Th hasRowActions>
-                    <a href={this.getEditLink()}>
-                        {this.renderTitle()}
-                    </a>
+                    {this.renderTitle()}
                     <RowActions>
-                        <a href={this.getEditLink()}>
+                        <a href={this.getEditLink()} onClick={this.handleLinkClick}>
                             {t('edit')}
                         </a> |{' '}
                         <DangerLink
