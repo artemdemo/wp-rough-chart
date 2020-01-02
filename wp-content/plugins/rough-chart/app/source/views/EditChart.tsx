@@ -9,7 +9,7 @@ import { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
 import { addNewChart, TAddNewChartResult, updateChart, getChartById } from '../services/ajax';
 import { QueryParams, pushState } from '../routing/routing';
-import { getUrlToChart } from '../services/appData';
+import { getUrlToChart, getUrlToChartsList } from '../services/appData';
 
 interface IProps {
     query: QueryParams,
@@ -69,6 +69,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
             )
                 .then((result: TAddNewChartResult) => {
                     sendNotification(t('chartSaved'));
+                    pushState(getUrlToChartsList());
                 });
         }
     };

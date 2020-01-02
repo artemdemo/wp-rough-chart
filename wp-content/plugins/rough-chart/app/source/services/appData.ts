@@ -25,3 +25,8 @@ export const getUrlToChart = (chartId: string, type?: TChartTypes) => {
     };
     return `${parsedUrl.origin}${parsedUrl.pathname}?${queryString.stringify(query)}`;
 };
+
+export const getUrlToChartsList = () => {
+    const appData = getAppData();
+    return appData.plugin_url;
+};
