@@ -19,15 +19,24 @@ class App extends React.PureComponent<IProps, IState> {
             <RouteProvider
                 routes={{
                     'chart_id=new&type=*': {
-                        component: () => import('./EditChart'),
+                        component: () => import(
+                            /* webpackChunkName: "EditChart" */
+                            './EditChart'
+                        ),
                         name: 'Edit Chart #1',
                     },
                     'chart_id=*': {
-                        component: () => import('./EditChart'),
+                        component: () => import(
+                            /* webpackChunkName: "EditChart" */
+                            './EditChart'
+                        ),
                         name: 'Edit Chart #2',
                     },
                     '*': {
-                        component: () => import('./ChartsList'),
+                        component: () => import(
+                            /* webpackChunkName: "ChartsList" */
+                            './ChartsList'
+                        ),
                         name: 'Charts List',
                     },
                 }}
