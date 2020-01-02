@@ -1,13 +1,13 @@
 import React from 'react';
 import NanoEvents from 'nanoevents';
-import NoteModel, { NotificationTypes } from './NoteModel';
+import NoteModel, { TNotification } from './NoteModel';
 import Note from './Note';
 
 const emitter = new NanoEvents();
 
 const SEND_NOTIFICATION = 'SEND_NOTIFICATION';
 
-export const sendNotification = (msg: string, type: NotificationTypes = NotificationTypes.Success) => {
+export const sendNotification = (msg: string, type: TNotification = TNotification.Success) => {
     emitter.emit(SEND_NOTIFICATION, new NoteModel(msg, type));
 };
 

@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import NoteModel, { NotificationTypes } from './NoteModel';
+import NoteModel, { TNotification } from './NoteModel';
 
-const Note = styled.div`
+type TNoteComponent = {
+    type?: TNotification;
+};
+
+const Note = styled.div<TNoteComponent>`
     position: absolute;
     color: white;
     padding: 5px 10px;
@@ -11,12 +15,12 @@ const Note = styled.div`
     opacity: 0.7;
     ${(props) => {
         switch (props.type) {
-            case NotificationTypes.Error:
+            case TNotification.Error:
                 return `
                     background-color: #f4511e;
                     border-color: #c74116;
                 `;
-            case NotificationTypes.Success:
+            case TNotification.Success:
             default:
                 return `
                     background-color: #4CAF50;

@@ -3,7 +3,11 @@ import styled from 'styled-components';
 
 import './Modal.less';
 
-const ModalBg = styled.div`
+type TModalComponents = {
+    show?: boolean;
+};
+
+const ModalBg = styled.div<TModalComponents>`
     ${props => props.show ? 'display: block;' : 'display: none;'};
     position: absolute;
     left: 0;
@@ -13,7 +17,7 @@ const ModalBg = styled.div`
     background: rgba(0, 0, 0, 0.3);
 `;
 
-const ModalWrapper = styled.div`
+const ModalWrapper = styled.div<TModalComponents>`
     ${props => props.show ? 'display: block;' : 'display: none;'};
     position: absolute;
     top: 20%;

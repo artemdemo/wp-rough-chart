@@ -36,12 +36,7 @@ module.exports = (env, args) => {
                 {
                     test: /\.[t|j]sx?$/,
                     exclude: /node_modules/,
-                    use: [{
-                        loader: 'ts-loader',
-                        options: {
-                            transpileOnly: true,
-                        },
-                    }],
+                    use: 'ts-loader',
                 },
                 // app main .less file
                 {
