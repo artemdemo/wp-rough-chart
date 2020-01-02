@@ -15,7 +15,7 @@ import Th from '../components/Table/Th';
 import Td from '../components/Table/Td';
 import Modal from '../components/Modal/Modal';
 import Button, { BtnAppearance } from '../components/Button/Button';
-import Notifications, { sendNotification } from '../components/Notifications/Notifications';
+import { sendNotification } from '../components/Notifications/Notifications';
 
 interface IProps {}
 
@@ -133,7 +133,6 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                 >
                     {t('areYouSureDelete')}
                 </Modal>
-                <Notifications />
             </React.Fragment>
         );
     }

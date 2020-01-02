@@ -5,7 +5,7 @@ import { TChartDB, TChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
-import Notifications, { sendNotification } from '../components/Notifications/Notifications';
+import { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
 import { addNewChart, TAddNewChartResult, getChartById } from '../services/ajax';
 import { QueryParams, pushState } from '../routing/routing';
@@ -116,7 +116,6 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 >
                     {query.chart_id === 'new' ? t('createNewChart') : t('saveChart')}
                 </Button>
-                <Notifications />
             </React.Fragment>
         )
     }
