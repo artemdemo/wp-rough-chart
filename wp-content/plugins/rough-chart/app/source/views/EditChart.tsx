@@ -37,7 +37,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                         this.setState({
                             chartData: {
                                 title: chartServerData.title,
-                                chart: JSON.parse(chartServerData.chart)
+                                chart: JSON.parse(chartServerData.chart),
                             },
                         });
                     }
