@@ -1,43 +1,46 @@
 import React from 'react';
-import queryString from 'query-string';
-import { onPushState } from './routing';
+import { getQuery, onPushState } from './routing';
+import findUnion from './findUnion';
 
-type TRouteDefinitionKey = {
-    origin: string;
-    key: string;
-    comparison: string;
+type TRoute = {
+    component: () => any;
+    name?: string;
 };
 
 interface IProps {
     routes: {
-        [key: string]: {
-            component: () => any;
-            name?: string;
-        };
+        [key: string]: TRoute;
     };
 }
 interface IState {
-    currentSearch: string;
+    Component: any;
 }
 
+/**
+ * QueryRoutComponent displaying components based on the query params.
+ */
 class QueryRouteProvider extends React.PureComponent<IProps, IState> {
     private onPushStateUnbind;
-    public state = {
-        currentSearch: location.search,
-    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            Component: null,
+        };
+    }
 
     componentDidMount(): void {
         this.onPushStateUnbind = onPushState((data) => {
             const urlSearchRegex = /(\?\S+)$/gm;
             const match = urlSearchRegex.exec(data.url);
             if (match) {
-                this.setState({
-                    currentSearch: match[1],
-                });
+                this.handleQueryChange(match[1]);
             }
         });
 
         window.addEventListener('popstate', this.onPopState);
+        this.onPopState();
     }
 
     componentWillUnmount(): void {
@@ -46,49 +49,33 @@ class QueryRouteProvider extends React.PureComponent<IProps, IState> {
     }
 
     onPopState = () => {
-        this.setState({
-            currentSearch: location.search,
-        });
+        this.handleQueryChange(location.search);
     };
 
-    parseKey(key: string): TRouteDefinitionKey[] {
-        const keyRegex = /([^=&?]+)=([^&]*)/gm;
-        let match;
-        const result: TRouteDefinitionKey[] = [];
-        while ((match = keyRegex.exec(key)) !== null) {
-            // This is necessary to avoid infinite loops with zero-width matches
-            if (match.index === keyRegex.lastIndex) {
-                keyRegex.lastIndex++;
+    handleQueryChange(search: string) {
+        const union = findUnion(search, this.props.routes);
+        if (union) {
+            const componentProp = union.component();
+            if (componentProp instanceof Promise) {
+                componentProp.then((result) => {
+                    this.setState(({
+                        Component: result.default,
+                    }))
+                });
+            } else {
+                this.setState(({
+                    Component: componentProp,
+                }))
             }
-
-            const group: TRouteDefinitionKey = {
-                origin: '',
-                key: '',
-                comparison: '',
-            };
-
-            match.forEach((match: string, idx) => {
-                switch (idx) {
-                    case 0:
-                        group.origin = match;
-                        break;
-                    case 1:
-                        group.key = match;
-                        break;
-                    case 2:
-                        group.comparison = match;
-                        break;
-                }
-            });
-            result.push(group);
         }
-        return result;
     }
 
     render() {
-        console.log(queryString.parse(this.state.currentSearch));
-        console.log(this.parseKey(Object.keys(this.props.routes)[0]));
-        return this.state.currentSearch;
+        const { Component } = this.state;
+        if (Component) {
+            return <Component query={getQuery()} />
+        }
+        return null;
     }
 }
 
