@@ -1,7 +1,8 @@
 declare var __webpack_public_path__;
 import React from 'react';
-import { getQuery } from '../services/routing';
+import { getQuery } from '../routing/routing';
 import { getAppData } from '../services/appData';
+import RouteProvider from '../routing/QueryRouteProvider';
 
 // I'm setting public path on the fly.
 // This way I can be sure that I have the right url to the build folder.
@@ -44,7 +45,27 @@ class App extends React.PureComponent<IProps, IState> {
     render() {
         const { Component } = this.state;
         if (Component) {
-            return <Component query={getQuery()} />;
+            return (
+                <React.Fragment>
+                    <RouteProvider
+                        routes={{
+                            'chart_id=*&type=*': {
+                                component: () => import('./EditChart'),
+                                name: 'Edit Chart #1',
+                            },
+                            'chart_id=*': {
+                                component: () => import('./EditChart'),
+                                name: 'Edit Chart #2',
+                            },
+                            '*': {
+                                component: () => import('./ChartsList'),
+                                name: 'Charts List',
+                            },
+                        }}
+                    />
+                    <Component query={getQuery()} />
+                </React.Fragment>
+            );
         }
         return null;
     }

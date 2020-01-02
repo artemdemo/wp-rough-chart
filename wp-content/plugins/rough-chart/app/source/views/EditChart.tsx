@@ -8,7 +8,7 @@ import Title from '../components/Title/Title';
 import Notifications, { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
 import { addNewChart, TAddNewChartResult, getChartById } from '../services/ajax';
-import { QueryParams, pushState } from '../services/routing';
+import { QueryParams, pushState } from '../routing/routing';
 import { getUrlToChart } from '../services/appData';
 
 interface IProps {
