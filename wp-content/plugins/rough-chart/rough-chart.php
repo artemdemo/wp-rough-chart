@@ -43,6 +43,7 @@ ini_set( 'display_errors', 1 );
 define( 'ROUGH_CHART_VERSION', '1.0.0' );
 define( 'ROUGH_CHART_MINIMUM_WP_VERSION', '5.0' );
 define( 'ROUGH_CHART_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'ROUGH_CHART_BASENAME', plugin_basename( __FILE__ ) );
 
 register_activation_hook( __FILE__, array( 'RoughChart', 'plugin_activation' ) );
 register_deactivation_hook(__FILE__, array( 'RoughChart', 'plugin_deactivation' ) );

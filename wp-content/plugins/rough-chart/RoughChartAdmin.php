@@ -24,6 +24,7 @@ class RoughChartAdmin {
     public static function init_hooks() {
         self::$initiated = true;
 
+        // --> Add action hooks
         add_action( 'admin_menu', array( 'RoughChartAdmin', 'admin_menu' ) );
         add_action( 'admin_enqueue_scripts', array( 'RoughChartAdmin', 'add_js_scripts' ) );
         add_action( 'wp_ajax_rough_chart_add_new_chart', array( 'RoughChartAdmin', 'add_new_chart' ) );
@@ -31,6 +32,9 @@ class RoughChartAdmin {
         add_action( 'wp_ajax_rough_chart_get_all_charts', array( 'RoughChartAdmin', 'get_all_charts' ) );
         add_action( 'wp_ajax_rough_chart_get_chart_by_id', array( 'RoughChartAdmin', 'get_chart_by_id' ) );
         add_action( 'wp_ajax_rough_chart_delete_chart', array( 'RoughChartAdmin', 'delete_chart' ) );
+
+        // --> Add filter hooks
+        add_filter( 'plugin_action_links_' . ROUGH_CHART_BASENAME, array( 'RoughChartAdmin', 'add_plugin_page_settings_link' ) );
     }
 
     public static function admin_menu() {
@@ -63,6 +67,22 @@ class RoughChartAdmin {
                 'build_folder' => $build_folder,
             )
         );
+    }
+
+    /**
+     * Adds custom links to the plugin in the plugin overview page.
+     *
+     * @param array  $links Array of links for the plugins, adapted when the current plugin is found.
+     * @param string $file  The filename for the current plugin, which the filter loops through.
+     *
+     * @return array $links
+     */
+    public static function add_plugin_page_settings_link( $links, $file ) {
+        $settings_link = '<a href="' .
+                   admin_url( 'themes.php?page=' . RoughChartAdmin::$menu_slug ) .
+                   '">' . __('Settings') . '</a>';
+        array_unshift( $links, $settings_link );
+        return $links;
     }
 
     /**
