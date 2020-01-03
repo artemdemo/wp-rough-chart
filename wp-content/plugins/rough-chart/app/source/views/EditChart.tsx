@@ -49,6 +49,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
                             loading: false,
                         });
                     }
+                })
+                .fail(() => {
+                    this.setState({ loading: false });
                 });
         }
     }
@@ -74,6 +77,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
                         // just update the current URL.
                         // pushState(getUrlToChart(String(result.last_id), _get(query, 'type')));
                         pushState(getUrlToChartsList());
+                    })
+                    .fail(() => {
+                        this.setState({ loading: false });
                     });
             }
         } else if (query.chart_id) {
@@ -84,6 +90,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 .done((result: TAddNewChartResult) => {
                     sendNotification(t('chartSaved'));
                     pushState(getUrlToChartsList());
+                })
+                .fail(() => {
+                    this.setState({ loading: false });
                 });
         }
     };

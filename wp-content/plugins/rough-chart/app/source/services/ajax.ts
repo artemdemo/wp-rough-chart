@@ -14,11 +14,14 @@ export const generalErrorHandler = (response) => {
     const statusText = _get(response, 'statusText', t('anErrorOccurred'));
     if (statusText !== 'abort') {
         sendNotification(statusText, ENotification.Error);
-        console.error({
+        const errDescription = {
             responseJSON: response.responseJSON,
             status: response.status,
             statusText: response.statusText,
-        });
+        };
+        console.error(errDescription);
+        // This return statement will allow to use `.fail` again down the line.
+        return errDescription;
     }
 };
 

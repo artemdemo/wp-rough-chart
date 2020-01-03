@@ -42,6 +42,9 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                     charts,
                     loading: false,
                 });
+            })
+            .fail(() => {
+                this.setState({ loading: false });
             });
     }
 
@@ -59,6 +62,9 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                     }),
                     chartIdToDelete: -1,
                 }));
+            })
+            .fail(() => {
+                this.setState({ chartIdToDelete: -1 });
             });
     };
 
