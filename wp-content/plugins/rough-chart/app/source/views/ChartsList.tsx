@@ -16,6 +16,7 @@ import Td from '../components/Table/Td';
 import Modal from '../components/Modal/Modal';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import { sendNotification } from '../components/Notifications/Notifications';
+import jqXHR = JQuery.jqXHR;
 
 interface IProps {}
 
@@ -32,38 +33,32 @@ class ChartsList extends React.PureComponent<IProps, IState> {
         charts: [],
     };
 
-    private unmounted = false;
+    private requestRef: jqXHR;
 
     componentDidMount(): void {
-        getAllChart()
-            .then((charts) => {
-                if (!this.unmounted) {
-                    this.setState({
-                        charts,
-                        loading: false,
-                    });
-                }
+        this.requestRef = getAllChart()
+            .done((charts) => {
+                this.setState({
+                    charts,
+                    loading: false,
+                });
             });
     }
 
     componentWillUnmount(): void {
-        this.unmounted = true;
+        this.requestRef && this.requestRef.abort();
     }
 
     handelDelete = () => {
-        deleteChart(this.state.chartIdToDelete)
+        this.requestRef = deleteChart(this.state.chartIdToDelete)
             .done(() => {
                 sendNotification(t('chartDeleted'));
                 this.setState(prevState => ({
                     charts: this.state.charts.filter((chart: TChartDB) => {
                         return chart.id !== prevState.chartIdToDelete;
                     }),
-                }));
-            })
-            .always(() => {
-                this.setState({
                     chartIdToDelete: -1,
-                });
+                }));
             });
     };
 

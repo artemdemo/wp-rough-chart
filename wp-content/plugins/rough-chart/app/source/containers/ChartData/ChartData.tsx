@@ -9,12 +9,17 @@ import Description from '../../components/Description/Description';
 import './ChartData.less';
 
 interface IProps {
-    type?: TChartTypes;
+    type: TChartTypes;
+    disabled?: boolean;
 }
 
 interface IState {}
 
 class ChartData extends React.PureComponent<IProps, IState> {
+    static defaultProps = {
+        disabled: false,
+    };
+
     private tableBaseRef = React.createRef<HTMLDivElement>();
     private table: any = null;
 

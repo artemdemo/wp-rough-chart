@@ -12,12 +12,14 @@ export type TAddNewChartResult = {
 
 export const generalErrorHandler = (response) => {
     const statusText = _get(response, 'statusText', t('anErrorOccurred'));
-    sendNotification(statusText, ENotification.Error);
-    console.error({
-        responseJSON: response.responseJSON,
-        status: response.status,
-        statusText: response.statusText,
-    });
+    if (statusText !== 'abort') {
+        sendNotification(statusText, ENotification.Error);
+        console.error({
+            responseJSON: response.responseJSON,
+            status: response.status,
+            statusText: response.statusText,
+        });
+    }
 };
 
 export const addNewChart = (chartData = {}) => {

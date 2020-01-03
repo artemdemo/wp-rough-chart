@@ -24,6 +24,7 @@ interface IPieChartFieldsOutput extends IPieChartFields {
 interface IProps {
     data: IPieChartFields;
     chartId?: number;
+    disabled?: boolean;
 }
 
 interface IState {
@@ -45,6 +46,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     static defaultPros = {
         data: null,
         chartId: undefined,
+        disabled: false,
     };
 
     public state = {
@@ -123,17 +125,20 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     };
 
     renderChartFields() {
+        const { disabled } = this.props;
         return (
             <React.Fragment>
                 <FillStyle
                     value={this.state.fillStyle}
                     onChange={this.updateProp.bind(this, 'fillStyle')}
+                    disabled={disabled}
                 />
                 <PropInput
                     title={t('strokeWidth')}
                     onChange={this.updateProp.bind(this, 'strokeWidth')}
                     value={this.state.strokeWidth}
                     error={this.state.strokeWidthErr}
+                    disabled={disabled}
                     numeric
                 />
                 <PropInput
@@ -142,6 +147,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                     onChange={this.updateProp.bind(this, 'fillWeight')}
                     value={this.state.fillWeight}
                     error={this.state.fillWeightErr}
+                    disabled={disabled}
                     numeric
                 />
                 <PropInput
@@ -150,12 +156,14 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                     onChange={this.updateProp.bind(this, 'roughness')}
                     value={this.state.roughness}
                     error={this.state.roughnessErr}
+                    disabled={disabled}
                     numeric
                 />
                 <PropCheckbox
                     title={t('showLegend')}
                     onChange={this.updateProp.bind(this, 'legend')}
                     value={this.state.legend}
+                    disabled={disabled}
                 />
             </React.Fragment>
         );
@@ -176,6 +184,8 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     }
 
     render() {
+        const { disabled } = this.props;
+
         return (
             <React.Fragment>
                 <FormTable>
@@ -183,6 +193,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                         title={t('title')}
                         onChange={this.updateProp.bind(this, 'title')}
                         value={this.state.title}
+                        disabled={disabled}
                     />
                     {this.renderShortcode()}
                 </FormTable>
@@ -196,6 +207,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                     <GridCell columns='lg-8 md-12'>
                         <ChartData
                             type={TChartTypes.pie}
+                            disabled={disabled}
                             ref={this.chartDataRef}
                         />
                     </GridCell>

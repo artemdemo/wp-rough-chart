@@ -9,6 +9,7 @@ interface IProps {
     value: boolean;
     onChange: (e: any) => void;
     error?: boolean;
+    disabled?: boolean;
 }
 
 interface IState {
@@ -20,6 +21,7 @@ class PropCheckbox extends React.PureComponent<IProps, IState> {
         title: '',
         description: '',
         error: false,
+        disabled: false,
     };
 
     public state = {
@@ -38,6 +40,7 @@ class PropCheckbox extends React.PureComponent<IProps, IState> {
     };
 
     render() {
+        const { disabled } = this.props;
         return (
             <FormField
                 title={this.props.title}
@@ -49,6 +52,7 @@ class PropCheckbox extends React.PureComponent<IProps, IState> {
                         id={this.state.inputId}
                         checked={this.props.value}
                         onChange={this.handleChange}
+                        disabled={disabled}
                         type='checkbox'
                     />
                     <Description>

@@ -13,6 +13,7 @@ interface IProps {
     onChange: (e: any) => void;
     numeric?: boolean;
     error?: boolean;
+    disabled?: boolean;
 }
 
 interface IState {
@@ -25,6 +26,7 @@ class PropInput extends React.PureComponent<IProps, IState> {
         description: '',
         numeric: false,
         error: false,
+        disabled: false,
     };
 
     public state = {
@@ -43,13 +45,14 @@ class PropInput extends React.PureComponent<IProps, IState> {
     };
 
     renderInput() {
-        const { numeric } = this.props;
+        const { numeric, disabled } = this.props;
         const inputProps = {
             id: this.state.inputId,
             onChange: this.handleChange,
             value: String(this.props.value),
             type: 'text',
             autoCorrect: 'off',
+            disabled,
         };
         if (numeric) {
             return (

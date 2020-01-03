@@ -5,12 +5,14 @@ import { TChartDB, TChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import Title from '../components/Title/Title';
+import Loading from '../components/Loading/Loading';
 import { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
 import { addNewChart, TAddNewChartResult, updateChart, getChartById } from '../services/ajax';
 import { QueryParams, pushState } from '../routing/routing';
-import { getUrlToChart, getUrlToChartsList } from '../services/appData';
+import { getUrlToChartsList } from '../services/appData';
 import { getIntFromString } from '../services/utils';
+import jqXHR = JQuery.jqXHR;
 
 interface IProps {
     query: QueryParams,
@@ -19,6 +21,7 @@ interface IProps {
 
 interface IState {
     chartData: any;
+    loading: boolean;
 }
 
 class EditChart extends React.PureComponent<IProps, IState> {
@@ -26,22 +29,24 @@ class EditChart extends React.PureComponent<IProps, IState> {
 
     public state = {
         chartData: null,
+        loading: true,
     };
 
-    private unmounted = false;
+    private requestRef: jqXHR;
 
     componentDidMount(): void {
         const { query } = this.props;
         const chartId = getIntFromString(query.chart_id);
         if (chartId !== undefined) {
-            getChartById(chartId)
-                .then((chartServerData: TChartDB) => {
-                    if (chartServerData.chart && !this.unmounted) {
+            this.requestRef = getChartById(chartId)
+                .done((chartServerData: TChartDB) => {
+                    if (chartServerData.chart) {
                         this.setState({
                             chartData: {
                                 title: chartServerData.title,
                                 chart: JSON.parse(chartServerData.chart),
                             },
+                            loading: false,
                         });
                     }
                 });
@@ -49,20 +54,21 @@ class EditChart extends React.PureComponent<IProps, IState> {
     }
 
     componentWillUnmount(): void {
-        this.unmounted = true;
+        this.requestRef && this.requestRef.abort();
     }
 
     saveChartData = () => {
         const { query } = this.props;
         const type = String(TChartTypes[_get(query, 'type', '-1')]).toLowerCase();
         const chartData = this.chartFieldsRef?.current?.getData();
+        this.setState({ loading: true });
         if (query.chart_id === 'new') {
             if (chartData && !chartData.error) {
-                addNewChart({
+                this.requestRef = addNewChart({
                     ..._omit(chartData, ['error']),
                     type,
                 })
-                    .then((result: TAddNewChartResult) => {
+                    .done((result: TAddNewChartResult) => {
                         sendNotification(t('chartAdded'));
                         // Potentially here you can keep user on this page,
                         // just update the current URL.
@@ -71,11 +77,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     });
             }
         } else if (query.chart_id) {
-            updateChart(
+            this.requestRef = updateChart(
                 getIntFromString(query.chart_id),
                 _omit(chartData, ['error']),
             )
-                .then((result: TAddNewChartResult) => {
+                .done((result: TAddNewChartResult) => {
                     sendNotification(t('chartSaved'));
                     pushState(getUrlToChartsList());
                 });
@@ -112,6 +118,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 ref={this.chartFieldsRef}
                 data={this.state.chartData}
                 chartId={getIntFromString(query.chart_id)}
+                disabled={this.state.loading}
             />
         );
     }
@@ -131,9 +138,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 <Button
                     onClick={this.saveChartData}
                     appearance={BtnAppearance.Primary}
+                    disabled={this.state.loading}
                 >
                     {query.chart_id === 'new' ? t('createNewChart') : t('saveChart')}
                 </Button>
+                <Loading show={this.state.loading} inline />
             </React.Fragment>
         )
     }

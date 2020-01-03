@@ -6,6 +6,7 @@ interface IProps {
     value: string;
     onChange: (value: string) => void;
     error?: boolean;
+    disabled?: boolean;
 }
 
 interface IState {
@@ -29,6 +30,11 @@ const STYLES: TStyle[] = [
 ];
 
 class FillStyle extends React.PureComponent<IProps, IState> {
+    static defaultProps = {
+        error: false,
+        disabled: false,
+    };
+
     state = {
         inputId: 'chart_fill_style',
     };
@@ -39,6 +45,7 @@ class FillStyle extends React.PureComponent<IProps, IState> {
     };
 
     render() {
+        const { disabled } = this.props;
         return (
             <FormField
                 title={t('fillStyle')}
@@ -49,6 +56,7 @@ class FillStyle extends React.PureComponent<IProps, IState> {
                     id={this.state.inputId}
                     value={this.props.value}
                     onChange={this.handleChange}
+                    disabled={disabled}
                     className='postform'
                 >
                     {STYLES.map(item => (

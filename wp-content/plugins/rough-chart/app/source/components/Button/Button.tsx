@@ -1,5 +1,16 @@
 import React from 'react';
 import classnames from 'classnames';
+import styled from 'styled-components';
+
+const ButtonSty = styled.button`
+    // Overriding custom styling.
+    // By default WP is using "vertical-align: top",
+    // and I want to display "Loading..." text near the button.
+    // (Not always, but it comes handy)
+    .wp-core-ui & {
+        vertical-align: middle;    
+    }
+`;
 
 export enum BtnAppearance {
     Primary,
@@ -38,14 +49,14 @@ class Button extends React.PureComponent<IProps, IState> {
     render() {
         const { type, disabled, onClick } = this.props;
         return (
-            <button
+            <ButtonSty
                 type={type}
                 className={this.getClassName()}
                 disabled={disabled}
                 onClick={onClick}
             >
                 {this.props.children}
-            </button>
+            </ButtonSty>
         );
     }
 }

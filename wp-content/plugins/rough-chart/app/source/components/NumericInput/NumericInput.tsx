@@ -3,6 +3,7 @@ import _omit from 'lodash/omit';
 
 interface IProps {
     onChange?: (value: string|number) => void;
+    disabled?: boolean;
 }
 interface IState {}
 
@@ -12,6 +13,11 @@ interface IState {}
  * because you can do it in order to write a number.
  */
 class NumericInput extends React.PureComponent<IProps, IState> {
+    static defaultProps = {
+        onChange: null,
+        disabled: false,
+    };
+
     numRegex = /^-?\d*\.?\d*$/;
 
     handleChange = (e) => {
@@ -27,11 +33,13 @@ class NumericInput extends React.PureComponent<IProps, IState> {
     }
 
     render() {
+        const { disabled } = this.props;
         return (
             <input
                 {..._omit(this.props, ['onChange', 'type'])}
                 type='number'
                 onChange={this.handleChange}
+                disabled={disabled}
             />
         );
     }
