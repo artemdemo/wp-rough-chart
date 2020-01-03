@@ -31,7 +31,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
     componentDidMount(): void {
         const { query } = this.props;
         const chartId = getIntFromString(query.chart_id);
-        if (chartId) {
+        if (chartId !== undefined) {
             getChartById(chartId)
                 .then((chartServerData: TChartDB) => {
                     if (chartServerData.chart) {
