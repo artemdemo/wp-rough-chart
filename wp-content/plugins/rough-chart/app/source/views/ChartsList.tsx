@@ -21,14 +21,16 @@ import jqXHR = JQuery.jqXHR;
 interface IProps {}
 
 interface IState {
-    loading: boolean;
+    // Here `loading` state is specific since entangled with functionality of displaying charts.
+    // (and can't be used for displaying loading state of deleting chart)
+    loadingChartsList: boolean;
     chartIdToDelete: number;
     charts: TChartDB[];
 }
 
 class ChartsList extends React.PureComponent<IProps, IState> {
     public state = {
-        loading: true,
+        loadingChartsList: true,
         chartIdToDelete: -1,
         charts: [],
     };
@@ -40,11 +42,11 @@ class ChartsList extends React.PureComponent<IProps, IState> {
             .done((charts) => {
                 this.setState({
                     charts,
-                    loading: false,
+                    loadingChartsList: false,
                 });
             })
             .fail(() => {
-                this.setState({ loading: false });
+                this.setState({ loadingChartsList: false });
             });
     }
 
@@ -85,9 +87,9 @@ class ChartsList extends React.PureComponent<IProps, IState> {
             ));
         }
         const content = (() => {
-            if (this.state.loading) {
+            if (this.state.loadingChartsList) {
                 return (
-                    <Loading show={this.state.loading} />
+                    <Loading show={this.state.loadingChartsList} />
                 );
             }
             return t('noCharts');
