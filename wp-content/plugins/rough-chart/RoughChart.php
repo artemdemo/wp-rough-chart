@@ -7,6 +7,9 @@ require_once( 'views/ShortcodeView.php' );
 use roughChart\models\DB;
 use roughChart\views\ShortcodeView;
 
+/**
+ * Class RoughChart
+ */
 class RoughChart {
     private static $initiated = false;
 

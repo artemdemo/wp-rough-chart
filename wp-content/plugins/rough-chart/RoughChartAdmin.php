@@ -6,6 +6,9 @@ use roughChart\models\DB;
 use roughChart\models\ErrorMsg;
 use roughChart\views\View;
 
+/**
+ * Class RoughChartAdmin
+ */
 class RoughChartAdmin {
     private static $initiated = false;
 
@@ -62,6 +65,10 @@ class RoughChartAdmin {
         );
     }
 
+    /**
+     * `add_new_chart` - ajax call
+     * This method will process the request for creating a new chart.
+     */
     public static function add_new_chart() {
         $err = null;
         try {
@@ -93,6 +100,10 @@ class RoughChartAdmin {
         die();
     }
 
+    /**
+     * `update_chart` - ajax call
+     * This method will process the request for updating existing chart.
+     */
     public static function update_chart() {
         $chart_id = intval( $_POST[ 'chart_id' ] );
         $err = null;
@@ -125,12 +136,20 @@ class RoughChartAdmin {
         die();
     }
 
+    /**
+     * `get_all_charts` - ajax call
+     * This method will process the request for retrieving all charts.
+     */
     public static function get_all_charts() {
         $result = DB::get_all_charts();
         wp_send_json( $result );
         die();
     }
 
+    /**
+     * `get_chart_by_id` - ajax call
+     * This method will process the request for retrieving chart by its id.
+     */
     public static function get_chart_by_id() {
         $chart_id = intval( $_POST[ 'chart_id' ] );
         $result = DB::get_chart_by_id( $chart_id );
@@ -138,6 +157,10 @@ class RoughChartAdmin {
         die();
     }
 
+    /**
+     * `delete_chart` - ajax call
+     * This method will process the request for deleting chart by its id.
+     */
     public static function delete_chart() {
         $err = null;
         $chart_id = intval( $_POST[ 'chart_id' ] );
