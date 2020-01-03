@@ -71,10 +71,18 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                 />
             ));
         }
+        const content = (() => {
+            if (this.state.loading) {
+                return (
+                    <Loading show={this.state.loading} />
+                );
+            }
+            return t('noCharts');
+        })();
         return (
             <Tr>
                 <Td colSpan={4}>
-                    {t('noCharts')}
+                    {content}
                 </Td>
             </Tr>
         );
@@ -106,9 +114,6 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                         {this.renderCharts()}
                     </Tbody>
                 </Table>
-                <Loading
-                    show={this.state.loading}
-                />
                 <Modal
                     title={t('deletingChart')}
                     show={this.state.chartIdToDelete > -1}
