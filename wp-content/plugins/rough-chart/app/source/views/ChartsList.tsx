@@ -52,14 +52,18 @@ class ChartsList extends React.PureComponent<IProps, IState> {
 
     handelDelete = () => {
         deleteChart(this.state.chartIdToDelete)
-            .then(() => {
+            .done(() => {
                 sendNotification(t('chartDeleted'));
                 this.setState(prevState => ({
                     charts: this.state.charts.filter((chart: TChartDB) => {
                         return chart.id !== prevState.chartIdToDelete;
                     }),
-                    chartIdToDelete: -1,
                 }));
+            })
+            .always(() => {
+                this.setState({
+                    chartIdToDelete: -1,
+                });
             });
     };
 

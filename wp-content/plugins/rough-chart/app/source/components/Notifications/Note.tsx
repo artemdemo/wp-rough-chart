@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import NoteModel, { TNotification } from './NoteModel';
+import NoteModel, { ENotification } from './NoteModel';
 
 type TNoteComponent = {
-    type?: TNotification;
+    type?: ENotification;
 };
 
 const Note = styled.div<TNoteComponent>`
@@ -15,12 +15,12 @@ const Note = styled.div<TNoteComponent>`
     opacity: 0.7;
     ${(props) => {
         switch (props.type) {
-            case TNotification.Error:
+            case ENotification.Error:
                 return `
                     background-color: #f4511e;
                     border-color: #c74116;
                 `;
-            case TNotification.Success:
+            case ENotification.Success:
             default:
                 return `
                     background-color: #4CAF50;

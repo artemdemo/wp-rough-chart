@@ -1,16 +1,16 @@
 import { rndSalt } from '../../services/utils';
 
-export enum TNotification {
+export enum ENotification {
     Success,
     Error,
 }
 
 class NoteModel {
     public msg: string;
-    public type: TNotification;
+    public type: ENotification;
     public id: string;
 
-    constructor(msg: string, type: TNotification = TNotification.Success) {
+    constructor(msg: string, type: ENotification = ENotification.Success) {
         this.msg = msg;
         this.type = type;
         this.id = msg + rndSalt();

@@ -1,9 +1,23 @@
 declare var jQuery;
+import _get from 'lodash/get';
+import { t } from './i18n';
 import { getAppData } from './appData';
+import { sendNotification } from '../components/Notifications/Notifications';
+import { ENotification } from '../components/Notifications/NoteModel';
 
 export type TAddNewChartResult = {
     inserted_rows: number;
     last_id: number;
+};
+
+export const generalErrorHandler = (response) => {
+    const statusText = _get(response, 'statusText', t('anErrorOccurred'));
+    sendNotification(statusText, ENotification.Error);
+    console.error({
+        responseJSON: response.responseJSON,
+        status: response.status,
+        statusText: response.statusText,
+    });
 };
 
 export const addNewChart = (chartData = {}) => {
@@ -17,7 +31,8 @@ export const addNewChart = (chartData = {}) => {
                 security: appData.nonce,
                 chart: JSON.stringify(chartData),
             }
-        });
+        })
+        .fail(generalErrorHandler);
 };
 
 export const updateChart = (chartId: number, chartData = {}) => {
@@ -32,7 +47,8 @@ export const updateChart = (chartId: number, chartData = {}) => {
                 chart: JSON.stringify(chartData),
                 chart_id: chartId,
             }
-        });
+        })
+        .fail(generalErrorHandler);
 };
 
 export const getAllChart = () => {
@@ -45,7 +61,8 @@ export const getAllChart = () => {
                 action: 'rough_chart_get_all_charts',
                 security: appData.nonce,
             }
-        });
+        })
+        .fail(generalErrorHandler);
 };
 
 export const getChartById = (chartId: number) => {
@@ -59,7 +76,8 @@ export const getChartById = (chartId: number) => {
                 security: appData.nonce,
                 chart_id: chartId,
             }
-        });
+        })
+        .fail(generalErrorHandler);
 };
 
 export const deleteChart = (chartId: number) => {
@@ -73,5 +91,6 @@ export const deleteChart = (chartId: number) => {
                 security: appData.nonce,
                 chart_id: chartId,
             }
-        });
+        })
+        .fail(generalErrorHandler);
 };
