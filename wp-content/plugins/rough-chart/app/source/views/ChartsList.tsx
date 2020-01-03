@@ -26,20 +26,28 @@ interface IState {
 }
 
 class ChartsList extends React.PureComponent<IProps, IState> {
-    state = {
+    public state = {
         loading: true,
         chartIdToDelete: -1,
         charts: [],
     };
 
+    private unmounted = false;
+
     componentDidMount(): void {
         getAllChart()
             .then((charts) => {
-                this.setState({
-                    charts,
-                    loading: false,
-                });
+                if (!this.unmounted) {
+                    this.setState({
+                        charts,
+                        loading: false,
+                    });
+                }
             });
+    }
+
+    componentWillUnmount(): void {
+        this.unmounted = true;
     }
 
     handelDelete = () => {

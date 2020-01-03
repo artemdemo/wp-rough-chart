@@ -28,13 +28,15 @@ class EditChart extends React.PureComponent<IProps, IState> {
         chartData: null,
     };
 
+    private unmounted = false;
+
     componentDidMount(): void {
         const { query } = this.props;
         const chartId = getIntFromString(query.chart_id);
         if (chartId !== undefined) {
             getChartById(chartId)
                 .then((chartServerData: TChartDB) => {
-                    if (chartServerData.chart) {
+                    if (chartServerData.chart && !this.unmounted) {
                         this.setState({
                             chartData: {
                                 title: chartServerData.title,
@@ -44,6 +46,10 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     }
                 });
         }
+    }
+
+    componentWillUnmount(): void {
+        this.unmounted = true;
     }
 
     saveChartData = () => {
