@@ -1,6 +1,7 @@
 import React from 'react';
 import { getQuery, onPushState } from './routing';
 import findUnion from './findUnion';
+import LoadingRoute from './LoadingRoute';
 
 type TRoute = {
     component: () => any;
@@ -14,6 +15,7 @@ interface IProps {
 }
 interface IState {
     Component: any;
+    loading: boolean;
 }
 
 /**
@@ -27,6 +29,7 @@ class QueryRouteProvider extends React.PureComponent<IProps, IState> {
 
         this.state = {
             Component: null,
+            loading: false,
         };
     }
 
@@ -57,9 +60,11 @@ class QueryRouteProvider extends React.PureComponent<IProps, IState> {
         if (union) {
             const componentProp = union.component();
             if (componentProp instanceof Promise) {
+                this.setState({ loading: true });
                 componentProp.then((result) => {
                     this.setState(({
                         Component: result.default,
+                        loading: false,
                     }))
                 });
             } else {
@@ -72,6 +77,11 @@ class QueryRouteProvider extends React.PureComponent<IProps, IState> {
 
     render() {
         const { Component } = this.state;
+        if (this.state.loading) {
+            return (
+                <LoadingRoute />
+            );
+        }
         if (Component) {
             return <Component query={getQuery()} />
         }
