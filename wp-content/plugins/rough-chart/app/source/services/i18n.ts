@@ -40,6 +40,7 @@ const defaultTranslations = {
     chartData: 'Chart Data',
     noCharts: 'No charts to display (you should create one :)',
     shortcode: 'Shortcode',
+    chartAdded: 'Chart added',
     chartSaved: 'Chart saved',
     chartDeleted: 'Chart deleted',
     chartDataAddRowsHint: 'Right click on the table will allow you to add more rows or delete existing ones.',

@@ -63,10 +63,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     type,
                 })
                     .then((result: TAddNewChartResult) => {
-                        sendNotification(t('chartSaved'));
-                        pushState(
-                            getUrlToChart(String(result.last_id), _get(query, 'type')),
-                        );
+                        sendNotification(t('chartAdded'));
+                        // Potentially here you can keep user on this page,
+                        // just update the current URL.
+                        // pushState(getUrlToChart(String(result.last_id), _get(query, 'type')));
+                        pushState(getUrlToChartsList());
                     });
             }
         } else if (query.chart_id) {
