@@ -1,15 +1,17 @@
 import React from 'react';
 import jexcel from 'jexcel';
-import * as pieData from './data/pieData';
+import Description from '../../components/Description/Description';
 import { TChartTypes } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import contextMenu from './contextMenu';
-import Description from '../../components/Description/Description';
+import { TJExcel } from '../../services/chartDTO';
+import * as pieData from './data/pieData';
 
 import './ChartData.less';
 
 interface IProps {
     type: TChartTypes;
+    data?: TJExcel;
     disabled?: boolean;
 }
 
@@ -24,7 +26,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
     private table: any = null;
 
     componentDidMount():void {
-        const { type } = this.props;
+        const { type, data } = this.props;
         let chartData;
         switch (type) {
             case TChartTypes.pie:
@@ -36,7 +38,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
                 throw new Error(`There is no data for given "type",received: ${type}`);
         }
         this.table = jexcel(this.tableBaseRef.current, {
-            data: chartData.defaultData,
+            data: data || chartData.defaultData,
             columns: chartData.columns,
             contextMenu,
         });

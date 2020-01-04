@@ -1,5 +1,4 @@
 import React from 'react';
-import _isArray from 'lodash/isArray'
 import PropInput from '../formProps/PropInput';
 import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
@@ -11,6 +10,7 @@ import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
 import FormField from '../../components/FormTable/FormField';
 import Shortcode from '../Shortcode/Shortcode';
+import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
 
 interface IPieChartFields {
     title: string;
@@ -23,7 +23,7 @@ interface IPieChartFieldsOutput extends IPieChartFields {
 }
 
 interface IProps {
-    data: IPieChartFields;
+    chartProps: IPieChartFields;
     chartId?: number;
     disabled?: boolean;
 }
@@ -67,13 +67,13 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         // I'm updating state only once, when data is received (if it is what will happen).
         // The assumption here is that I'll receive data only once in the lifecycle.
         // It doesn't look legit that I'll request server more than once.
-        if (props.data && !state.dataUpdated) {
+        if (props.chartProps && !state.dataUpdated) {
             return {
-                title: props.data.title,
-                strokeWidth: String(props.data.chart.strokeWidth),
-                fillWeight: String(props.data.chart.fillWeight),
-                roughness: String(props.data.chart.roughness),
-                legend: props.data.chart.legend,
+                title: props.chartProps.title,
+                strokeWidth: String(props.chartProps.chart.strokeWidth),
+                fillWeight: String(props.chartProps.chart.fillWeight),
+                roughness: String(props.chartProps.chart.roughness),
+                legend: props.chartProps.chart.legend,
                 dataUpdated: true,
             };
         }
@@ -112,22 +112,9 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     }
 
     getTableData(): TChartPieTable {
-        const rawTableData = this.chartDataRef?.current?.getData();
-        const labels: string[] = [];
-        const values: number[] = [];
-        const colors: string[] = [];
-        if (_isArray(rawTableData)) {
-            rawTableData.forEach((item) => {
-                labels.push(item[0]);
-                values.push(item[1]);
-                colors.push(item[2]);
-            });
-        }
-        return {
-            labels,
-            values,
-            colors,
-        };
+        return fromJExcelToPie(
+            this.chartDataRef?.current?.getData(),
+        );
     }
 
     updateProp(propKey: string, value: any) {
@@ -186,14 +173,29 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     }
 
     renderShortcode() {
-        const { chartId, data } = this.props;
+        const { chartId, chartProps } = this.props;
         if ( chartId !== undefined ) {
             return (
                 <FormField
                     title={t('shortcode')}
                 >
-                    <Shortcode chartId={chartId} title={data?.title} />
+                    <Shortcode chartId={chartId} title={chartProps?.title} />
                 </FormField>
+            );
+        }
+        return null;
+    }
+
+    renderChartData() {
+        const { disabled, chartProps } = this.props;
+        if (chartProps?.chart?.data) {
+            return (
+                <ChartData
+                    type={TChartTypes.pie}
+                    disabled={disabled}
+                    data={fromPieToJExcel(chartProps.chart.data)}
+                    ref={this.chartDataRef}
+                />
             );
         }
         return null;
@@ -221,11 +223,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                         </FormTable>
                     </GridCell>
                     <GridCell columns='lg-8 md-12'>
-                        <ChartData
-                            type={TChartTypes.pie}
-                            disabled={disabled}
-                            ref={this.chartDataRef}
-                        />
+                        {this.renderChartData()}
                     </GridCell>
                 </Grid>
             </React.Fragment>

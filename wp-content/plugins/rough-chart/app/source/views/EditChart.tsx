@@ -129,7 +129,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
         return (
             <ChartFieldsComponent
                 ref={this.chartFieldsRef}
-                data={this.state.chartData}
+                chartProps={this.state.chartData}
                 chartId={getIntFromString(query.chart_id)}
                 disabled={this.state.loading}
             />
