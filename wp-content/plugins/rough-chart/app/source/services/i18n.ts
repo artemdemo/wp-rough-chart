@@ -46,6 +46,7 @@ const defaultTranslations = {
     chartDataAddRowsHint: 'Right click on the table will allow you to add more rows or delete existing ones.',
     defineChart: 'Define your new chart by filling options below:',
     anErrorOccurred: 'An Error occurred',
+    goBackToChartsList: 'Go back to charts list',
 };
 
 export const t = (translationSlug) => {

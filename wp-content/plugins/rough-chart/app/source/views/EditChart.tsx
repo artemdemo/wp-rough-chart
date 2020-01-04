@@ -93,7 +93,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
             )
                 .done((result: TAddNewChartResult) => {
                     sendNotification(t('chartSaved'));
-                    pushState(getUrlToChartsList());
+                    this.setState({ loading: false });
                 })
                 .fail(() => {
                     this.setState({ loading: false });
@@ -160,7 +160,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     onClick={this.redirectToCharts}
                     disabled={this.state.loading}
                 >
-                    {t('cancel')}
+                    {t('goBackToChartsList')}
                 </Button>
                 <Loading show={this.state.loading} inline />
             </React.Fragment>
