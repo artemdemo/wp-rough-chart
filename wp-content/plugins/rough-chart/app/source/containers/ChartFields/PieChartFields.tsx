@@ -70,6 +70,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         if (props.chartProps && !state.dataUpdated) {
             return {
                 title: props.chartProps.title,
+                fillStyle: props.chartProps.chart.fillStyle,
                 strokeWidth: String(props.chartProps.chart.strokeWidth),
                 fillWeight: String(props.chartProps.chart.fillWeight),
                 roughness: String(props.chartProps.chart.roughness),
