@@ -1,13 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { t } from '../../services/i18n';
-import { getUrlToChart } from '../../services/appData';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
 import { TChartTypes } from '../../chartTypes';
+import ChartButton from './ChartButton';
 
 const Popup = styled(Modal)`
     min-width: 300px;
+`;
+
+const ChartButtonsWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 0 -5px;
 `;
 
 interface IProps {}
@@ -17,6 +23,21 @@ class AddNewChart extends React.PureComponent<IProps, IState> {
     state = {
         showSelectChartModal: false,
     };
+
+    private chartButtons = [
+        {
+            type: TChartTypes.pie,
+            name: t('pie'),
+        },
+        {
+            type: TChartTypes.columns,
+            name: t('columns'),
+        },
+        {
+            type: TChartTypes.bars,
+            name: t('bars'),
+        },
+    ];
 
     clickAddChart = (e) => {
         e.preventDefault();
@@ -48,17 +69,15 @@ class AddNewChart extends React.PureComponent<IProps, IState> {
                         </React.Fragment>
                     )}
                 >
-                    <a href={getUrlToChart('new', TChartTypes.pie)}>
-                        {t('pie')}
-                    </a>
-                    <br />
-                    <a href={getUrlToChart('new', TChartTypes.columns)}>
-                        {t('columns')}
-                    </a>
-                    <br />
-                    <a href={getUrlToChart('new', TChartTypes.bars)}>
-                        {t('bars')}
-                    </a>
+                    <ChartButtonsWrapper>
+                        {this.chartButtons.map(item => (
+                            <ChartButton
+                                name={item.name}
+                                type={item.type}
+                                key={item.name}
+                            />
+                        ))}
+                    </ChartButtonsWrapper>
                 </Popup>
             </React.Fragment>
         );
