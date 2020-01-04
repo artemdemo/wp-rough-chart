@@ -1,4 +1,5 @@
 import React from 'react';
+import _isArray from 'lodash/isArray'
 import PropInput from '../formProps/PropInput';
 import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
@@ -110,8 +111,24 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         };
     }
 
-    getTableData(): TChartPieTable {
-        return this.chartDataRef?.current?.getData();
+    getTableData(): TChartPieTable | null {
+        const rawTableData = this.chartDataRef?.current?.getData();
+        if (_isArray(rawTableData)) {
+            const labels: string[] = [];
+            const values: number[] = [];
+            const colors: string[] = [];
+            rawTableData.forEach((item) => {
+                labels.push(item[0]);
+                values.push(item[1]);
+                colors.push(item[2]);
+            });
+            return {
+                labels,
+                values,
+                colors,
+            };
+        }
+        return null;
     }
 
     updateProp(propKey: string, value: any) {
