@@ -7,7 +7,7 @@ class ShortcodeView {
     private $id;
     private $title;
 
-    public function __construct($id, $title) {
+    public function __construct($id, $title = null) {
         $this->id = $id;
         $this->title = $title;
     }
@@ -16,6 +16,10 @@ class ShortcodeView {
         $chart_data = DB::get_chart_by_id($this->id);
         if (!$chart_data) {
             return __("No rough chart with the given id: $this->id");
+        }
+        $title = $chart_data->title;
+        if ($this->title) {
+            $title = $this->title;
         }
         return "
         <div
@@ -33,7 +37,7 @@ class ShortcodeView {
                     window.__addRoughChart({
                         id: chartId,
                         className: 'rough-chart-$this->id',
-                        title: '$this->title',
+                        title: '$title',
                         chart_type: '$chart_data->chart_type',
                         chart: '$chart_data->chart',
                     });

@@ -49,7 +49,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
     handleCopy = (e: any): void => {
         e.preventDefault();
         const { chart } = this.props;
-        const copyResult = copyToClipboard(getShortcode(chart.id, chart.title));
+        const copyResult = copyToClipboard(getShortcode(chart.id));
         if (!!copyResult) {
             sendNotification(t('shortcodeCopied'));
         }
@@ -97,7 +97,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                 <Td>{chart.created}</Td>
                 <Td>{chart.last_updated}</Td>
                 <TdShortcode hasRowActions>
-                    <Shortcode chartId={chart.id} title={chart.title} />
+                    <Shortcode chartId={chart.id} />
                     <RowActions>
                         <a href='#'
                            onClick={this.handleCopy}
