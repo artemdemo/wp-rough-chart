@@ -29,7 +29,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
 
     public state = {
         chartData: null,
-        loading: true,
+        loading: false,
     };
 
     private requestRef: jqXHR;
@@ -38,6 +38,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const { query } = this.props;
         const chartId = getIntFromString(query.chart_id);
         if (chartId !== undefined) {
+            this.setState({ loading: true });
             this.requestRef = getChartById(chartId)
                 .done((chartServerData: TChartDB) => {
                     if (chartServerData.chart) {
@@ -138,7 +139,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
             <ChartFieldsComponent
                 ref={this.chartFieldsRef}
                 chartProps={this.state.chartData}
-                chartId={getIntFromString(query.chart_id)}
+                chartId={query.chart_id === 'new' ? 'new' : getIntFromString(query.chart_id)}
                 disabled={this.state.loading}
             />
         );

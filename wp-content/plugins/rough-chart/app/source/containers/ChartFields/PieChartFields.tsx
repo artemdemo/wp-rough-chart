@@ -1,4 +1,5 @@
 import React from 'react';
+import _isNumber from 'lodash/isNumber';
 import PropInput from '../formProps/PropInput';
 import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
@@ -24,7 +25,7 @@ interface IPieChartFieldsOutput extends IPieChartFields {
 
 interface IProps {
     chartProps: IPieChartFields;
-    chartId?: number;
+    chartId?: number|string;
     disabled?: boolean;
 }
 
@@ -175,12 +176,12 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
 
     renderShortcode() {
         const { chartId, chartProps } = this.props;
-        if ( chartId !== undefined ) {
+        if ( _isNumber(chartId) ) {
             return (
                 <FormField
                     title={t('shortcode')}
                 >
-                    <Shortcode chartId={chartId} title={chartProps?.title} />
+                    <Shortcode chartId={Number(chartId)} title={chartProps?.title} />
                 </FormField>
             );
         }
@@ -188,13 +189,14 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     }
 
     renderChartData() {
-        const { disabled, chartProps } = this.props;
-        if (chartProps?.chart?.data) {
+        const { disabled, chartProps, chartId } = this.props;
+        const hasData = !!chartProps?.chart?.data;
+        if (hasData || chartId === 'new') {
             return (
                 <ChartData
                     type={TChartTypes.pie}
                     disabled={disabled}
-                    data={fromPieToJExcel(chartProps.chart.data)}
+                    data={hasData ? fromPieToJExcel(chartProps.chart.data) : undefined}
                     ref={this.chartDataRef}
                 />
             );
