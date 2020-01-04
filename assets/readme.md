@@ -4,10 +4,10 @@ https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
 
 ### Banners
 
-* Normal Banner: banner-772x250.(jpg|png)
-* Normal Banner (RTL): banner-772x250-rtl.(jpg|png)
-* High-DPI (Retina): banner-1544x500.(jpg|png)
-* High-DPI (Retina RTL): banner-1544x500-rtl.(jpg|png)
+* Normal Banner: banner-772x250.(png|jpg)
+* Normal Banner (RTL): banner-772x250-rtl.(png|jpg)
+* High-DPI (Retina): banner-1544x500.(png|jpg)
+* High-DPI (Retina RTL): banner-1544x500-rtl.(png|jpg)
 
 ### Icons
 

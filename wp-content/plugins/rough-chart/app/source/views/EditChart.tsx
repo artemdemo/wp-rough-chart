@@ -60,6 +60,10 @@ class EditChart extends React.PureComponent<IProps, IState> {
         this.requestRef && this.requestRef.abort();
     }
 
+    redirectToCharts = () => {
+        pushState(getUrlToChartsList());
+    };
+
     saveChartData = () => {
         const { query } = this.props;
         const type = String(TChartTypes[_get(query, 'type', '-1')]).toLowerCase();
@@ -76,7 +80,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                         // Potentially here you can keep user on this page,
                         // just update the current URL.
                         // pushState(getUrlToChart(String(result.last_id), _get(query, 'type')));
-                        pushState(getUrlToChartsList());
+                        this.redirectToCharts();
                     })
                     .fail(() => {
                         this.setState({ loading: false });
@@ -150,6 +154,13 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     disabled={this.state.loading}
                 >
                     {query.chart_id === 'new' ? t('createNewChart') : t('saveChart')}
+                </Button>
+                {' '}
+                <Button
+                    onClick={this.redirectToCharts}
+                    disabled={this.state.loading}
+                >
+                    {t('cancel')}
                 </Button>
                 <Loading show={this.state.loading} inline />
             </React.Fragment>
