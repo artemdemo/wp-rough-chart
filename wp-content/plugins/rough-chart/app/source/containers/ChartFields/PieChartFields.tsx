@@ -111,24 +111,23 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         };
     }
 
-    getTableData(): TChartPieTable | null {
+    getTableData(): TChartPieTable {
         const rawTableData = this.chartDataRef?.current?.getData();
+        const labels: string[] = [];
+        const values: number[] = [];
+        const colors: string[] = [];
         if (_isArray(rawTableData)) {
-            const labels: string[] = [];
-            const values: number[] = [];
-            const colors: string[] = [];
             rawTableData.forEach((item) => {
                 labels.push(item[0]);
                 values.push(item[1]);
                 colors.push(item[2]);
             });
-            return {
-                labels,
-                values,
-                colors,
-            };
         }
-        return null;
+        return {
+            labels,
+            values,
+            colors,
+        };
     }
 
     updateProp(propKey: string, value: any) {

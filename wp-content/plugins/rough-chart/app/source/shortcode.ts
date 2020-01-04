@@ -13,7 +13,11 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
             roughness: chartOptions.roughness,
             strokeWidth: chartOptions.strokeWidth,
             legend: chartOptions.legend,
-            data: {labels: ['a', 'b'], values: [10, 20]}
+            colors: chartOptions.data.colors,
+            data: {
+                labels: chartOptions.data.labels,
+                values: chartOptions.data.values,
+            },
         });
     }
 };

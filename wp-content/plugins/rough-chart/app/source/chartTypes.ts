@@ -30,7 +30,7 @@ export type TChartPie = {
     fillWeight: number;
     roughness: number;
     legend: boolean;
-    data: TChartPieTable | null;
+    data: TChartPieTable;
 };
 
 export enum TChartTypes {
