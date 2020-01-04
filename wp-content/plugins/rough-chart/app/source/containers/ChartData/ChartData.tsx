@@ -44,7 +44,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
         });
     }
 
-    public getData() {
+    public getData(): TJExcel {
         return this.table.getData();
     }
 
