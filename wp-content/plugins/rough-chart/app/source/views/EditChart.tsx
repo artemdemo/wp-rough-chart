@@ -93,7 +93,15 @@ class EditChart extends React.PureComponent<IProps, IState> {
             )
                 .done((result: TAddNewChartResult) => {
                     sendNotification(t('chartSaved'));
-                    this.setState({ loading: false });
+                    this.setState(prevState => ({
+                        loading: false,
+                        chartData: {
+                            ...prevState.chartData,
+                            // Here I'm updating title, since later it will be used to display shortcode
+                            // see `this.renderFields`
+                            title: chartData?.title,
+                        },
+                    }));
                 })
                 .fail(() => {
                     this.setState({ loading: false });
