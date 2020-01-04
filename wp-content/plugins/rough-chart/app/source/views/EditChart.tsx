@@ -171,6 +171,7 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 >
                     {t('goBackToChartsList')}
                 </Button>
+                {' '}
                 <Loading show={this.state.loading} inline />
             </React.Fragment>
         )
