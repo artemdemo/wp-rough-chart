@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import Th from '../../components/Table/Th';
 import Td from '../../components/Table/Td';
 import Tr from '../../components/Table/Tr';
@@ -11,6 +12,12 @@ import { t } from '../../services/i18n';
 import copyToClipboard from '../../services/copyToClipboard';
 import { getUrlToChart } from '../../services/appData';
 import { pushState } from '../../routing/routing';
+
+const TdShortcode = styled(Td)`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
 
 interface IProps {
     chart: TChartDB;
@@ -42,7 +49,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
     handleCopy = (e: any): void => {
         e.preventDefault();
         const { chart } = this.props;
-        const copyResult = copyToClipboard(getShortcode(chart.id));
+        const copyResult = copyToClipboard(getShortcode(chart.id, chart.title));
         if (!!copyResult) {
             sendNotification(t('shortcodeCopied'));
         }
@@ -89,8 +96,8 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                 <Td>{chart.chart_type}</Td>
                 <Td>{chart.created}</Td>
                 <Td>{chart.last_updated}</Td>
-                <Td hasRowActions>
-                    <Shortcode chartId={chart.id} />
+                <TdShortcode hasRowActions>
+                    <Shortcode chartId={chart.id} title={chart.title} />
                     <RowActions>
                         <a href='#'
                            onClick={this.handleCopy}
@@ -98,7 +105,7 @@ class ChartsListItem extends React.PureComponent<IProps, IState> {
                             {t('copy')}
                         </a>
                     </RowActions>
-                </Td>
+                </TdShortcode>
             </Tr>
         );
     }

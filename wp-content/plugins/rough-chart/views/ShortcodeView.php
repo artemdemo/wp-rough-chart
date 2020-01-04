@@ -33,7 +33,7 @@ class ShortcodeView {
                     window.__addRoughChart({
                         id: chartId,
                         className: 'rough-chart-$this->id',
-                        title: '$chart_data->title',
+                        title: '$this->title',
                         chart_type: '$chart_data->chart_type',
                         chart: '$chart_data->chart',
                     });

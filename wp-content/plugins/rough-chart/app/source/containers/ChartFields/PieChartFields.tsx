@@ -186,13 +186,13 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     }
 
     renderShortcode() {
-        const { chartId } = this.props;
+        const { chartId, data } = this.props;
         if ( chartId !== undefined ) {
             return (
                 <FormField
                     title={t('shortcode')}
                 >
-                    <Shortcode chartId={chartId} />
+                    <Shortcode chartId={chartId} title={data?.title} />
                 </FormField>
             );
         }

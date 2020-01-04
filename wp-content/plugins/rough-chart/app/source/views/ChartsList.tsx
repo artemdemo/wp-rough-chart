@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { t } from '../services/i18n';
 import { getAllChart, deleteChart } from '../services/ajax';
 import Donate from '../containers/Donate/Donate';
@@ -17,6 +18,10 @@ import Modal from '../components/Modal/Modal';
 import Button, { BtnAppearance } from '../components/Button/Button';
 import { sendNotification } from '../components/Notifications/Notifications';
 import jqXHR = JQuery.jqXHR;
+
+const ThType = styled(Th)`
+    width: 80px;
+`;
 
 interface IProps {}
 
@@ -119,7 +124,7 @@ class ChartsList extends React.PureComponent<IProps, IState> {
                     <Thead>
                         <Tr>
                             <Th>{t('title')}</Th>
-                            <Th>{t('type')}</Th>
+                            <ThType>{t('type')}</ThType>
                             <Th>{t('created')}</Th>
                             <Th>{t('lastUpdated')}</Th>
                             <Th>{t('shortcode')}</Th>
