@@ -140,7 +140,8 @@ class RoughChartAdmin {
                 json_encode( $chart[ 'chart' ] )
             );
             if ( $result[ 'updated_rows' ] == 1 ) {
-                wp_send_json( $result );
+                $updated_chart = DB::get_chart_by_id( $chart_id );
+                wp_send_json( $updated_chart );
             } else {
                 $err = ErrorMsg::generalDBError();
             }

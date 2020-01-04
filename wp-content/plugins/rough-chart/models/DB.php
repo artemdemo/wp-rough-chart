@@ -82,7 +82,9 @@ class DB {
             "SELECT * FROM $table_name WHERE id = %d",
             $id
         );
-        return $wpdb->get_row($sql);
+        $result = (array) $wpdb->get_row($sql);
+        $result[ 'esc_title' ] = esc_attr( $result[ 'title' ] );
+        return (object) $result;
     }
 
     public static function get_all_charts() {
