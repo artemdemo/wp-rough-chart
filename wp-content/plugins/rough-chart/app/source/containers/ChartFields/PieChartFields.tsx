@@ -113,10 +113,14 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         };
     }
 
-    getTableData(): TChartPieTable {
-        return fromJExcelToPie(
-            this.chartDataRef?.current?.getData(),
-        );
+    getTableData(): TChartPieTable|null {
+        if (this.chartDataRef?.current?.getData) {
+            const tableData = this.chartDataRef.current.getData();
+            return fromJExcelToPie(
+                tableData.data,
+            );
+        }
+        return null;
     }
 
     updateProp(propKey: string, value: any) {
@@ -196,7 +200,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                 <ChartData
                     type={TChartTypes.pie}
                     disabled={disabled}
-                    data={hasData ? fromPieToJExcel(chartProps.chart.data) : undefined}
+                    data={hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined}
                     ref={this.chartDataRef}
                 />
             );

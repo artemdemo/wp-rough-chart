@@ -3,8 +3,9 @@ import jexcel from 'jexcel';
 import Description from '../../components/Description/Description';
 import { TChartTypes } from '../../chartTypes';
 import { t } from '../../services/i18n';
-import contextMenu from './contextMenu';
 import { TJExcel } from '../../services/chartDTO';
+import { couldBeNumber } from '../../services/utils';
+import contextMenu from './contextMenu';
 import * as pieData from './data/pieData';
 
 import './ChartData.less';
@@ -44,8 +45,14 @@ class ChartData extends React.PureComponent<IProps, IState> {
         });
     }
 
-    public getData(): TJExcel {
-        return this.table.getData();
+    public getData(): { data: TJExcel; error: boolean; } {
+        const error = false;
+        const jExcelData = this.table.getData();
+        console.log(jExcelData);
+        return {
+            data: jExcelData,
+            error,
+        };
     }
 
     render() {
