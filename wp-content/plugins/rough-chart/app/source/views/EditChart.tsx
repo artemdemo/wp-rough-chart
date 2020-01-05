@@ -69,9 +69,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
         const { query } = this.props;
         const type = String(TChartTypes[_get(query, 'type', '-1')]).toLowerCase();
         const chartData = this.chartFieldsRef?.current?.getData();
-        this.setState({ loading: true });
-        if (query.chart_id === 'new') {
-            if (chartData && !chartData.error) {
+        if (chartData && !chartData.error) {
+            this.setState({ loading: true });
+            if (query.chart_id === 'new') {
                 this.requestRef = addNewChart({
                     ..._omit(chartData, ['error']),
                     type,
@@ -86,19 +86,19 @@ class EditChart extends React.PureComponent<IProps, IState> {
                     .fail(() => {
                         this.setState({ loading: false });
                     });
+            } else if (query.chart_id) {
+                this.requestRef = updateChart(
+                    getIntFromString(query.chart_id),
+                    _omit(chartData, ['error']),
+                )
+                    .done((result: TChartDB) => {
+                        sendNotification(t('chartSaved'));
+                        this.setState({ loading: false });
+                    })
+                    .fail(() => {
+                        this.setState({ loading: false });
+                    });
             }
-        } else if (query.chart_id) {
-            this.requestRef = updateChart(
-                getIntFromString(query.chart_id),
-                _omit(chartData, ['error']),
-            )
-                .done((result: TChartDB) => {
-                    sendNotification(t('chartSaved'));
-                    this.setState({ loading: false });
-                })
-                .fail(() => {
-                    this.setState({ loading: false });
-                });
         }
     };
 

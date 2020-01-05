@@ -93,9 +93,9 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
             fillWeightErr: false,
             roughnessErr: false,
         };
-        if (strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
-        if (fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
-        if (roughness <= 0) { newState.roughnessErr = true; error = true; }
+        if (isNaN(strokeWidth) || strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
+        if (isNaN(fillWeight) || fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
+        if (isNaN(roughness) || roughness <= 0) { newState.roughnessErr = true; error = true; }
         this.setState(newState);
 
         return {
