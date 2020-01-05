@@ -87,6 +87,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         const strokeWidth = parseFloat(this.state.strokeWidth);
         const fillWeight = parseFloat(this.state.fillWeight);
         const roughness = parseFloat(this.state.roughness);
+        const tableDate = this.getTableData();
         let error = false;
         const newState = {
             strokeWidthErr: false,
@@ -96,6 +97,8 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         if (isNaN(strokeWidth) || strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
         if (isNaN(fillWeight) || fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
         if (isNaN(roughness) || roughness <= 0) { newState.roughnessErr = true; error = true; }
+        if (!tableDate) { error = true; }
+
         this.setState(newState);
 
         return {
@@ -107,7 +110,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                 fillWeight,
                 roughness,
                 legend,
-                data: this.getTableData(),
+                data: tableDate,
             },
             error,
         };
@@ -116,9 +119,11 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     getTableData(): TChartPieTable|null {
         if (this.chartDataRef?.current?.getData) {
             const tableData = this.chartDataRef.current.getData();
-            return fromJExcelToPie(
-                tableData.data,
-            );
+            if (!tableData.error) {
+                return fromJExcelToPie(
+                    tableData.data,
+                );
+            }
         }
         return null;
     }
