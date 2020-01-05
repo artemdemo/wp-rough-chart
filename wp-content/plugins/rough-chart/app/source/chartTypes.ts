@@ -38,3 +38,8 @@ export enum TChartTypes {
     bars,
     columns,
 }
+
+// General type for errors in the app
+export type TGeneralError = {
+    msg: string;
+}|null;

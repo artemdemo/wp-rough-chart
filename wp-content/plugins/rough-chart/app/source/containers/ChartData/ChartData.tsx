@@ -1,7 +1,8 @@
 import React from 'react';
 import jexcel from 'jexcel';
+import classnames from 'classnames';
 import Description from '../../components/Description/Description';
-import { TChartTypes } from '../../chartTypes';
+import { TChartTypes, TGeneralError } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import { TJExcel } from '../../services/chartDTO';
 import { couldBeNumber } from '../../services/utils';
@@ -16,11 +17,17 @@ interface IProps {
     disabled?: boolean;
 }
 
-interface IState {}
+interface IState {
+    error: TGeneralError;
+}
 
 class ChartData extends React.PureComponent<IProps, IState> {
     static defaultProps = {
         disabled: false,
+    };
+
+    public state = {
+        error: null,
     };
 
     private tableBaseRef = React.createRef<HTMLDivElement>();
@@ -45,10 +52,18 @@ class ChartData extends React.PureComponent<IProps, IState> {
         });
     }
 
-    public getData(): { data: TJExcel; error: boolean; } {
-        const error = false;
+    public getData(): { data: TJExcel; error: TGeneralError; } {
+        let error: TGeneralError = null;
         const jExcelData = this.table.getData();
-        console.log(jExcelData);
+        for (const row of jExcelData) {
+            if (!couldBeNumber(row[1])) {
+                error = {
+                    msg: t('valuesShouldBeNumbers'),
+                };
+                break;
+            }
+        }
+        this.setState({ error });
         return {
             data: jExcelData,
             error,
@@ -59,7 +74,13 @@ class ChartData extends React.PureComponent<IProps, IState> {
         return (
             <React.Fragment>
                 <h2>{t('chartData')}:</h2>
-                <div ref={this.tableBaseRef} />
+                <div
+                    className={classnames({
+                        'table-has-error': !!this.state.error,
+                    })}
+                >
+                    <div ref={this.tableBaseRef} />
+                </div>
                 <Description>
                     {t('chartDataAddRowsHint')}
                 </Description>

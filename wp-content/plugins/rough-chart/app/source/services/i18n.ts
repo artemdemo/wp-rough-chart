@@ -47,6 +47,7 @@ const defaultTranslations = {
     defineChart: 'Define your new chart by filling options below:',
     anErrorOccurred: 'An Error occurred',
     goBackToChartsList: 'Go back to charts list',
+    valuesShouldBeNumbers: '"Value" column should have numbers only',
 };
 
 export const t = (translationSlug) => {
