@@ -4,7 +4,7 @@ import { TChartShortcode } from './chartTypes';
 
 const __addRoughChart = (chartInput: TChartShortcode) => {
     const chartOptions = parseChart(chartInput.chart);
-    if (chartOptions) {
+    if (chartOptions && chartOptions.data) {
         new roughViz.Pie({
             element: '.' + chartInput.className,
             title: chartInput.title,
