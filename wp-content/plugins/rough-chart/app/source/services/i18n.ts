@@ -48,6 +48,7 @@ const defaultTranslations = {
     anErrorOccurred: 'An Error occurred',
     goBackToChartsList: 'Go back to charts list',
     valuesShouldBeNumbers: '"Value" column should have numbers only',
+    noEmptyCellsInTable: 'Table shouldn\'t have empty cells',
 };
 
 export const t = (translationSlug) => {

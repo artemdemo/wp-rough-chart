@@ -58,6 +58,12 @@ class ChartData extends React.PureComponent<IProps, IState> {
         this.table = jexcel(this.tableBaseRef.current, {
             data: data || chartData.defaultData,
             columns: chartData.columns,
+            allowInsertRow: true,
+            allowManualInsertRow: true,
+            allowInsertColumn: false,
+            allowManualInsertColumn: false,
+            allowDeleteRow: true,
+            allowDeleteColumn: false,
             contextMenu,
         });
     }
@@ -66,6 +72,15 @@ class ChartData extends React.PureComponent<IProps, IState> {
         let error: TGeneralError = null;
         const jExcelData = this.table.getData();
         for (const row of jExcelData) {
+            for (const item of row) {
+                if (item === '') {
+                    error = {
+                        msg: t('noEmptyCellsInTable'),
+                    };
+                    break;
+                }
+            }
+            if (error) { break; }
             if (!couldBeNumber(row[1])) {
                 error = {
                     msg: t('valuesShouldBeNumbers'),
