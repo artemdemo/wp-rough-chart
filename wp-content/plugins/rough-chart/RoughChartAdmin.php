@@ -73,11 +73,10 @@ class RoughChartAdmin {
      * Adds custom links to the plugin in the plugin overview page.
      *
      * @param array  $links Array of links for the plugins, adapted when the current plugin is found.
-     * @param string $file  The filename for the current plugin, which the filter loops through.
      *
      * @return array $links
      */
-    public static function add_plugin_page_settings_link( $links, $file ) {
+    public static function add_plugin_page_settings_link( $links ) {
         $settings_link = '<a href="' .
                    admin_url( 'themes.php?page=' . RoughChartAdmin::$menu_slug ) .
                    '">' . __('Settings') . '</a>';
