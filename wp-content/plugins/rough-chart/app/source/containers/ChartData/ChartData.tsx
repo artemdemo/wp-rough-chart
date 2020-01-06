@@ -1,8 +1,8 @@
 import React from 'react';
 import jexcel from 'jexcel';
 import classnames from 'classnames';
-import styled from 'styled-components';
 import Description from '../../components/Description/Description';
+import ErrorBubble from '../../components/Error/ErrorBubble';
 import { TChartTypes, TGeneralError } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import { TJExcel } from '../../services/chartDTO';
@@ -11,15 +11,6 @@ import contextMenu from './contextMenu';
 import * as pieData from './data/pieData';
 
 import './ChartData.less';
-
-const ErrorChartData = styled.div`
-    display: inline-block;
-    border-radius: 3px;
-    padding: 5px 8px;
-    background-color: rgba(244, 67, 54, 0.15);
-    border-left: 1px solid red;
-    color: red;
-`;
 
 interface IProps {
     type: TChartTypes;
@@ -100,9 +91,9 @@ class ChartData extends React.PureComponent<IProps, IState> {
             // @ts-ignore
             const errText = this.state.error.msg;
             return (
-                <ErrorChartData>
+                <ErrorBubble>
                     {errText}
-                </ErrorChartData>
+                </ErrorBubble>
             );
         }
         return null;
