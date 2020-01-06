@@ -102,7 +102,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         this.setState(newState);
 
         return {
-            title,
+            title: title.trim(),
             chart_type: TChartTypes[TChartTypes.pie],
             chart: {
                 fillStyle,
