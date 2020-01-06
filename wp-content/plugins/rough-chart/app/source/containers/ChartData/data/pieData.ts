@@ -1,6 +1,7 @@
 export const defaultData = [
-    ['A', 20, '#2196f3'],
+    ['A', 40, '#2196f3'],
     ['B', 100, '#66bb6a'],
+    ['C', 70, '#ff9800'],
 ];
 
 export const columns = [
