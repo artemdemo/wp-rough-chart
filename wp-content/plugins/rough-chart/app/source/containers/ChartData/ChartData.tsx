@@ -56,6 +56,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
             allowDeleteRow: true,
             allowDeleteColumn: false,
             contextMenu,
+            onafterchanges: this.handleOnAfterChange,
         });
     }
 
@@ -85,6 +86,12 @@ class ChartData extends React.PureComponent<IProps, IState> {
             error,
         };
     }
+
+    handleOnAfterChange = () => {
+        this.setState({
+            error: null,
+        })
+    };
 
     renderError() {
         if (this.state.error) {
