@@ -22,13 +22,7 @@ class ShortcodeView {
             $title = $this->title;
         }
         return "
-        <div
-            class='rough-chart rough-chart-$this->id'
-            data-roughchart='$this->id'
-            data-title='$chart_data->title'
-            data-type='$chart_data->chart_type'
-            data-chart='$chart_data->chart'
-        >
+        <div class='rough-chart rough-chart-$this->id'>
         </div>
         <script>
             (function() {
