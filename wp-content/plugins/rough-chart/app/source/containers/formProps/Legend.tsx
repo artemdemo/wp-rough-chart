@@ -6,7 +6,6 @@ import { TSelectItem } from '../../chartTypes';
 interface IProps {
     value: string;
     onChange: (value: string) => void;
-    error?: boolean;
     disabled?: boolean;
 }
 
@@ -14,25 +13,27 @@ interface IState {
     inputId: string;
 }
 
-export const defaultStyle: TSelectItem = { type: 'hachure', name: 'Hachure' };
+export enum ELegendTypes {
+    right,
+    left,
+    hidden,
+}
+
+export const defaultLegend: TSelectItem = { type: String(ELegendTypes.right), name: 'Right' };
 
 const STYLES: TSelectItem[] = [
-    defaultStyle,
-    { type: 'cross-hatch', name: 'Cross-Hatch' },
-    { type: 'zigzag', name: 'Zigzag' },
-    { type: 'dashed', name: 'Dashed' },
-    { type: 'solid', name: 'Solid' },
-    { type: 'zigzag-line', name: 'Zigzag-Line' },
+    defaultLegend,
+    { type: String(ELegendTypes.left), name: 'Left' },
+    { type: String(ELegendTypes.hidden), name: 'Hidden' },
 ];
 
-class FillStyle extends React.PureComponent<IProps, IState> {
+class Legend extends React.PureComponent<IProps, IState> {
     static defaultProps = {
-        error: false,
         disabled: false,
     };
 
     state = {
-        inputId: 'chart_fill_style',
+        inputId: 'chart_legend',
     };
 
     handleChange = (e) => {
@@ -44,9 +45,8 @@ class FillStyle extends React.PureComponent<IProps, IState> {
         const { disabled } = this.props;
         return (
             <FormField
-                title={t('fillStyle')}
+                title={t('legendPosition')}
                 htmlFor={this.state.inputId}
-                error={this.props.error}
             >
                 <select
                     id={this.state.inputId}
@@ -66,4 +66,4 @@ class FillStyle extends React.PureComponent<IProps, IState> {
     }
 }
 
-export default FillStyle;
+export default Legend;

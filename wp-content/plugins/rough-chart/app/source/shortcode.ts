@@ -1,10 +1,12 @@
 import roughViz from 'rough-viz';
 import { parseChart } from './shortcode/chartData';
 import { TChartShortcode } from './chartTypes';
+import { ELegendTypes } from './containers/formProps/Legend';
 
 const __addRoughChart = (chartInput: TChartShortcode) => {
     const chartOptions = parseChart(chartInput.chart);
     if (chartOptions && chartOptions.data) {
+        const legendTypeNum = parseInt(chartOptions.legend, 10);
         new roughViz.Pie({
             element: '.' + chartInput.className,
             title: chartInput.title,
@@ -12,7 +14,8 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
             fillWeight: chartOptions.fillWeight,
             roughness: chartOptions.roughness,
             strokeWidth: chartOptions.strokeWidth,
-            legend: chartOptions.legend,
+            legend: legendTypeNum !== ELegendTypes.hidden,
+            legendPosition: legendTypeNum === ELegendTypes.left ? 'left' : 'right',
             colors: chartOptions.data.colors,
             data: {
                 labels: chartOptions.data.labels,

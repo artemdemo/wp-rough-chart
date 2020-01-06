@@ -29,7 +29,7 @@ export type TChartPie = {
     strokeWidth: number;
     fillWeight: number;
     roughness: number;
-    legend: boolean;
+    legend: string;
     data: TChartPieTable|null;
 };
 
@@ -43,3 +43,8 @@ export enum TChartTypes {
 export type TGeneralError = {
     msg: string;
 }|null;
+
+export type TSelectItem = {
+    type: string;
+    name: string;
+}

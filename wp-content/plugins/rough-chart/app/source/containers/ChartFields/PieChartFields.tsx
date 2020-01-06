@@ -1,7 +1,6 @@
 import React from 'react';
 import _isNumber from 'lodash/isNumber';
 import PropInput from '../formProps/PropInput';
-import PropCheckbox from '../formProps/PropCheckbox';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import { TChartTypes, TChartPie, TChartPieTable } from '../../chartTypes';
 import ChartData from '../ChartData/ChartData';
@@ -12,6 +11,7 @@ import FormTable from '../../components/FormTable/FormTable';
 import FormField from '../../components/FormTable/FormField';
 import Shortcode from '../Shortcode/Shortcode';
 import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
+import Legend, { defaultLegend } from '../formProps/Legend';
 
 interface IPieChartFields {
     title: string;
@@ -38,7 +38,7 @@ interface IState {
     fillWeightErr: boolean;
     roughness: string;
     roughnessErr: boolean;
-    legend: boolean;
+    legend: string;
     dataUpdated: boolean;
 }
 
@@ -54,13 +54,13 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     public state = {
         title: '',  // title can be empty
         fillStyle: defaultStyle.type,
+        legend: defaultLegend.type,
         strokeWidth: '1',
         strokeWidthErr: false,
         fillWeight: '0.5',
         fillWeightErr: false,
         roughness: '1',
         roughnessErr: false,
-        legend: true,
         dataUpdated: false,
     };
 
@@ -173,10 +173,9 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                     disabled={disabled}
                     numeric
                 />
-                <PropCheckbox
-                    title={t('showLegend')}
-                    onChange={this.updateProp.bind(this, 'legend')}
+                <Legend
                     value={this.state.legend}
+                    onChange={this.updateProp.bind(this, 'legend')}
                     disabled={disabled}
                 />
             </React.Fragment>

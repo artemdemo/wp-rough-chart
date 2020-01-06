@@ -49,6 +49,7 @@ const defaultTranslations = {
     goBackToChartsList: 'Go back to charts list',
     valuesShouldBeNumbers: '"Value" column should have numbers only',
     noEmptyCellsInTable: 'Table shouldn\'t have empty cells',
+    legendPosition: 'Legend Position',
 };
 
 export const t = (translationSlug) => {
