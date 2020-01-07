@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import Color from 'color';
 import NoteModel, { ENotification } from './NoteModel';
+import * as colors from '../../styles/colors';
 
 type TNoteComponent = {
     type?: ENotification;
@@ -12,19 +14,18 @@ const Note = styled.div<TNoteComponent>`
     padding: 5px 10px;
     border-radius: 3px;
     border: 1px solid black;
-    opacity: 0.7;
     ${(props) => {
         switch (props.type) {
             case ENotification.Error:
                 return `
-                    background-color: #f4511e;
-                    border-color: #c74116;
+                    background-color: ${Color(colors.danger).fade(0.3).rgb().string()};
+                    border-color: ${Color(colors.danger).darken(0.15).rgb().string()};
                 `;
             case ENotification.Success:
             default:
                 return `
-                    background-color: #4CAF50;
-                    border-color: #3d9441;
+                    background-color: ${Color(colors.success).fade(0.25).rgb().string()};
+                    border-color: ${Color(colors.success).darken(0.1).rgb().string()};
                 `;
         }
     }};

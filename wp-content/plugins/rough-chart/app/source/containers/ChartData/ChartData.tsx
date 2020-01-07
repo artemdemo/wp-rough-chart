@@ -1,6 +1,8 @@
 import React from 'react';
 import jexcel from 'jexcel';
 import classnames from 'classnames';
+import { createGlobalStyle } from 'styled-components';
+import 'jexcel/dist/jexcel.css';
 import Description from '../../components/Description/Description';
 import ErrorBubble from '../../components/Error/ErrorBubble';
 import { TChartTypes, TGeneralError } from '../../chartTypes';
@@ -8,9 +10,8 @@ import { t } from '../../services/i18n';
 import { TJExcel } from '../../services/chartDTO';
 import { couldBeNumber } from '../../services/utils';
 import contextMenu from './contextMenu';
+import * as colors from '../../styles/colors';
 import * as pieData from './data/pieData';
-
-import './ChartData.less';
 
 interface IProps {
     type: TChartTypes;
@@ -21,6 +22,18 @@ interface IProps {
 interface IState {
     error: TGeneralError;
 }
+
+const ChartDataStyle = createGlobalStyle`
+    .table-has-error {
+        .jexcel {
+            border: 1px solid ${colors.danger};
+        }
+    }
+    
+    .jexcel_pagination {
+        display: none;
+    }
+`;
 
 class ChartData extends React.PureComponent<IProps, IState> {
     static defaultProps = {
@@ -109,6 +122,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
     render() {
         return (
             <React.Fragment>
+                <ChartDataStyle />
                 <h2>{t('chartData')}:</h2>
                 <div
                     className={classnames({
