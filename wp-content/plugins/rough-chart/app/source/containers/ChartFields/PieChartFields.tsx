@@ -55,11 +55,11 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         title: '',  // title can be empty
         fillStyle: defaultStyle.type,
         legend: defaultLegend.type,
-        strokeWidth: '1',
+        strokeWidth: '',
         strokeWidthErr: false,
-        fillWeight: '0.5',
+        fillWeight: '',
         fillWeightErr: false,
-        roughness: '1',
+        roughness: '',
         roughnessErr: false,
         dataUpdated: false,
     };
@@ -114,6 +114,18 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
             },
             error,
         };
+    }
+
+    componentDidMount(): void {
+        const { chartId } = this.props;
+        if (chartId === 'new') {
+            // Set default values for the new chart
+            this.setState({
+                strokeWidth: '1',
+                fillWeight: '0.5',
+                roughness: '1',
+            })
+        }
     }
 
     getTableData(): TChartPieTable|null {
@@ -184,7 +196,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
 
     renderShortcode() {
         const { chartId } = this.props;
-        if ( _isNumber(chartId) ) {
+        if (_isNumber(chartId)) {
             return (
                 <FormField
                     title={t('shortcode')}
