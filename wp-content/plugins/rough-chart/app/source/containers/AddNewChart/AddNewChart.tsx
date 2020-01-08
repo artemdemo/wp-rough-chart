@@ -38,7 +38,7 @@ class AddNewChart extends React.PureComponent<IProps, IState> {
             name: t('bars'),
         },
         {
-            type: TChartTypes.line,
+            type: TChartTypes.lines,
             name: t('lines'),
         },
     ];

@@ -13,6 +13,9 @@ import { QueryParams, pushState } from '../routing/routing';
 import { getUrlToChartsList } from '../services/appData';
 import { getIntFromString } from '../services/utils';
 import jqXHR = JQuery.jqXHR;
+import ColumnsFields from '../containers/ChartFields/ColumnsFields';
+import BarsFields from '../containers/ChartFields/BarsFields';
+import LinesFields from '../containers/ChartFields/LinesFields';
 
 interface IProps {
     query: QueryParams,
@@ -108,8 +111,11 @@ class EditChart extends React.PureComponent<IProps, IState> {
             case TChartTypes.pie:
                 return query.chart_id === 'new' ? t('newPieChart') : t('editPieChart');
             case TChartTypes.bars:
-                return query.chart_id === 'new' ? t('newBarChart') : t('editBarChart');
+                return query.chart_id === 'new' ? t('newBarsChart') : t('editBarsChart');
             case TChartTypes.columns:
+                return query.chart_id === 'new' ? t('newColumnsChart') : t('editColumnsChart');
+            case TChartTypes.lines:
+                return query.chart_id === 'new' ? t('newLinesChart') : t('editLinesChart');
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }
@@ -123,7 +129,14 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 ChartFieldsComponent = PieChartFields;
                 break;
             case TChartTypes.bars:
+                ChartFieldsComponent = BarsFields;
+                break;
             case TChartTypes.columns:
+                ChartFieldsComponent = ColumnsFields;
+                break;
+            case TChartTypes.lines:
+                ChartFieldsComponent = LinesFields;
+                break;
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);
         }

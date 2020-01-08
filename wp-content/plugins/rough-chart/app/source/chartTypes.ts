@@ -37,7 +37,7 @@ export enum TChartTypes {
     pie,
     bars,
     columns,
-    line,
+    lines,
 }
 
 // General type for errors in the app

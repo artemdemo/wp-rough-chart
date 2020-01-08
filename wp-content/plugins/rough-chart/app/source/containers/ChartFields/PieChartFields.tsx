@@ -46,7 +46,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
     private chartDataRef = React.createRef<ChartData>();
 
     static defaultPros = {
-        data: null,
+        chartProps: null,
         chartId: undefined,
         disabled: false,
     };
