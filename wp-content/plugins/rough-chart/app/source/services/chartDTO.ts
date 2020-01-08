@@ -1,10 +1,10 @@
 import _isArray from 'lodash/isArray'
 import _get from 'lodash/get'
-import { IChartPieTable } from '../chartTypes';
+import { TChartTable } from '../chartTypes';
 
 export type TJExcel = any[][];
 
-export const fromJExcelToPie = (jExcel?: TJExcel): IChartPieTable => {
+export const fromJExcelToPie = (jExcel?: TJExcel): TChartTable => {
     const labels: string[] = [];
     const values: number[] = [];
     const colors: string[] = [];
@@ -24,20 +24,23 @@ export const fromJExcelToPie = (jExcel?: TJExcel): IChartPieTable => {
     };
 };
 
-export const fromPieToJExcel = (pieData?: IChartPieTable): TJExcel => {
+export const fromPieToJExcel = (pieData?: TChartTable): TJExcel => {
     const result: TJExcel = [];
     if (pieData) {
         const length = Math.max(
             pieData.labels.length,
             pieData.values.length,
-            pieData.colors.length,
+            _get(pieData, 'colors.length', 0),
         );
         for (let i = 0; i < length; i++) {
-            result.push([
+            const row = [
                 _get(pieData, `labels[${i}]`, ''),
                 _get(pieData, `values[${i}]`, ''),
-                _get(pieData, `colors[${i}]`, ''),
-            ]);
+            ];
+            if (_isArray(pieData.colors)) {
+                row.push(_get(pieData, `colors[${i}]`, ''));
+            }
+            result.push(row);
         }
     }
     return result;

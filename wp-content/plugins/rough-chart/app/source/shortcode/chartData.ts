@@ -1,6 +1,6 @@
-import { TChartPie } from '../chartTypes';
+import { TChartSettings } from '../chartTypes';
 
-export const parseChart = (data: string): TChartPie|null => {
+export const parseChart = (data: string): TChartSettings|null => {
     try {
         return JSON.parse(data);
     } catch (e) {

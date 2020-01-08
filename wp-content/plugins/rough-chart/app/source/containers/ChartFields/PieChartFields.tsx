@@ -2,7 +2,7 @@ import React from 'react';
 import _isNumber from 'lodash/isNumber';
 import PropInput from '../formProps/PropInput';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
-import { TChartTypes, TChartPie, IChartPieTable } from '../../chartTypes';
+import { TChartTypes, TChartSettings, TChartTable } from '../../chartTypes';
 import ChartData from '../ChartData/ChartData';
 import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
@@ -15,7 +15,7 @@ import Legend, { defaultLegend } from '../formProps/Legend';
 
 interface IPieChartFields {
     title: string;
-    chart: TChartPie;
+    chart: TChartSettings;
 }
 
 interface IPieChartFieldsOutput extends IPieChartFields {
@@ -128,7 +128,7 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
         }
     }
 
-    getTableData(): IChartPieTable|null {
+    getTableData(): TChartTable|null {
         if (this.chartDataRef?.current?.getData) {
             const tableData = this.chartDataRef.current.getData();
             if (!tableData.error) {
