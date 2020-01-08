@@ -37,6 +37,10 @@ class AddNewChart extends React.PureComponent<IProps, IState> {
             type: TChartTypes.bars,
             name: t('bars'),
         },
+        {
+            type: TChartTypes.line,
+            name: t('lines'),
+        },
     ];
 
     clickAddChart = (e) => {
