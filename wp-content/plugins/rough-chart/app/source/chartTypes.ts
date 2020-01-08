@@ -17,12 +17,16 @@ export type TChartShortcode = {
     chart: string;
 };
 
-// Chart pie data as it returned from the table of values
-export type TChartPieTable = {
+// General chart data as it returned from the table of values
+export interface IChartTable {
     labels: string[];
     values: number[];
+}
+
+// Chart pie data as it returned from the table of values
+export interface IChartPieTable extends IChartTable {
     colors: string[];
-};
+}
 
 export type TChartPie = {
     fillStyle: string;
@@ -30,7 +34,7 @@ export type TChartPie = {
     fillWeight: number;
     roughness: number;
     legend: string;
-    data: TChartPieTable|null;
+    data: IChartPieTable|null;
 };
 
 export enum TChartTypes {
