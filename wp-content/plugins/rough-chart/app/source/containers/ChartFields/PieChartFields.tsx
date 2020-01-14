@@ -9,7 +9,7 @@ import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
 import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
 import Legend, { defaultLegend } from '../formProps/Legend';
-import BasicFields, { IBasicFieldsProps } from './BasicFields';
+import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
 
 interface IPieChartFields {
     title: string;
@@ -23,11 +23,9 @@ interface IPieChartFieldsOutput extends IPieChartFields {
 
 interface IProps extends IBasicFieldsProps {
     chartProps: IPieChartFields;
-    disabled?: boolean;
 }
 
-interface IState {
-    title: string;
+interface IState extends IBasicFieldsState {
     fillStyle: string;
     strokeWidth: string;
     strokeWidthErr: boolean;
@@ -208,19 +206,9 @@ class PieChartFields extends BasicFields<IProps, IState> {
     }
 
     render() {
-        const { disabled } = this.props;
-
         return (
             <React.Fragment>
-                <FormTable>
-                    <PropInput
-                        title={t('title')}
-                        onChange={this.updateProp.bind(this, 'title')}
-                        value={this.state.title}
-                        disabled={disabled}
-                    />
-                    {this.renderShortcode()}
-                </FormTable>
+                {this.renderTitle()}
                 <p>{t('defineChart')}</p>
                 <Grid>
                     <GridCell columns='lg-4 md-12'>

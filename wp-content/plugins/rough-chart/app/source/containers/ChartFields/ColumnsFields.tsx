@@ -7,14 +7,12 @@ import PropInput from '../formProps/PropInput';
 import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
-import BasicFields, { IBasicFieldsProps } from './BasicFields';
+import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
 
 interface IProps extends IBasicFieldsProps {
     chartProps: any
-    disabled?: boolean;
 }
-interface IState {
-    title: string;
+interface IState extends IBasicFieldsState {
     fillStyle: string;
     strokeWidth: string;
     strokeWidthErr: boolean;
@@ -102,18 +100,9 @@ class ColumnsFields extends BasicFields<IProps, IState> {
     }
 
     render() {
-        const { disabled } = this.props;
         return (
             <React.Fragment>
-                <FormTable>
-                    <PropInput
-                        title={t('title')}
-                        onChange={this.updateProp.bind(this, 'title')}
-                        value={this.state.title}
-                        disabled={disabled}
-                    />
-                    {this.renderShortcode()}
-                </FormTable>
+                {this.renderTitle()}
                 <p>{t('defineChart')}</p>
                 <Grid>
                     <GridCell columns='lg-4 md-12'>
