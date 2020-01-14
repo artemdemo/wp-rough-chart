@@ -1,5 +1,4 @@
 import React from 'react';
-import _isNumber from 'lodash/isNumber';
 import PropInput from '../formProps/PropInput';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import { TChartTypes, TChartSettings, TChartTable } from '../../chartTypes';
@@ -8,10 +7,9 @@ import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
-import FormField from '../../components/FormTable/FormField';
-import Shortcode from '../Shortcode/Shortcode';
 import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
 import Legend, { defaultLegend } from '../formProps/Legend';
+import BasicFields, { IBasicFieldsProps } from './BasicFields';
 
 interface IPieChartFields {
     title: string;
@@ -23,9 +21,8 @@ interface IPieChartFieldsOutput extends IPieChartFields {
     error: boolean;
 }
 
-interface IProps {
+interface IProps extends IBasicFieldsProps {
     chartProps: IPieChartFields;
-    chartId?: number|string;
     disabled?: boolean;
 }
 
@@ -42,7 +39,7 @@ interface IState {
     dataUpdated: boolean;
 }
 
-class PieChartFields extends React.PureComponent<IProps, IState> {
+class PieChartFields extends BasicFields<IProps, IState> {
     private chartDataRef = React.createRef<ChartData>();
 
     static defaultPros = {
@@ -192,20 +189,6 @@ class PieChartFields extends React.PureComponent<IProps, IState> {
                 />
             </React.Fragment>
         );
-    }
-
-    renderShortcode() {
-        const { chartId } = this.props;
-        if (_isNumber(chartId)) {
-            return (
-                <FormField
-                    title={t('shortcode')}
-                >
-                    <Shortcode chartId={Number(chartId)} />
-                </FormField>
-            );
-        }
-        return null;
     }
 
     renderChartData() {

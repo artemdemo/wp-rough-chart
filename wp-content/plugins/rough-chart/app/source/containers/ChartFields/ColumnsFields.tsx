@@ -4,16 +4,13 @@ import { defaultStyle } from '../formProps/FillStyle';
 import Legend, { defaultLegend } from '../formProps/Legend';
 import FormTable from '../../components/FormTable/FormTable';
 import PropInput from '../formProps/PropInput';
-import {t} from '../../services/i18n';
-import _isNumber from 'lodash/isNumber';
-import FormField from '../../components/FormTable/FormField';
-import Shortcode from '../Shortcode/Shortcode';
+import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
+import BasicFields, { IBasicFieldsProps } from './BasicFields';
 
-interface IProps {
+interface IProps extends IBasicFieldsProps {
     chartProps: any
-    chartId?: number|string;
     disabled?: boolean;
 }
 interface IState {
@@ -29,7 +26,7 @@ interface IState {
     dataUpdated: boolean;
 }
 
-class ColumnsFields extends React.PureComponent<IProps, IState> {
+class ColumnsFields extends BasicFields<IProps, IState> {
     private chartDataRef = React.createRef<ChartData>();
 
     static defaultPros = {
@@ -50,20 +47,6 @@ class ColumnsFields extends React.PureComponent<IProps, IState> {
         roughnessErr: false,
         dataUpdated: false,
     };
-
-    renderShortcode() {
-        const { chartId } = this.props;
-        if (_isNumber(chartId)) {
-            return (
-                <FormField
-                    title={t('shortcode')}
-                >
-                    <Shortcode chartId={Number(chartId)} />
-                </FormField>
-            );
-        }
-        return null;
-    }
 
     updateProp(propKey: string, value: any) {
         // @ts-ignore
