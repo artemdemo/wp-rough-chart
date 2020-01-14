@@ -1,5 +1,4 @@
 import React from 'react';
-import PropInput from '../formProps/PropInput';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
 import { TChartTypes, TChartSettings, TChartTable } from '../../chartTypes';
 import ChartData from '../ChartData/ChartData';
@@ -8,7 +7,7 @@ import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
 import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
-import Legend, { defaultLegend } from '../formProps/Legend';
+import { defaultLegend } from '../formProps/Legend';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
 
 interface IPieChartFields {
@@ -27,13 +26,6 @@ interface IProps extends IBasicFieldsProps {
 
 interface IState extends IBasicFieldsState {
     fillStyle: string;
-    strokeWidth: string;
-    strokeWidthErr: boolean;
-    fillWeight: string;
-    fillWeightErr: boolean;
-    roughness: string;
-    roughnessErr: boolean;
-    legend: string;
     dataUpdated: boolean;
 }
 
@@ -154,37 +146,6 @@ class PieChartFields extends BasicFields<IProps, IState> {
                     onChange={this.updateProp.bind(this, 'fillStyle')}
                     disabled={disabled}
                 />
-                <PropInput
-                    title={t('strokeWidth')}
-                    onChange={this.updateProp.bind(this, 'strokeWidth')}
-                    value={this.state.strokeWidth}
-                    error={this.state.strokeWidthErr}
-                    disabled={disabled}
-                    numeric
-                />
-                <PropInput
-                    title={t('fillWeight')}
-                    description={t('fillWeightDescription')}
-                    onChange={this.updateProp.bind(this, 'fillWeight')}
-                    value={this.state.fillWeight}
-                    error={this.state.fillWeightErr}
-                    disabled={disabled}
-                    numeric
-                />
-                <PropInput
-                    title={t('roughness')}
-                    description={t('roughnessDescription')}
-                    onChange={this.updateProp.bind(this, 'roughness')}
-                    value={this.state.roughness}
-                    error={this.state.roughnessErr}
-                    disabled={disabled}
-                    numeric
-                />
-                <Legend
-                    value={this.state.legend}
-                    onChange={this.updateProp.bind(this, 'legend')}
-                    disabled={disabled}
-                />
             </React.Fragment>
         );
     }
@@ -214,6 +175,7 @@ class PieChartFields extends BasicFields<IProps, IState> {
                     <GridCell columns='lg-4 md-12'>
                         <FormTable>
                             {this.renderChartFields()}
+                            {this.renderBasicFields()}
                         </FormTable>
                     </GridCell>
                     <GridCell columns='lg-8 md-12'>
