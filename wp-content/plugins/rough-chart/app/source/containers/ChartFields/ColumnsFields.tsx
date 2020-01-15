@@ -17,8 +17,6 @@ interface IState extends IBasicFieldsState {
 }
 
 class ColumnsFields extends BasicFields<IProps, IState> {
-    private chartDataRef = React.createRef<ChartData>();
-
     static defaultPros = {
         chartProps: null,
         chartId: undefined,
@@ -47,10 +45,6 @@ class ColumnsFields extends BasicFields<IProps, IState> {
             [`${propKey}Err`]: false,
         })
     };
-
-    renderChartData() {
-        return null;
-    }
 
     render() {
         return (

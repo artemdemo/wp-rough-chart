@@ -1,28 +1,20 @@
 import React from 'react';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
-import { TChartTypes, TChartSettings, TChartTable } from '../../chartTypes';
-import ChartData from '../ChartData/ChartData';
+import { TChartTypes, TChartTable } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
-import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
+import { fromJExcelToPie } from '../../services/chartDTO';
 import { defaultLegend } from '../formProps/Legend';
-import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
+import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
 
-interface IPieChartFields {
-    title: string;
-    chart: TChartSettings;
-}
-
-interface IPieChartFieldsOutput extends IPieChartFields {
+interface IPieChartFieldsOutput extends IChartProps {
     chart_type: string;
     error: boolean;
 }
 
-interface IProps extends IBasicFieldsProps {
-    chartProps: IPieChartFields;
-}
+interface IProps extends IBasicFieldsProps {}
 
 interface IState extends IBasicFieldsState {
     fillStyle: string;
@@ -30,8 +22,6 @@ interface IState extends IBasicFieldsState {
 }
 
 class PieChartFields extends BasicFields<IProps, IState> {
-    private chartDataRef = React.createRef<ChartData>();
-
     static defaultPros = {
         chartProps: null,
         chartId: undefined,
@@ -148,22 +138,6 @@ class PieChartFields extends BasicFields<IProps, IState> {
                 />
             </React.Fragment>
         );
-    }
-
-    renderChartData() {
-        const { disabled, chartProps, chartId } = this.props;
-        const hasData = !!chartProps?.chart?.data;
-        if (hasData || chartId === 'new') {
-            return (
-                <ChartData
-                    type={TChartTypes.pie}
-                    disabled={disabled}
-                    data={hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined}
-                    ref={this.chartDataRef}
-                />
-            );
-        }
-        return null;
     }
 
     render() {

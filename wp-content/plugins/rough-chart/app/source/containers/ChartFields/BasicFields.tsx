@@ -6,10 +6,19 @@ import Shortcode from '../Shortcode/Shortcode';
 import PropInput from '../formProps/PropInput';
 import FormTable from '../../components/FormTable/FormTable';
 import Legend from '../formProps/Legend';
+import ChartData from '../ChartData/ChartData';
+import {TChartSettings, TChartTypes} from '../../chartTypes';
+import {fromPieToJExcel} from '../../services/chartDTO';
+
+export interface IChartProps {
+    title: string;
+    chart: TChartSettings;
+}
 
 export interface IBasicFieldsProps {
     chartId?: number|string;
     disabled?: boolean;
+    chartProps: IChartProps
 }
 
 export interface IBasicFieldsState {
@@ -24,6 +33,8 @@ export interface IBasicFieldsState {
 }
 
 class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> extends React.Component<P, S> {
+    chartDataRef = React.createRef<ChartData>();
+
     updateTitle = (title) => {
         this.setState({ title })
     };
@@ -108,6 +119,22 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
                 />
             </React.Fragment>
         );
+    }
+
+    renderChartData() {
+        const { disabled, chartProps, chartId } = this.props;
+        const hasData = !!chartProps?.chart?.data;
+        if (hasData || chartId === 'new') {
+            return (
+                <ChartData
+                    type={TChartTypes.pie}
+                    disabled={disabled}
+                    data={hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined}
+                    ref={this.chartDataRef}
+                />
+            );
+        }
+        return null;
     }
 }
 
