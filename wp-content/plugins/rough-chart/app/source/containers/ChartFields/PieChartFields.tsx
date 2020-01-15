@@ -105,18 +105,6 @@ class PieChartFields extends BasicFields<IProps, IState> {
         }
     }
 
-    getTableData(): TChartTable|null {
-        if (this.chartDataRef?.current?.getData) {
-            const tableData = this.chartDataRef.current.getData();
-            if (!tableData.error) {
-                return fromJExcelToPie(
-                    tableData.data,
-                );
-            }
-        }
-        return null;
-    }
-
     updateProp(propKey: string, value: any) {
         // @ts-ignore
         this.setState({

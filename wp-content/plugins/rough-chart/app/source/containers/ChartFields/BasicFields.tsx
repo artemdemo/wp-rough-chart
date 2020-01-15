@@ -7,8 +7,8 @@ import PropInput from '../formProps/PropInput';
 import FormTable from '../../components/FormTable/FormTable';
 import Legend from '../formProps/Legend';
 import ChartData from '../ChartData/ChartData';
-import {TChartSettings, TChartTypes} from '../../chartTypes';
-import {fromPieToJExcel} from '../../services/chartDTO';
+import {TChartSettings, TChartTable, TChartTypes} from '../../chartTypes';
+import {fromJExcelToPie, fromPieToJExcel} from '../../services/chartDTO';
 
 export interface IChartProps {
     title: string;
@@ -54,6 +54,18 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
     updateLegend = (legend) => {
         this.setState({ legend });
     };
+
+    getTableData(): TChartTable|null {
+        if (this.chartDataRef?.current?.getData) {
+            const tableData = this.chartDataRef.current.getData();
+            if (!tableData.error) {
+                return fromJExcelToPie(
+                    tableData.data,
+                );
+            }
+        }
+        return null;
+    }
 
     renderShortcode() {
         const { chartId } = this.props;
