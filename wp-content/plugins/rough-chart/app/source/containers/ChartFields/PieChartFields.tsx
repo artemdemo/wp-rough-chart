@@ -1,17 +1,15 @@
 import React from 'react';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
-import { TChartTypes, TChartTable } from '../../chartTypes';
+import { TChartTypes } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
-import { fromJExcelToPie } from '../../services/chartDTO';
 import { defaultLegend } from '../formProps/Legend';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
 
 interface IPieChartFieldsOutput extends IChartProps {
     chart_type: string;
-    error: boolean;
 }
 
 interface IProps extends IBasicFieldsProps {}
@@ -60,36 +58,16 @@ class PieChartFields extends BasicFields<IProps, IState> {
     }
 
     public getData(): IPieChartFieldsOutput {
-        const { title, fillStyle, legend } = this.state;
-        const strokeWidth = parseFloat(this.state.strokeWidth);
-        const fillWeight = parseFloat(this.state.fillWeight);
-        const roughness = parseFloat(this.state.roughness);
-        const tableDate = this.getTableData();
-        let error = false;
-        const newState = {
-            strokeWidthErr: false,
-            fillWeightErr: false,
-            roughnessErr: false,
-        };
-        if (isNaN(strokeWidth) || strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
-        if (isNaN(fillWeight) || fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
-        if (isNaN(roughness) || roughness <= 0) { newState.roughnessErr = true; error = true; }
-        if (!tableDate) { error = true; }
-
-        this.setState(newState);
+        const { fillStyle } = this.state;
+        const superData = super.getData();
 
         return {
-            title: title.trim(),
+            ...superData,
             chart_type: TChartTypes[TChartTypes.pie],
             chart: {
+                ...superData.chart,
                 fillStyle,
-                strokeWidth,
-                fillWeight,
-                roughness,
-                legend,
-                data: tableDate,
             },
-            error,
         };
     }
 

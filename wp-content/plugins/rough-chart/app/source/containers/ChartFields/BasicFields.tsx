@@ -13,6 +13,7 @@ import {fromJExcelToPie, fromPieToJExcel} from '../../services/chartDTO';
 export interface IChartProps {
     title: string;
     chart: TChartSettings;
+    error: boolean;
 }
 
 export interface IBasicFieldsProps {
@@ -54,6 +55,38 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
     updateLegend = (legend) => {
         this.setState({ legend });
     };
+
+    public getData(): IChartProps {
+        const { title, legend } = this.state;
+        const strokeWidth = parseFloat(this.state.strokeWidth);
+        const fillWeight = parseFloat(this.state.fillWeight);
+        const roughness = parseFloat(this.state.roughness);
+        const tableDate = this.getTableData();
+        let error = false;
+        const newState = {
+            strokeWidthErr: false,
+            fillWeightErr: false,
+            roughnessErr: false,
+        };
+        if (isNaN(strokeWidth) || strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
+        if (isNaN(fillWeight) || fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
+        if (isNaN(roughness) || roughness <= 0) { newState.roughnessErr = true; error = true; }
+        if (!tableDate) { error = true; }
+
+        this.setState(newState);
+
+        return {
+            title: title.trim(),
+            chart: {
+                strokeWidth,
+                fillWeight,
+                roughness,
+                legend,
+                data: tableDate,
+            },
+            error,
+        };
+    }
 
     getTableData(): TChartTable|null {
         if (this.chartDataRef?.current?.getData) {

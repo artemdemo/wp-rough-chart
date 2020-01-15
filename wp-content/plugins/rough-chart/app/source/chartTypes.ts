@@ -25,7 +25,7 @@ export interface TChartTable {
 }
 
 export type TChartSettings = {
-    fillStyle: string;
+    fillStyle?: string;     // Lines chart doesn't have `fillStyle`
     strokeWidth: number;
     fillWeight: number;
     roughness: number;
