@@ -1,5 +1,4 @@
 import React from 'react';
-import ChartData from '../ChartData/ChartData';
 import { defaultStyle } from '../formProps/FillStyle';
 import { defaultLegend } from '../formProps/Legend';
 import FormTable from '../../components/FormTable/FormTable';
@@ -7,6 +6,7 @@ import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
+import { TChartTypes } from '../../chartTypes';
 
 interface IProps extends IBasicFieldsProps {
     chartProps: any
@@ -45,6 +45,10 @@ class ColumnsFields extends BasicFields<IProps, IState> {
             [`${propKey}Err`]: false,
         })
     };
+
+    renderChartData() {
+        return super.renderChartData(TChartTypes.columns);
+    }
 
     render() {
         return (

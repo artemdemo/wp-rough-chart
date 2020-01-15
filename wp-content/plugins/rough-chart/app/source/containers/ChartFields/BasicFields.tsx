@@ -7,8 +7,8 @@ import PropInput from '../formProps/PropInput';
 import FormTable from '../../components/FormTable/FormTable';
 import Legend from '../formProps/Legend';
 import ChartData from '../ChartData/ChartData';
-import {TChartSettings, TChartTable, TChartTypes} from '../../chartTypes';
-import {fromJExcelToPie, fromPieToJExcel} from '../../services/chartDTO';
+import { TChartSettings, TChartTable, TChartTypes } from '../../chartTypes';
+import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
 
 export interface IChartProps {
     title: string;
@@ -166,13 +166,13 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
         );
     }
 
-    renderChartData() {
+    renderChartData(chartType: TChartTypes) {
         const { disabled, chartProps, chartId } = this.props;
         const hasData = !!chartProps?.chart?.data;
         if (hasData || chartId === 'new') {
             return (
                 <ChartData
-                    type={TChartTypes.pie}
+                    type={chartType}
                     disabled={disabled}
                     data={hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined}
                     ref={this.chartDataRef}

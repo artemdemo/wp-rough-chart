@@ -106,6 +106,10 @@ class PieChartFields extends BasicFields<IProps, IState> {
         );
     }
 
+    renderChartData() {
+        return super.renderChartData(TChartTypes.pie);
+    }
+
     render() {
         return (
             <React.Fragment>
