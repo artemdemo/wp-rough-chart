@@ -9,6 +9,7 @@ interface IProps {
     color: string;
     className?: string;
     onChange?: (colorHex: string) => void;
+    disabled?: boolean;
 }
 
 interface IState {
@@ -24,6 +25,12 @@ interface IIroColor {
 class ColorPicker extends React.PureComponent<IProps, IState> {
     private pickerRef = React.createRef<HTMLDivElement>();
     private colorPicker;
+
+    static defaultProps = {
+        className: '',
+        onChange: null,
+        disabled: false,
+    };
 
     public state = {
         showPopup: false,
@@ -49,17 +56,23 @@ class ColorPicker extends React.PureComponent<IProps, IState> {
     };
 
     handleClick = () => {
-        this.setState(prevState => ({
-            showPopup: !prevState.showPopup,
-        }));
+        const { disabled } = this.props;
+        if (!disabled) {
+            this.setState(prevState => ({
+                showPopup: !prevState.showPopup,
+            }));
+        }
     };
 
     render() {
-        const { className, color } = this.props;
+        const { className, color, disabled } = this.props;
         return (
             <React.Fragment>
                 <div
-                    className={classnames('color-picker-display', className)}
+                    className={classnames(className, {
+                        'color-picker-display': true,
+                        'color-picker-display_disabled': disabled,
+                    })}
                     style={{
                         backgroundColor: color,
                     }}

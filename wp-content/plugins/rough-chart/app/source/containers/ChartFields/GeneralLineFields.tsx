@@ -50,13 +50,14 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     };
 
     renderChartFields() {
-        // const { disabled } = this.props;
+        const { disabled } = this.props;
         return (
             <React.Fragment>
                 <PropColor
                     title={t('fillColor')}
                     defaultColor={this.state.fillColor}
                     onChange={this.updateProp.bind(this, 'fillColor')}
+                    disabled={disabled}
                 />
             </React.Fragment>
         );
