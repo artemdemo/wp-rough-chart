@@ -6,8 +6,8 @@ import { pushState } from '../../routing/routing';
 import { TChartTypes } from '../../chartTypes';
 
 const Wrapper = styled.div`
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     margin: 0 5px;
 `;
 

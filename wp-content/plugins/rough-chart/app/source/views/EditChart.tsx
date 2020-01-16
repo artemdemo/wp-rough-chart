@@ -1,6 +1,7 @@
 import React from 'react';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
+import jqXHR = JQuery.jqXHR;
 import { TChartDB, TChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
 import Button, { BtnAppearance } from '../components/Button/Button';
@@ -12,10 +13,7 @@ import { addNewChart, TAddNewChartResult, updateChart, getChartById } from '../s
 import { QueryParams, pushState } from '../routing/routing';
 import { getUrlToChartsList } from '../services/appData';
 import { getIntFromString } from '../services/utils';
-import jqXHR = JQuery.jqXHR;
-import ColumnsFields from '../containers/ChartFields/ColumnsFields';
-import BarsFields from '../containers/ChartFields/BarsFields';
-import LinesFields from '../containers/ChartFields/LinesFields';
+import GeneralLineFields from '../containers/ChartFields/GeneralLineFields';
 
 interface IProps {
     query: QueryParams,
@@ -129,13 +127,9 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 ChartFieldsComponent = PieChartFields;
                 break;
             case TChartTypes.bars:
-                ChartFieldsComponent = BarsFields;
-                break;
-            case TChartTypes.columns:
-                ChartFieldsComponent = ColumnsFields;
-                break;
             case TChartTypes.lines:
-                ChartFieldsComponent = LinesFields;
+            case TChartTypes.columns:
+                ChartFieldsComponent = GeneralLineFields;
                 break;
             default:
                 throw new Error(`No component fround for the given chart type: ${query.type}`);

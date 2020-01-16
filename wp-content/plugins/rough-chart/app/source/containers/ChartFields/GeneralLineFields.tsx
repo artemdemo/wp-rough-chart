@@ -18,7 +18,7 @@ interface IState extends IBasicFieldsState {
     dataUpdated: boolean;
 }
 
-class ColumnsFields extends BasicFields<IProps, IState> {
+class GeneralLineFields extends BasicFields<IProps, IState> {
     static defaultPros = {
         chartProps: null,
         chartId: undefined,
@@ -87,4 +87,4 @@ class ColumnsFields extends BasicFields<IProps, IState> {
     }
 }
 
-export default ColumnsFields;
+export default GeneralLineFields;
