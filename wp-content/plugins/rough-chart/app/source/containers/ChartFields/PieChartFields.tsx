@@ -71,18 +71,6 @@ class PieChartFields extends BasicFields<IProps, IState> {
         };
     }
 
-    componentDidMount(): void {
-        const { chartId } = this.props;
-        if (chartId === 'new') {
-            // Set default values for the new chart
-            this.setState({
-                strokeWidth: '1',
-                fillWeight: '0.5',
-                roughness: '1',
-            })
-        }
-    }
-
     updateProp(propKey: string, value: any) {
         // @ts-ignore
         this.setState({

@@ -36,6 +36,18 @@ export interface IBasicFieldsState {
 class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> extends React.Component<P, S> {
     chartDataRef = React.createRef<ChartData>();
 
+    componentDidMount(): void {
+        const { chartId } = this.props;
+        if (chartId === 'new') {
+            // Set default values for the new chart
+            this.setState({
+                strokeWidth: '1',
+                fillWeight: '0.5',
+                roughness: '1',
+            })
+        }
+    }
+
     updateTitle = (title) => {
         this.setState({ title })
     };
