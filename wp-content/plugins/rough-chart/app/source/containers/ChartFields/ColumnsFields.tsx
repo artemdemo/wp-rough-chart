@@ -7,6 +7,7 @@ import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
+import { TChartTypes } from '../../chartTypes';
 
 interface IProps extends IBasicFieldsProps {
     chartProps: any
@@ -27,7 +28,7 @@ class ColumnsFields extends BasicFields<IProps, IState> {
     public state = {
         title: '',  // title can be empty
         fillStyle: defaultStyle.type,
-        fillColor: '#ff0000',
+        fillColor: '#ff5722',
         legend: defaultLegend.type,
         strokeWidth: '',
         strokeWidthErr: false,
@@ -62,7 +63,7 @@ class ColumnsFields extends BasicFields<IProps, IState> {
     }
 
     renderChartData() {
-        // return super.renderChartData(TChartTypes.columns);
+        return super.renderChartData(TChartTypes.columns);
     }
 
     render() {

@@ -11,7 +11,8 @@ import { TJExcel } from '../../services/chartDTO';
 import { couldBeNumber } from '../../services/utils';
 import contextMenu from './contextMenu';
 import * as colors from '../../styles/colors';
-import * as pieData from './data/pieData';
+import * as inclosedData from './data/inclosedData';
+import * as lineData from './data/lineData';
 
 interface IProps {
     type: TChartTypes;
@@ -52,10 +53,13 @@ class ChartData extends React.PureComponent<IProps, IState> {
         let chartData;
         switch (type) {
             case TChartTypes.pie:
-                chartData = pieData;
+                chartData = inclosedData;
                 break;
-            case TChartTypes.bars:
             case TChartTypes.columns:
+            case TChartTypes.bars:
+            case TChartTypes.lines:
+                chartData = lineData;
+                break;
             default:
                 throw new Error(`There is no data for given "type",received: ${type}`);
         }
