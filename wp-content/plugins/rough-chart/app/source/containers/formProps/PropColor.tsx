@@ -7,6 +7,7 @@ import './PropColor.less';
 interface IProps {
     title?: string;
     defaultColor?: string;
+    onChange: (e: any) => void;
 }
 
 interface IState {
@@ -32,7 +33,9 @@ class PropColor extends React.PureComponent<IProps, IState> {
     }
 
     onChangeColor = (color: string) => {
-        this.setState({ color })
+        const { onChange } = this.props;
+        this.setState({ color });
+        onChange(color);
     };
 
     render() {

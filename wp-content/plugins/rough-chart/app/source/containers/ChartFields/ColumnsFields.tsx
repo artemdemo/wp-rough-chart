@@ -1,18 +1,19 @@
 import React from 'react';
 import { defaultStyle } from '../formProps/FillStyle';
+import PropColor from '../formProps/PropColor';
 import { defaultLegend } from '../formProps/Legend';
 import FormTable from '../../components/FormTable/FormTable';
 import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
-import { TChartTypes } from '../../chartTypes';
 
 interface IProps extends IBasicFieldsProps {
     chartProps: any
 }
 interface IState extends IBasicFieldsState {
     fillStyle: string;
+    fillColor: string;
     dataUpdated: boolean;
 }
 
@@ -26,6 +27,7 @@ class ColumnsFields extends BasicFields<IProps, IState> {
     public state = {
         title: '',  // title can be empty
         fillStyle: defaultStyle.type,
+        fillColor: '#ff0000',
         legend: defaultLegend.type,
         strokeWidth: '',
         strokeWidthErr: false,
@@ -46,8 +48,21 @@ class ColumnsFields extends BasicFields<IProps, IState> {
         })
     };
 
+    renderChartFields() {
+        // const { disabled } = this.props;
+        return (
+            <React.Fragment>
+                <PropColor
+                    title={t('fillColor')}
+                    defaultColor={this.state.fillColor}
+                    onChange={this.updateProp.bind(this, 'fillColor')}
+                />
+            </React.Fragment>
+        );
+    }
+
     renderChartData() {
-        return super.renderChartData(TChartTypes.columns);
+        // return super.renderChartData(TChartTypes.columns);
     }
 
     render() {
@@ -59,6 +74,7 @@ class ColumnsFields extends BasicFields<IProps, IState> {
                     <GridCell columns='lg-4 md-12'>
                         <FormTable>
                             {this.renderBasicFields()}
+                            {this.renderChartFields()}
                         </FormTable>
                     </GridCell>
                     <GridCell columns='lg-8 md-12'>
