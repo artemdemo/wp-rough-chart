@@ -1,19 +1,19 @@
 import React from 'react';
 import _omit from 'lodash/omit';
 import _get from 'lodash/get';
-import jqXHR = JQuery.jqXHR;
 import { TChartDB, TChartTypes } from '../chartTypes';
 import PieChartFields from '../containers/ChartFields/PieChartFields';
-import Button, { BtnAppearance } from '../components/Button/Button';
+import Button, {BtnAppearance} from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import Loading from '../components/Loading/Loading';
 import { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
-import { addNewChart, TAddNewChartResult, updateChart, getChartById } from '../services/ajax';
-import { QueryParams, pushState } from '../routing/routing';
+import { addNewChart, getChartById, TAddNewChartResult, updateChart } from '../services/ajax';
+import { pushState, QueryParams } from '../routing/routing';
 import { getUrlToChartsList } from '../services/appData';
 import { getIntFromString } from '../services/utils';
 import GeneralLineFields from '../containers/ChartFields/GeneralLineFields';
+import jqXHR = JQuery.jqXHR;
 
 interface IProps {
     query: QueryParams,
@@ -68,14 +68,12 @@ class EditChart extends React.PureComponent<IProps, IState> {
 
     saveChartData = () => {
         const { query } = this.props;
-        const type = String(TChartTypes[_get(query, 'type', '-1')]).toLowerCase();
         const chartData = this.chartFieldsRef?.current?.getData();
         if (chartData && !chartData.error) {
             this.setState({ loading: true });
             if (query.chart_id === 'new') {
                 this.requestRef = addNewChart({
                     ..._omit(chartData, ['error']),
-                    type,
                 })
                     .done((result: TAddNewChartResult) => {
                         sendNotification(t('chartAdded'));
@@ -122,13 +120,17 @@ class EditChart extends React.PureComponent<IProps, IState> {
     renderFields() {
         const { query } = this.props;
         let ChartFieldsComponent;
-        switch (parseInt(_get(query, 'type', '-1'), 10)) {
+        let chartType: TChartTypes;
+        const typeValue = parseInt(_get(query, 'type', '-1'), 10);
+        switch (typeValue) {
             case TChartTypes.pie:
+                chartType = TChartTypes.pie;
                 ChartFieldsComponent = PieChartFields;
                 break;
             case TChartTypes.bars:
-            case TChartTypes.lines:
             case TChartTypes.columns:
+            case TChartTypes.lines:
+                chartType = TChartTypes[TChartTypes[typeValue]];
                 ChartFieldsComponent = GeneralLineFields;
                 break;
             default:
@@ -140,6 +142,8 @@ class EditChart extends React.PureComponent<IProps, IState> {
                 chartProps={this.state.chartData}
                 chartId={query.chart_id === 'new' ? 'new' : getIntFromString(query.chart_id)}
                 disabled={this.state.loading}
+                // `chartType` property has only `GeneralLineFields` component
+                chartType={chartType}
             />
         );
     }

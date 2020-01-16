@@ -6,12 +6,18 @@ import FormTable from '../../components/FormTable/FormTable';
 import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
-import BasicFields, { IBasicFieldsProps, IBasicFieldsState } from './BasicFields';
+import BasicFields, {IBasicFieldsProps, IBasicFieldsState, IChartProps} from './BasicFields';
 import { TChartTypes } from '../../chartTypes';
 
-interface IProps extends IBasicFieldsProps {
-    chartProps: any
+interface IGeneralLineFieldsOutput extends IChartProps {
+    chart_type: string;
 }
+
+interface IProps extends IBasicFieldsProps {
+    chartProps: any;
+    chartType: TChartTypes;
+}
+
 interface IState extends IBasicFieldsState {
     fillStyle: string;
     fillColor: string;
@@ -38,6 +44,20 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         roughnessErr: false,
         dataUpdated: false,
     };
+
+    public getData(): IGeneralLineFieldsOutput {
+        const { fillStyle } = this.state;
+        const { chartType } = this.props;
+        const superData = super.getData();
+        return {
+            ...superData,
+            chart_type: TChartTypes[chartType],
+            chart: {
+                ...superData.chart,
+                fillStyle,
+            },
+        };
+    }
 
     updateProp(propKey: string, value: any) {
         // @ts-ignore
