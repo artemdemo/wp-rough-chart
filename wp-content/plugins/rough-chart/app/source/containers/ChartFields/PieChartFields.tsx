@@ -1,12 +1,13 @@
 import React from 'react';
 import FillStyle, { defaultStyle } from '../formProps/FillStyle';
-import { TChartTypes } from '../../chartTypes';
+import {TChartTable, TChartTypes} from '../../chartTypes';
 import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
 import { defaultLegend } from '../formProps/Legend';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
+import { fromJExcelToPie, fromPieToJExcel, TJExcel } from '../../services/chartDTO';
 
 interface IPieChartFieldsOutput extends IChartProps {
     chart_type: string;
@@ -69,6 +70,24 @@ class PieChartFields extends BasicFields<IProps, IState> {
                 fillStyle,
             },
         };
+    }
+
+    getTableData(): TChartTable|null {
+        if (this.chartDataRef?.current?.getData) {
+            const tableData = this.chartDataRef.current.getData();
+            if (!tableData.error) {
+                return fromJExcelToPie(
+                    tableData.data,
+                );
+            }
+        }
+        return null;
+    }
+
+    provideChartData(): TJExcel|undefined {
+        const { chartProps } = this.props;
+        const hasData = !!chartProps?.chart?.data;
+        return hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined;
     }
 
     updateProp(propKey: string, value: any) {

@@ -8,7 +8,7 @@ import FormTable from '../../components/FormTable/FormTable';
 import Legend from '../formProps/Legend';
 import ChartData from '../ChartData/ChartData';
 import { TChartSettings, TChartTable, TChartTypes } from '../../chartTypes';
-import { fromJExcelToPie, fromPieToJExcel } from '../../services/chartDTO';
+import { TJExcel } from '../../services/chartDTO';
 
 export interface IChartProps {
     title: string;
@@ -101,15 +101,11 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
     }
 
     getTableData(): TChartTable|null {
-        if (this.chartDataRef?.current?.getData) {
-            const tableData = this.chartDataRef.current.getData();
-            if (!tableData.error) {
-                return fromJExcelToPie(
-                    tableData.data,
-                );
-            }
-        }
         return null;
+    }
+
+    provideChartData(): TJExcel|undefined {
+        return undefined;
     }
 
     renderShortcode() {
@@ -186,7 +182,7 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
                 <ChartData
                     type={chartType}
                     disabled={disabled}
-                    data={hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined}
+                    data={this.provideChartData()}
                     ref={this.chartDataRef}
                 />
             );

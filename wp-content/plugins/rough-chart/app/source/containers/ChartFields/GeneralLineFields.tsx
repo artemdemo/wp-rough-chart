@@ -7,7 +7,8 @@ import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
 import BasicFields, {IBasicFieldsProps, IBasicFieldsState, IChartProps} from './BasicFields';
-import { TChartTypes } from '../../chartTypes';
+import {TChartTable, TChartTypes} from '../../chartTypes';
+import { fromGeneralLineToJExcel, fromJExcelToGeneralLine, TJExcel } from '../../services/chartDTO';
 
 interface IGeneralLineFieldsOutput extends IChartProps {
     chart_type: string;
@@ -45,6 +46,23 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         dataUpdated: false,
     };
 
+    static getDerivedStateFromProps(props: IProps, state) {
+        // I'm updating state only once, when data is received (if it is what will happen).
+        // The assumption here is that I'll receive data only once in the lifecycle.
+        // It doesn't look legit that I'll request server more than once.
+        if (props.chartProps && !state.dataUpdated) {
+            return {
+                title: props.chartProps.title,
+                strokeWidth: String(props.chartProps.chart.strokeWidth),
+                fillWeight: String(props.chartProps.chart.fillWeight),
+                roughness: String(props.chartProps.chart.roughness),
+                legend: props.chartProps.chart.legend,
+                dataUpdated: true,
+            };
+        }
+        return null;
+    }
+
     public getData(): IGeneralLineFieldsOutput {
         const { fillStyle } = this.state;
         const { chartType } = this.props;
@@ -57,6 +75,24 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                 fillStyle,
             },
         };
+    }
+
+    getTableData(): TChartTable|null {
+        if (this.chartDataRef?.current?.getData) {
+            const tableData = this.chartDataRef.current.getData();
+            if (!tableData.error) {
+                return fromJExcelToGeneralLine(
+                    tableData.data,
+                );
+            }
+        }
+        return null;
+    }
+
+    provideChartData(): TJExcel|undefined {
+        const { chartProps } = this.props;
+        const hasData = !!chartProps?.chart?.data;
+        return hasData ? fromGeneralLineToJExcel(chartProps.chart.data || undefined) : undefined;
     }
 
     updateProp(propKey: string, value: any) {
