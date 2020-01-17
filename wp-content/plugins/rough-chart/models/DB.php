@@ -2,6 +2,8 @@
 
 namespace roughChart\models;
 
+use roughChart\views\View;
+
 class DB {
     private static $table_name = 'roughcharts';
 
@@ -36,7 +38,13 @@ class DB {
         $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
     }
 
-    public static function add_chart($title, $type, $chart_str) {
+    public static function add_chart( $title, $type, $chart_str ) {
+        if ( !isset( $title ) ) {
+            throw new \Exception( __('Title is not provided', View::$text_domain) );
+        }
+        if ( !isset( $type ) ) {
+            throw new \Exception( __('Chart type is not provided', View::$text_domain) );
+        }
         global $wpdb;
         $table_name = DB::get_table_name();
         $inserted_rows = $wpdb->insert(
@@ -56,7 +64,13 @@ class DB {
         );
     }
 
-    public static function update_chart($id, $title, $chart_str) {
+    public static function update_chart( $id, $title, $chart_str ) {
+        if ( !isset( $id ) ) {
+            throw new \Exception( __('Chart id is not provided', View::$text_domain) );
+        }
+        if ( !isset( $title ) ) {
+            throw new \Exception( __('Title is not provided', View::$text_domain) );
+        }
         global $wpdb;
         $table_name = DB::get_table_name();
         $updated_rows = $wpdb->update(
@@ -75,7 +89,7 @@ class DB {
         );
     }
 
-    public static function get_chart_by_id($id) {
+    public static function get_chart_by_id( $id ) {
         global $wpdb;
         $table_name = DB::get_table_name();
         $sql = $wpdb->prepare(
@@ -93,7 +107,7 @@ class DB {
         );
     }
 
-    public static function delete_chart_by_id($id) {
+    public static function delete_chart_by_id( $id ) {
         global $wpdb;
         $table_name = DB::get_table_name();
         return $wpdb->delete(

@@ -97,9 +97,11 @@ class RoughChartAdmin {
                 512,
                 JSON_THROW_ON_ERROR
             );
+            $title = isset( $chart[ 'title' ] ) ? $chart[ 'title' ] : null;
+            $chart_type = isset( $chart[ 'chart_type' ] ) ? $chart[ 'chart_type' ] : null;
             $result = DB::add_chart(
-                $chart[ 'title' ],
-                $chart[ 'chart_type' ],
+                $title,
+                $chart_type,
                 json_encode( $chart[ 'chart' ] )
             );
             if ( $result[ 'inserted_rows' ] == 1 ) {
@@ -107,8 +109,8 @@ class RoughChartAdmin {
             } else {
                 $err = ErrorMsg::generalDBError();
             }
-        } catch ( JsonException $e ) {
-            $err = ErrorMsg::fromJsonException( $e );
+        } catch ( Exception $e ) {
+            $err = ErrorMsg::generalError( $e );
         }
         if ( $err != null ) {
             wp_send_json(
@@ -133,9 +135,10 @@ class RoughChartAdmin {
                 512,
                 JSON_THROW_ON_ERROR
             );
+            $title = isset( $chart[ 'title' ] ) ? $chart[ 'title' ] : null;
             $result = DB::update_chart(
                 $chart_id,
-                $chart[ 'title' ],
+                $title,
                 json_encode( $chart[ 'chart' ] )
             );
             if ( $result[ 'updated_rows' ] == 1 ) {
@@ -144,8 +147,8 @@ class RoughChartAdmin {
             } else {
                 $err = ErrorMsg::generalDBError();
             }
-        } catch ( JsonException $e ) {
-            $err = ErrorMsg::fromJsonException( $e );
+        } catch ( Exception $e ) {
+            $err = ErrorMsg::generalError( $e );
         }
         if ( $err != null ) {
             wp_send_json(
