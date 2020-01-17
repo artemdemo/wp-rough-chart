@@ -10,7 +10,7 @@ import Shortcode, { getShortcode } from '../Shortcode/Shortcode';
 import { TChartDB, TChartTypes } from '../../chartTypes';
 import { t } from '../../services/i18n';
 import copyToClipboard from '../../services/copyToClipboard';
-import { getUrlToChart } from '../../services/appData';
+import { getUrlToChart } from '../../services/adminAppData';
 import { pushState } from '../../routing/routing';
 
 const TdShortcode = styled(Td)`

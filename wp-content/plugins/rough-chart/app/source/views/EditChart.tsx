@@ -10,7 +10,7 @@ import { sendNotification } from '../components/Notifications/Notifications';
 import { t } from '../services/i18n';
 import { addNewChart, getChartById, TAddNewChartResult, updateChart } from '../services/ajax';
 import { pushState, QueryParams } from '../routing/routing';
-import { getUrlToChartsList } from '../services/appData';
+import { getUrlToChartsList } from '../services/adminAppData';
 import { getIntFromString } from '../services/utils';
 import GeneralLineFields from '../containers/ChartFields/GeneralLineFields';
 import jqXHR = JQuery.jqXHR;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TransparentButton from '../../components/Button/TransparentButton';
-import { getUrlToChart } from '../../services/appData';
+import { getUrlToChart } from '../../services/adminAppData';
 import { pushState } from '../../routing/routing';
 import { TChartTypes } from '../../chartTypes';
 

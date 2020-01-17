@@ -2,6 +2,12 @@ import roughViz from 'rough-viz';
 import { parseChart } from './shortcode/chartData';
 import { TChartShortcode, TChartTypes } from './chartTypes';
 import { ELegendTypes } from './containers/formProps/Legend';
+import { getAppData } from './services/userAppData';
+
+type TRoughVizChartData = {
+    labels: string[];
+    values: string[]|number[];
+};
 
 type TRoughVizSettings = {
     element: string;
@@ -11,10 +17,8 @@ type TRoughVizSettings = {
     strokeWidth: number;
     legend: boolean;
     legendPosition: string;
-    data: {
-        labels: string[];
-        values: string[]|number[];
-    };
+    data: TRoughVizChartData|string;
+    y?: string;
     highlight?: string;
     stroke?: string;
     color?: string;
@@ -24,8 +28,6 @@ type TRoughVizSettings = {
 
 const __addRoughChart = (chartInput: TChartShortcode) => {
     const chartOptions = parseChart(chartInput.chart);
-
-    console.log(chartOptions);
 
     if (chartOptions && chartOptions.data) {
         const legendTypeNum = parseInt(chartOptions.legend, 10);
@@ -68,7 +70,14 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
         }
 
         if (TChartTypes[chartInput.chart_type] === TChartTypes.lines) {
+            const appData = getAppData();
             roughVizSettings.color = chartOptions.color;
+            // For some unknown reason Line chart can't parse data if provided as simple object.
+            // I even can't provide it as csv string right to the library, because api is not allowing it.
+            // Therefore I'm adding this workaround that will request data from the server.
+            // (Only server, only hardcore)
+            roughVizSettings.data = `${appData.rest_api_url}/chart/${chartInput.id}.csv`;
+            roughVizSettings.y = 'values';
             new roughViz.Line(roughVizSettings);
         }
     }

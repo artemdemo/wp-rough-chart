@@ -1,6 +1,6 @@
 declare var __webpack_public_path__;
 import React from 'react';
-import { getAppData } from '../services/appData';
+import { getAppData } from '../services/adminAppData';
 import RouteProvider from '../routing/QueryRouteProvider';
 import Notifications from '../components/Notifications/Notifications';
 

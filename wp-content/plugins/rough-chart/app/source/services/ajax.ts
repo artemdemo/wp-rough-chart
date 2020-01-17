@@ -1,7 +1,7 @@
 declare var jQuery;
 import _get from 'lodash/get';
 import { t } from './i18n';
-import { getAppData } from './appData';
+import { getAppData } from './adminAppData';
 import { sendNotification } from '../components/Notifications/Notifications';
 import { ENotification } from '../components/Notifications/NoteModel';
 

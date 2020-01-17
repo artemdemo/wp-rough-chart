@@ -4,14 +4,14 @@ import { TChartTypes } from '../chartTypes';
 
 const globalAppDataRef = '__roughChartsApp_$8453';
 
-type AppData = {
+type TAdminAppData = {
     nonce: string;
     ajax_url: string;
     plugin_url: string;
     build_folder: string;
 }
 
-export const getAppData = (): AppData => {
+export const getAppData = (): TAdminAppData => {
     return window[globalAppDataRef];
 };
 
