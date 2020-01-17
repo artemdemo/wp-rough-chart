@@ -22,6 +22,8 @@ class PropColor extends React.PureComponent<IProps, IState> {
         disabled: false,
     };
 
+    colorPickerRef = React.createRef<ColorPicker>();
+
     public state = {
         color: '#2C5390',
     };
@@ -33,6 +35,10 @@ class PropColor extends React.PureComponent<IProps, IState> {
                 color: defaultColor,
             })
         }
+    }
+
+    public setColor(color: string): void {
+        this.colorPickerRef.current?.setColor(color);
     }
 
     onChangeColor = (color: string) => {
@@ -49,8 +55,9 @@ class PropColor extends React.PureComponent<IProps, IState> {
             >
                 <ColorPicker
                     className='prop-color-picker'
-                    color={this.state.color}
+                    defaultColor={this.state.color}
                     onChange={this.onChangeColor}
+                    ref={this.colorPickerRef}
                     disabled={disabled}
                 />
                 <span

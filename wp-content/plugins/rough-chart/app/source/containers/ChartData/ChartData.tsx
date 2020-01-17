@@ -99,7 +99,10 @@ class ChartData extends React.PureComponent<IProps, IState> {
         }
         this.setState({ error });
         return {
-            data: jExcelData,
+            data: jExcelData.map(row => ([
+                row[0],
+                parseFloat(row[1]),
+            ])),
             error,
         };
     }

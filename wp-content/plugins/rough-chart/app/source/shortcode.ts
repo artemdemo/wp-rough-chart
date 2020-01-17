@@ -23,6 +23,8 @@ type TRoughVizSettings = {
 const __addRoughChart = (chartInput: TChartShortcode) => {
     const chartOptions = parseChart(chartInput.chart);
 
+    console.log(chartOptions);
+
     if (chartOptions && chartOptions.data) {
         const legendTypeNum = parseInt(chartOptions.legend, 10);
         const roughVizSettings: TRoughVizSettings = {

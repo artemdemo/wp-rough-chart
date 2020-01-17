@@ -6,7 +6,7 @@ import ColorPickerPopup from './ColorPickerPopup';
 import './ColorPicker.less';
 
 interface IProps {
-    color: string;
+    defaultColor: string;
     className?: string;
     onChange?: (colorHex: string) => void;
     disabled?: boolean;
@@ -37,17 +37,21 @@ class ColorPicker extends React.PureComponent<IProps, IState> {
     };
 
     componentDidMount(): void {
-        const { color } = this.props;
+        const { defaultColor } = this.props;
         // color picker options
         // Option guide: https://iro.js.org/guide.html#color-picker-options
         this.colorPicker = new iro.ColorPicker(this.pickerRef.current, {
             width: 180,
-            color: color,
+            color: defaultColor,
             borderWidth: 1,
             borderColor: '#fff',
         });
 
         this.colorPicker.on('color:change', this.handleColorChange);
+    }
+
+    public setColor(color: string): void {
+        this.colorPicker.color.set(color);
     }
 
     handleColorChange = (color: IIroColor) => {
@@ -65,7 +69,7 @@ class ColorPicker extends React.PureComponent<IProps, IState> {
     };
 
     render() {
-        const { className, color, disabled } = this.props;
+        const { className, defaultColor, disabled } = this.props;
         return (
             <React.Fragment>
                 <div
@@ -74,7 +78,7 @@ class ColorPicker extends React.PureComponent<IProps, IState> {
                         'color-picker-display_disabled': disabled,
                     })}
                     style={{
-                        backgroundColor: color,
+                        backgroundColor: defaultColor,
                     }}
                     onClick={this.handleClick}
                 />

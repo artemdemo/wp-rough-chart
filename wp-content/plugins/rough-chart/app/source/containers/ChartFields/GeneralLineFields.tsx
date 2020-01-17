@@ -35,7 +35,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     public state = {
         title: '',  // title can be empty
         fillStyle: defaultStyle.type,
-        fillColor: '#ff5722',
+        fillColor: '#cccccc',
         legend: defaultLegend.type,
         strokeWidth: '',
         strokeWidthErr: false,
@@ -46,6 +46,8 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         dataUpdated: false,
     };
 
+    fillColorRef = React.createRef<PropColor>();
+
     static getDerivedStateFromProps(props: IProps, state) {
         // I'm updating state only once, when data is received (if it is what will happen).
         // The assumption here is that I'll receive data only once in the lifecycle.
@@ -53,6 +55,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         if (props.chartProps && !state.dataUpdated) {
             return {
                 title: props.chartProps.title,
+                fillColor: props.chartProps.chart.color,
                 strokeWidth: String(props.chartProps.chart.strokeWidth),
                 fillWeight: String(props.chartProps.chart.fillWeight),
                 roughness: String(props.chartProps.chart.roughness),
@@ -63,8 +66,14 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         return null;
     }
 
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
+        if (!prevState.dataUpdated && this.state.dataUpdated) {
+            this.fillColorRef.current?.setColor(this.state.fillColor);
+        }
+    }
+
     public getData(): IGeneralLineFieldsOutput {
-        const { fillStyle } = this.state;
+        const { fillStyle, fillColor } = this.state;
         const { chartType } = this.props;
         const superData = super.getData();
         return {
@@ -72,6 +81,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
             chart_type: TChartTypes[chartType],
             chart: {
                 ...superData.chart,
+                color: fillColor,
                 fillStyle,
             },
         };
@@ -114,6 +124,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                     defaultColor={this.state.fillColor}
                     onChange={this.updateProp.bind(this, 'fillColor')}
                     disabled={disabled}
+                    ref={this.fillColorRef}
                 />
             </React.Fragment>
         );
