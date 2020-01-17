@@ -2,6 +2,7 @@
 
 namespace roughChart\models;
 
+use Exception;
 use JsonException;
 use roughChart\views\View;
 
@@ -12,7 +13,7 @@ class ErrorMsg {
     private $status = 500;
 
     /**
-     * Create RoughChartErrorMsg instance from JsonException
+     * Create ErrorMsg instance from JsonException
      *
      * @docs https://www.php.net/manual/en/class.jsonexception.php
      * @param JsonException $e
@@ -23,20 +24,30 @@ class ErrorMsg {
         return new ErrorMsg(
             __('Can\'t parse json', View::$text_domain),
             $e->getMessage(),
-            $e->getTraceAsString(),
-            500
+            $e->getTraceAsString()
         );
     }
 
-    public static function generalError( \Exception $e ) {
+    /**
+     * Create ErrorMsg instance from Exception
+     *
+     * @param Exception $e
+     *
+     * @return ErrorMsg
+     */
+    public static function generalError( Exception $e ) {
         return new ErrorMsg(
             __('Something went wrong', View::$text_domain),
             $e->getMessage(),
-            $e->getTraceAsString(),
-            500
+            $e->getTraceAsString()
         );
     }
 
+    /**
+     * General ErrorMsg for DB exceptions
+     *
+     * @return ErrorMsg
+     */
     public static function generalDBError() {
         return new ErrorMsg(
             __('DB error', View::$text_domain),

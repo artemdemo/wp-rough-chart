@@ -114,8 +114,8 @@ class RoughChartAdmin {
         }
         if ( $err != null ) {
             wp_send_json(
-                $err -> toArray(),
-                $err -> getStatus()
+                $err->toArray(),
+                $err->getStatus()
             );
         }
         die();
@@ -152,8 +152,8 @@ class RoughChartAdmin {
         }
         if ( $err != null ) {
             wp_send_json(
-                $err -> toArray(),
-                $err -> getStatus()
+                $err->toArray(),
+                $err->getStatus()
             );
         }
         die();
@@ -195,8 +195,8 @@ class RoughChartAdmin {
         }
         if ( $err != null ) {
             wp_send_json(
-                $err -> toArray(),
-                $err -> getStatus()
+                $err->toArray(),
+                $err->getStatus()
             );
         }
         die();
@@ -204,7 +204,7 @@ class RoughChartAdmin {
 
     public static function render_admin_view() {
         $view = new View();
-        $view -> render();
+        $view->render();
     }
 
 }
