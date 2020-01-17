@@ -25,7 +25,9 @@ export interface TChartTable {
 }
 
 export type TChartSettings = {
+    stroke?: string;        // Pie chart doesn't have `stroke`
     fillStyle?: string;     // Lines chart doesn't have `fillStyle`
+    highlight?: string;     // Lines chart doesn't have `highlight`
     strokeWidth: number;
     fillWeight: number;
     roughness: number;

@@ -22,6 +22,8 @@ interface IProps extends IBasicFieldsProps {
 interface IState extends IBasicFieldsState {
     fillStyle: string;
     fillColor: string;
+    strokeColor: string;
+    highlightColor: string;
     dataUpdated: boolean;
 }
 
@@ -35,7 +37,9 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     public state = {
         title: '',  // title can be empty
         fillStyle: defaultStyle.type,
-        fillColor: '#cccccc',
+        strokeColor: '#0166b5',
+        fillColor: '#039be5',
+        highlightColor: '#4fc3f7',
         legend: defaultLegend.type,
         strokeWidth: '',
         strokeWidthErr: false,
@@ -47,6 +51,8 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     };
 
     fillColorRef = React.createRef<PropColor>();
+    strokeColorRef = React.createRef<PropColor>();
+    highlightColorRef = React.createRef<PropColor>();
 
     static getDerivedStateFromProps(props: IProps, state) {
         // I'm updating state only once, when data is received (if it is what will happen).
@@ -55,6 +61,8 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         if (props.chartProps && !state.dataUpdated) {
             return {
                 title: props.chartProps.title,
+                strokeColor: props.chartProps.chart.stroke,
+                highlightColor: props.chartProps.chart.highlight,
                 fillColor: props.chartProps.chart.color,
                 strokeWidth: String(props.chartProps.chart.strokeWidth),
                 fillWeight: String(props.chartProps.chart.fillWeight),
@@ -69,11 +77,13 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
         if (!prevState.dataUpdated && this.state.dataUpdated) {
             this.fillColorRef.current?.setColor(this.state.fillColor);
+            this.strokeColorRef.current?.setColor(this.state.strokeColor);
+            this.highlightColorRef.current?.setColor(this.state.highlightColor);
         }
     }
 
     public getData(): IGeneralLineFieldsOutput {
-        const { fillStyle, fillColor } = this.state;
+        const { fillStyle, fillColor, strokeColor, highlightColor } = this.state;
         const { chartType } = this.props;
         const superData = super.getData();
         return {
@@ -82,6 +92,8 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
             chart: {
                 ...superData.chart,
                 color: fillColor,
+                stroke: strokeColor,
+                highlight: highlightColor,
                 fillStyle,
             },
         };
@@ -125,6 +137,20 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                     onChange={this.updateProp.bind(this, 'fillColor')}
                     disabled={disabled}
                     ref={this.fillColorRef}
+                />
+                <PropColor
+                    title={t('highlightColor')}
+                    defaultColor={this.state.highlightColor}
+                    onChange={this.updateProp.bind(this, 'highlightColor')}
+                    disabled={disabled}
+                    ref={this.highlightColorRef}
+                />
+                <PropColor
+                    title={t('strokeColor')}
+                    defaultColor={this.state.strokeColor}
+                    onChange={this.updateProp.bind(this, 'strokeColor')}
+                    disabled={disabled}
+                    ref={this.strokeColorRef}
                 />
             </React.Fragment>
         );

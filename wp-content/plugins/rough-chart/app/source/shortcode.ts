@@ -15,6 +15,8 @@ type TRoughVizSettings = {
         labels: string[];
         values: string[]|number[];
     };
+    highlight?: string;
+    stroke?: string;
     color?: string;
     colors?: string[];
     fillStyle?: string;
@@ -43,18 +45,24 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
 
         if (TChartTypes[chartInput.chart_type] === TChartTypes.pie) {
             roughVizSettings.fillStyle = chartOptions.fillStyle;
+            roughVizSettings.stroke = chartOptions.stroke;
+            roughVizSettings.highlight = chartOptions.highlight;
             roughVizSettings.colors = chartOptions.data.colors;
             new roughViz.Pie(roughVizSettings);
         }
 
         if (TChartTypes[chartInput.chart_type] === TChartTypes.bars) {
             roughVizSettings.fillStyle = chartOptions.fillStyle;
+            roughVizSettings.stroke = chartOptions.stroke;
+            roughVizSettings.highlight = chartOptions.highlight;
             roughVizSettings.color = chartOptions.color;
             new roughViz.BarH(roughVizSettings);
         }
 
         if (TChartTypes[chartInput.chart_type] === TChartTypes.columns) {
             roughVizSettings.fillStyle = chartOptions.fillStyle;
+            roughVizSettings.stroke = chartOptions.stroke;
+            roughVizSettings.highlight = chartOptions.highlight;
             roughVizSettings.color = chartOptions.color;
             new roughViz.Bar(roughVizSettings);
         }

@@ -37,6 +37,8 @@ const defaultTranslations = {
     title: 'Title',
     fillStyle: 'Fill Style',
     strokeWidth: 'Stroke Width',
+    strokeColor: 'Stroke Color',
+    highlightColor: 'Highlight Color',
     fillColor: 'Fill Color',
     fillWeight: 'Fill Weight',
     fillWeightDescription: 'Weight of inner paths\' color.',
