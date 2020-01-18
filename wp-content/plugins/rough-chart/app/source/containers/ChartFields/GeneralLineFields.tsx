@@ -6,8 +6,8 @@ import FormTable from '../../components/FormTable/FormTable';
 import { t } from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
-import BasicFields, {IBasicFieldsProps, IBasicFieldsState, IChartProps} from './BasicFields';
-import {TChartTable, TChartTypes} from '../../chartTypes';
+import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
+import { TChartTable, TChartTypes } from '../../chartTypes';
 import { fromGeneralLineToJExcel, fromJExcelToGeneralLine, TJExcel } from '../../services/chartDTO';
 
 interface IGeneralLineFieldsOutput extends IChartProps {
@@ -133,24 +133,35 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         })
     };
 
-    renderChartFields() {
+    renderFillColorFields() {
+        const { disabled, chartType } = this.props;
+        if (chartType !== TChartTypes.lines) {
+            return (
+                <React.Fragment>
+                    <PropColor
+                        title={t('fillColor')}
+                        defaultColor={this.state.fillColor}
+                        onChange={this.updateProp.bind(this, 'fillColor')}
+                        disabled={disabled}
+                        ref={this.fillColorRef}
+                    />
+                    <PropColor
+                        title={t('highlightColor')}
+                        defaultColor={this.state.highlightColor}
+                        onChange={this.updateProp.bind(this, 'highlightColor')}
+                        disabled={disabled}
+                        ref={this.highlightColorRef}
+                    />
+                </React.Fragment>
+            );
+        }
+        return null;
+    }
+
+    renderStrokeColorFields() {
         const { disabled } = this.props;
         return (
             <React.Fragment>
-                <PropColor
-                    title={t('fillColor')}
-                    defaultColor={this.state.fillColor}
-                    onChange={this.updateProp.bind(this, 'fillColor')}
-                    disabled={disabled}
-                    ref={this.fillColorRef}
-                />
-                <PropColor
-                    title={t('highlightColor')}
-                    defaultColor={this.state.highlightColor}
-                    onChange={this.updateProp.bind(this, 'highlightColor')}
-                    disabled={disabled}
-                    ref={this.highlightColorRef}
-                />
                 <PropColor
                     title={t('strokeColor')}
                     defaultColor={this.state.strokeColor}
@@ -175,7 +186,8 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                     <GridCell columns='lg-4 md-12'>
                         <FormTable>
                             {this.renderBasicFields()}
-                            {this.renderChartFields()}
+                            {this.renderFillColorFields()}
+                            {this.renderStrokeColorFields()}
                         </FormTable>
                     </GridCell>
                     <GridCell columns='lg-8 md-12'>
