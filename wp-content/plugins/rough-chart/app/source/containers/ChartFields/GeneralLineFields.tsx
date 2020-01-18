@@ -1,14 +1,14 @@
 import React from 'react';
-import { defaultStyle } from '../formProps/FillStyle';
+import {defaultStyle} from '../formProps/FillStyle';
 import PropColor from '../formProps/PropColor';
-import { defaultLegend } from '../formProps/Legend';
+import {defaultLegend} from '../formProps/Legend';
 import FormTable from '../../components/FormTable/FormTable';
-import { t } from '../../services/i18n';
+import {t} from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
-import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
-import { TChartTable, TChartTypes } from '../../chartTypes';
-import { fromGeneralLineToJExcel, fromJExcelToGeneralLine, TJExcel } from '../../services/chartDTO';
+import BasicFields, {IBasicFieldsProps, IBasicFieldsState, IChartProps} from './BasicFields';
+import {TChartTable, TChartTypes} from '../../chartTypes';
+import {fromGeneralLineToJExcel, fromJExcelToGeneralLine, TJExcel} from '../../services/chartDTO';
 
 interface IGeneralLineFieldsOutput extends IChartProps {
     chart_type: string;
@@ -174,7 +174,9 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     }
 
     renderChartData() {
-        return super.renderChartData(TChartTypes.columns);
+        const { chartType } = this.props;
+        const type = chartType === TChartTypes.lines ? chartType : TChartTypes.columns;
+        return super.renderChartData(type);
     }
 
     render() {

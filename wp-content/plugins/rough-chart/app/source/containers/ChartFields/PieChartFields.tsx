@@ -29,6 +29,10 @@ class PieChartFields extends BasicFields<IProps, IState> {
 
     public state = {
         title: '',  // title can be empty
+        width: '',
+        widthErr: false,
+        height: '',
+        heightErr: false,
         fillStyle: defaultStyle.type,
         legend: defaultLegend.type,
         strokeWidth: '',
@@ -47,6 +51,8 @@ class PieChartFields extends BasicFields<IProps, IState> {
         if (props.chartProps && !state.dataUpdated) {
             return {
                 title: props.chartProps.title,
+                width: props.chartProps.chart.width,
+                height: props.chartProps.chart.height,
                 fillStyle: props.chartProps.chart.fillStyle,
                 strokeWidth: String(props.chartProps.chart.strokeWidth),
                 fillWeight: String(props.chartProps.chart.fillWeight),

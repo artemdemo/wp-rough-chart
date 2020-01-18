@@ -12,7 +12,8 @@ import { couldBeNumber } from '../../services/utils';
 import contextMenu from './contextMenu';
 import * as colors from '../../styles/colors';
 import * as inclosedData from './data/inclosedData';
-import * as lineData from './data/columnsData';
+import * as columnsData from './data/columnsData';
+import * as lineData from './data/lineData';
 
 interface IProps {
     type: TChartTypes;
@@ -57,6 +58,8 @@ class ChartData extends React.PureComponent<IProps, IState> {
                 break;
             case TChartTypes.columns:
             case TChartTypes.bars:
+                chartData = columnsData;
+                break;
             case TChartTypes.lines:
                 chartData = lineData;
                 break;
