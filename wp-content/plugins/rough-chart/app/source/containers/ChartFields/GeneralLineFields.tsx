@@ -36,6 +36,10 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
 
     public state = {
         title: '',  // title can be empty
+        width: '',
+        widthErr: false,
+        height: '',
+        heightErr: false,
         fillStyle: defaultStyle.type,
         strokeColor: '#0166b5',
         fillColor: '#039be5',
@@ -61,6 +65,8 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         if (props.chartProps && !state.dataUpdated) {
             return {
                 title: props.chartProps.title,
+                width: props.chartProps.chart.width,
+                height: props.chartProps.chart.height,
                 strokeColor: props.chartProps.chart.stroke,
                 highlightColor: props.chartProps.chart.highlight,
                 fillColor: props.chartProps.chart.color,
