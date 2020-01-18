@@ -76,7 +76,7 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
             // I even can't provide it as csv string right to the library, because api is not allowing it.
             // Therefore I'm adding this workaround that will request data from the server.
             // (Only server, only hardcore)
-            roughVizSettings.data = `${appData.rest_api_url}/chart/${chartInput.id}.csv`;
+            roughVizSettings.data = `${appData.rest_api_url}/chart/${chartInput.id}.tsv`;
             roughVizSettings.y = 'values';
             new roughViz.Line(roughVizSettings);
         }

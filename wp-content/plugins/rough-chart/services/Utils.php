@@ -3,7 +3,7 @@
 namespace roughChart\services;
 
 class Utils {
-    public static function chartDataToCsv( $chart_data ) {
+    public static function chartDataToTsv( $chart_data ) {
         $chart_arr = [];
         $chart_data_max_length = 0;
         foreach ( $chart_data as $key => $item ) {
@@ -33,7 +33,7 @@ class Utils {
             }
             array_push(
                 $result,
-                implode( ',', $row )
+                implode( "\t", $row )
             );
         }
         return implode( PHP_EOL, $result );

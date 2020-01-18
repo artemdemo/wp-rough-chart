@@ -68,15 +68,15 @@ class RoughChart {
     public static function register_rest_routes() {
         register_rest_route(
             'rough-chart/v1',
-            '/chart/(?P<id>\d+).csv',
+            '/chart/(?P<id>\d+).tsv',
             array(
                 'methods' => 'GET',
-                'callback' => array( 'RoughChart', 'rest_api_get_chart_csv' ),
+                'callback' => array( 'RoughChart', 'rest_api_get_chart_tsv' ),
             )
         );
     }
 
-    public static function rest_api_get_chart_csv( $data ) {
+    public static function rest_api_get_chart_tsv( $data ) {
         $err = null;
         if ( !isset( $data[ 'id' ] ) ) {
             $err = ErrorMsg::generalError(
@@ -94,7 +94,7 @@ class RoughChart {
         // Only this way I can response with text file, that will have EOL characters.
         // And these characters will be rendered as actually new lines and not "\r\n"
         header('Content-Type: text/plain; charset=utf-8');
-        echo Utils::chartDataToCsv( $decoded_chart->data );
+        echo Utils::chartDataToTsv( $decoded_chart->data );
         die();
     }
 
