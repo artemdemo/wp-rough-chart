@@ -75,7 +75,9 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
 
         if (TChartTypes[chartInput.chart_type] === TChartTypes.lines) {
             const appData = getAppData();
-            roughVizSettings.color = chartOptions.color;
+            if (chartOptions.stroke) {
+                roughVizSettings.colors = [ chartOptions.stroke ];
+            }
             // For some unknown reason Line chart can't parse data if provided as simple object.
             // I even can't provide it as csv string right to the library, because api is not allowing it.
             // Therefore I'm adding this workaround that will request data from the server.

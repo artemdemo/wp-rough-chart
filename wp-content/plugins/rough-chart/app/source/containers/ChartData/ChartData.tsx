@@ -12,7 +12,7 @@ import { couldBeNumber } from '../../services/utils';
 import contextMenu from './contextMenu';
 import * as colors from '../../styles/colors';
 import * as inclosedData from './data/inclosedData';
-import * as lineData from './data/lineData';
+import * as lineData from './data/columnsData';
 
 interface IProps {
     type: TChartTypes;
