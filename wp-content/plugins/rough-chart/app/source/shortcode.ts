@@ -15,6 +15,8 @@ type TRoughVizSettings = {
     fillWeight: number;
     roughness: number;
     strokeWidth: number;
+    width: number;
+    height: number;
     legend: boolean;
     legendPosition: string;
     data: TRoughVizChartData|string;
@@ -37,6 +39,8 @@ const __addRoughChart = (chartInput: TChartShortcode) => {
             fillWeight: chartOptions.fillWeight,
             roughness: chartOptions.roughness,
             strokeWidth: chartOptions.strokeWidth,
+            width: chartOptions.width,
+            height: chartOptions.height,
             legend: legendTypeNum !== ELegendTypes.hidden,
             legendPosition: legendTypeNum === ELegendTypes.left ? 'left' : 'right',
             data: {

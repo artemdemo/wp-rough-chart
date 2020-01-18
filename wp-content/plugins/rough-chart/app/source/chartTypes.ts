@@ -28,6 +28,8 @@ export type TChartSettings = {
     stroke?: string;        // Pie chart doesn't have `stroke`
     fillStyle?: string;     // Lines chart doesn't have `fillStyle`
     highlight?: string;     // Lines chart doesn't have `highlight`
+    width: number;
+    height: number;
     strokeWidth: number;
     fillWeight: number;
     roughness: number;

@@ -36,6 +36,8 @@ const defaultTranslations = {
     saveChart: 'Save chart',
     title: 'Title',
     fillStyle: 'Fill Style',
+    chartWidth: 'Chart Width',
+    chartHeight: 'Chart Height',
     strokeWidth: 'Stroke Width',
     strokeColor: 'Stroke Color',
     highlightColor: 'Highlight Color',

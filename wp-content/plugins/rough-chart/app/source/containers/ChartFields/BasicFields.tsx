@@ -24,6 +24,10 @@ export interface IBasicFieldsProps {
 
 export interface IBasicFieldsState {
     title: string;
+    width: string;
+    widthErr: boolean;
+    height: string;
+    heightErr: boolean;
     strokeWidth: string;
     strokeWidthErr: boolean;
     fillWeight: string;
@@ -41,6 +45,8 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
         if (chartId === 'new') {
             // Set default values for the new chart
             this.setState({
+                width: '500',
+                height: '400',
                 strokeWidth: '1',
                 fillWeight: '0.5',
                 roughness: '1',
@@ -50,6 +56,14 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
 
     updateTitle = (title) => {
         this.setState({ title })
+    };
+
+    updateWidth = (width) => {
+        this.setState({ width, widthErr: false });
+    };
+
+    updateHeight = (height) => {
+        this.setState({ height, heightErr: false });
     };
 
     updateStrokeWidth = (strokeWidth) => {
@@ -70,16 +84,22 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
 
     public getData(): IChartProps {
         const { title, legend } = this.state;
+        const width = parseFloat(this.state.width);
+        const height = parseFloat(this.state.height);
         const strokeWidth = parseFloat(this.state.strokeWidth);
         const fillWeight = parseFloat(this.state.fillWeight);
         const roughness = parseFloat(this.state.roughness);
         const tableDate = this.getTableData();
         let error = false;
         const newState = {
+            widthErr: false,
+            heightErr: false,
             strokeWidthErr: false,
             fillWeightErr: false,
             roughnessErr: false,
         };
+        if (isNaN(width) || width <= 0) { newState.widthErr = true; error = true; }
+        if (isNaN(height) || height <= 0) { newState.heightErr = true; error = true; }
         if (isNaN(strokeWidth) || strokeWidth <= 0) { newState.strokeWidthErr = true; error = true; }
         if (isNaN(fillWeight) || fillWeight <= 0) { newState.fillWeightErr = true; error = true; }
         if (isNaN(roughness) || roughness <= 0) { newState.roughnessErr = true; error = true; }
@@ -90,6 +110,8 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
         return {
             title: title.trim(),
             chart: {
+                width,
+                height,
                 strokeWidth,
                 fillWeight,
                 roughness,
@@ -139,6 +161,22 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
         const { disabled } = this.props;
         return (
             <React.Fragment>
+                <PropInput
+                    title={t('chartWidth')}
+                    onChange={this.updateWidth}
+                    value={this.state.width}
+                    error={this.state.widthErr}
+                    disabled={disabled}
+                    numeric
+                />
+                <PropInput
+                    title={t('chartHeight')}
+                    onChange={this.updateHeight}
+                    value={this.state.height}
+                    error={this.state.heightErr}
+                    disabled={disabled}
+                    numeric
+                />
                 <PropInput
                     title={t('strokeWidth')}
                     onChange={this.updateStrokeWidth}
