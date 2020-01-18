@@ -14,6 +14,7 @@ import * as colors from '../../styles/colors';
 import * as inclosedData from './data/inclosedData';
 import * as columnsData from './data/columnsData';
 import * as lineData from './data/lineData';
+import { EChartColumnType } from './chartDataTypes';
 
 interface IProps {
     type: TChartTypes;
@@ -50,7 +51,24 @@ class ChartData extends React.PureComponent<IProps, IState> {
     private table: any = null;
 
     componentDidMount():void {
-        const { type, data } = this.props;
+        const { data } = this.props;
+        const chartData = this.getChartDataDefinition();
+        this.table = jexcel(this.tableBaseRef.current, {
+            data: data || chartData.defaultData,
+            columns: chartData.columns,
+            allowInsertRow: true,
+            allowManualInsertRow: true,
+            allowInsertColumn: false,
+            allowManualInsertColumn: false,
+            allowDeleteRow: true,
+            allowDeleteColumn: false,
+            contextMenu,
+            onafterchanges: this.handleOnAfterChange,
+        });
+    }
+
+    getChartDataDefinition() {
+        const { type } = this.props;
         let chartData;
         switch (type) {
             case TChartTypes.pie:
@@ -66,40 +84,31 @@ class ChartData extends React.PureComponent<IProps, IState> {
             default:
                 throw new Error(`There is no data for given "type",received: ${type}`);
         }
-        this.table = jexcel(this.tableBaseRef.current, {
-            data: data || chartData.defaultData,
-            columns: chartData.columns,
-            allowInsertRow: true,
-            allowManualInsertRow: true,
-            allowInsertColumn: false,
-            allowManualInsertColumn: false,
-            allowDeleteRow: true,
-            allowDeleteColumn: false,
-            contextMenu,
-            onafterchanges: this.handleOnAfterChange,
-        });
+        return chartData;
     }
 
     public getData(): { data: TJExcel; error: TGeneralError; } {
         let error: TGeneralError = null;
         const jExcelData = this.table.getData();
         for (const row of jExcelData) {
-            for (const item of row) {
+            const chartData = this.getChartDataDefinition();
+            for (let i = 0; i < row.length; i++) {
+                const item = row[i];
                 if (item === '') {
                     error = {
                         msg: t('noEmptyCellsInTable'),
                     };
                     break;
                 }
+                const columnDefinition = chartData.columns[i];
+                if (columnDefinition._valueType === EChartColumnType.number && !couldBeNumber(item)) {
+                    error = {
+                        msg: t('valuesShouldBeNumbers'),
+                    };
+                    break;
+                }
             }
             if (error) { break; }
-            const itemToCheck = row.length > 1 ? row[1] : row[0];
-            if (!couldBeNumber(itemToCheck)) {
-                error = {
-                    msg: t('valuesShouldBeNumbers'),
-                };
-                break;
-            }
         }
         this.setState({ error });
         return {

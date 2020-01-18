@@ -1,4 +1,6 @@
-export const defaultData = [
+import { TChartColumn, EChartColumnType } from '../chartDataTypes';
+
+export const defaultData: any[][] = [
     [5],
     [20],
     [50],
@@ -9,6 +11,11 @@ export const defaultData = [
     [40],
 ];
 
-export const columns = [
-    { type: 'text', title: 'Value', width: 120 },
+export const columns: TChartColumn[] = [
+    {
+        type: 'text',
+        title: 'Value',
+        width: 120,
+        _valueType: EChartColumnType.number,
+    },
 ];
