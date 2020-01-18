@@ -93,7 +93,8 @@ class ChartData extends React.PureComponent<IProps, IState> {
                 }
             }
             if (error) { break; }
-            if (!couldBeNumber(row[1])) {
+            const itemToCheck = row.length > 1 ? row[1] : row[0];
+            if (!couldBeNumber(itemToCheck)) {
                 error = {
                     msg: t('valuesShouldBeNumbers'),
                 };
@@ -102,10 +103,17 @@ class ChartData extends React.PureComponent<IProps, IState> {
         }
         this.setState({ error });
         return {
-            data: jExcelData.map(row => ([
-                row[0],
-                parseFloat(row[1]),
-            ])),
+            data: jExcelData.map((row) => {
+                if (row.length > 1) {
+                    return [
+                        row[0],
+                        parseFloat(row[1]),
+                    ];
+                }
+                return [
+                    parseFloat(row[0]),
+                ];
+            }),
             error,
         };
     }
