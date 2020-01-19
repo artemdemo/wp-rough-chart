@@ -31,8 +31,8 @@ export type TChartSettings = {
     strokeWidth: number;
     fillWeight: number;
     roughness: number;
-    legend: string;
-    color?: string;
+    legend?: string;        // Columns and bars don't have legend
+    color?: string;         // Pie doesn't have single `color` property
     data: TChartTable|null;
 };
 

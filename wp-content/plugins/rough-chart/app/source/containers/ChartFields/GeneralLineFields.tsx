@@ -1,7 +1,7 @@
 import React from 'react';
 import {defaultStyle} from '../formProps/FillStyle';
 import PropColor from '../formProps/PropColor';
-import {defaultLegend} from '../formProps/Legend';
+import Legend, {defaultLegend} from '../formProps/Legend';
 import FormTable from '../../components/FormTable/FormTable';
 import {t} from '../../services/i18n';
 import GridCell from '../../components/Grid/GridCell';
@@ -25,6 +25,7 @@ interface IState extends IBasicFieldsState {
     strokeColor: string;
     highlightColor: string;
     dataUpdated: boolean;
+    legend: string;
 }
 
 class GeneralLineFields extends BasicFields<IProps, IState> {
@@ -89,7 +90,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     }
 
     public getData(): IGeneralLineFieldsOutput {
-        const { fillStyle, fillColor, strokeColor, highlightColor } = this.state;
+        const { fillStyle, fillColor, strokeColor, highlightColor, legend } = this.state;
         const { chartType } = this.props;
         const superData = super.getData();
         return {
@@ -100,6 +101,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                 color: fillColor,
                 stroke: strokeColor,
                 highlight: highlightColor,
+                legend,
                 fillStyle,
             },
         };
@@ -131,11 +133,11 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         })
     };
 
-    renderFillColorFields() {
+    renderLineFields() {
         const { disabled, chartType } = this.props;
         if (chartType !== TChartTypes.lines) {
             return (
-                <React.Fragment>
+                <>
                     <PropColor
                         title={t('fillColor')}
                         defaultColor={this.state.fillColor}
@@ -150,16 +152,24 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                         disabled={disabled}
                         ref={this.highlightColorRef}
                     />
-                </React.Fragment>
+                </>
             );
         }
-        return null;
+        return (
+            <>
+                <Legend
+                    value={this.state.legend}
+                    onChange={this.updateProp.bind(this, 'legend')}
+                    disabled={disabled}
+                />
+            </>
+        );
     }
 
     renderStrokeColorFields() {
         const { disabled } = this.props;
         return (
-            <React.Fragment>
+            <>
                 <PropColor
                     title={t('strokeColor')}
                     defaultColor={this.state.strokeColor}
@@ -167,7 +177,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                     disabled={disabled}
                     ref={this.strokeColorRef}
                 />
-            </React.Fragment>
+            </>
         );
     }
 
@@ -179,14 +189,14 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
 
     render() {
         return (
-            <React.Fragment>
+            <>
                 {this.renderTitle()}
                 <p>{t('defineChart')}</p>
                 <Grid>
                     <GridCell columns='lg-4 md-12'>
                         <FormTable>
                             {this.renderBasicFields()}
-                            {this.renderFillColorFields()}
+                            {this.renderLineFields()}
                             {this.renderStrokeColorFields()}
                         </FormTable>
                     </GridCell>
@@ -194,7 +204,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
                         {this.renderChartData()}
                     </GridCell>
                 </Grid>
-            </React.Fragment>
+            </>
         );
     }
 }

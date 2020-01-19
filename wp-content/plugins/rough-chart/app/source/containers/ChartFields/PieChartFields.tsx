@@ -5,7 +5,7 @@ import { t } from '../../services/i18n';
 import Grid from '../../components/Grid/Grid';
 import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
-import { defaultLegend } from '../formProps/Legend';
+import Legend, { defaultLegend } from '../formProps/Legend';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
 import { fromDataToJExcel, TJExcel } from '../../services/chartDTO';
 
@@ -18,6 +18,7 @@ interface IProps extends IBasicFieldsProps {}
 interface IState extends IBasicFieldsState {
     fillStyle: string;
     dataUpdated: boolean;
+    legend: string;
 }
 
 class PieChartFields extends BasicFields<IProps, IState> {
@@ -65,7 +66,7 @@ class PieChartFields extends BasicFields<IProps, IState> {
     }
 
     public getData(): IPieChartFieldsOutput {
-        const { fillStyle } = this.state;
+        const { fillStyle, legend } = this.state;
         const superData = super.getData();
 
         return {
@@ -73,6 +74,7 @@ class PieChartFields extends BasicFields<IProps, IState> {
             chart_type: TChartTypes[TChartTypes.pie],
             chart: {
                 ...superData.chart,
+                legend,
                 fillStyle,
             },
         };
@@ -107,13 +109,18 @@ class PieChartFields extends BasicFields<IProps, IState> {
     renderChartFields() {
         const { disabled } = this.props;
         return (
-            <React.Fragment>
+            <>
                 <FillStyle
                     value={this.state.fillStyle}
                     onChange={this.updateProp.bind(this, 'fillStyle')}
                     disabled={disabled}
                 />
-            </React.Fragment>
+                <Legend
+                    value={this.state.legend}
+                    onChange={this.updateProp.bind(this, 'legend')}
+                    disabled={disabled}
+                />
+            </>
         );
     }
 
@@ -123,21 +130,21 @@ class PieChartFields extends BasicFields<IProps, IState> {
 
     render() {
         return (
-            <React.Fragment>
+            <>
                 {this.renderTitle()}
                 <p>{t('defineChart')}</p>
                 <Grid>
                     <GridCell columns='lg-4 md-12'>
                         <FormTable>
-                            {this.renderChartFields()}
                             {this.renderBasicFields()}
+                            {this.renderChartFields()}
                         </FormTable>
                     </GridCell>
                     <GridCell columns='lg-8 md-12'>
                         {this.renderChartData()}
                     </GridCell>
                 </Grid>
-            </React.Fragment>
+            </>
         );
     }
 }

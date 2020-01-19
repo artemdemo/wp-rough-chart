@@ -5,7 +5,6 @@ import { t } from '../../services/i18n';
 import Shortcode from '../Shortcode/Shortcode';
 import PropInput from '../formProps/PropInput';
 import FormTable from '../../components/FormTable/FormTable';
-import Legend from '../formProps/Legend';
 import ChartData from '../ChartData/ChartData';
 import { TChartSettings, TChartTable, TChartTypes } from '../../chartTypes';
 import { TJExcel } from '../../services/chartDTO';
@@ -34,7 +33,6 @@ export interface IBasicFieldsState {
     fillWeightErr: boolean;
     roughness: string;
     roughnessErr: boolean;
-    legend: string;
 }
 
 class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> extends React.Component<P, S> {
@@ -78,12 +76,8 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
         this.setState({ roughness, roughnessErr: false });
     };
 
-    updateLegend = (legend) => {
-        this.setState({ legend });
-    };
-
     public getData(): IChartProps {
-        const { title, legend } = this.state;
+        const { title } = this.state;
         const width = parseFloat(this.state.width);
         const height = parseFloat(this.state.height);
         const strokeWidth = parseFloat(this.state.strokeWidth);
@@ -115,7 +109,6 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
                 strokeWidth,
                 fillWeight,
                 roughness,
-                legend,
                 data: tableDate,
             },
             error,
@@ -202,11 +195,6 @@ class BasicFields<P extends IBasicFieldsProps, S extends IBasicFieldsState> exte
                     error={this.state.roughnessErr}
                     disabled={disabled}
                     numeric
-                />
-                <Legend
-                    value={this.state.legend}
-                    onChange={this.updateLegend}
-                    disabled={disabled}
                 />
             </React.Fragment>
         );
