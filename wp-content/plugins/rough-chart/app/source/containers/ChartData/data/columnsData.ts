@@ -1,4 +1,4 @@
-import { TChartColumn, EChartColumnType } from '../chartDataTypes';
+import ChartDataColumn, { EChartColumnType } from '../ChartDataColumn';
 
 export const defaultData: any[][] = [
     ['A', 40],
@@ -9,7 +9,16 @@ export const defaultData: any[][] = [
     ['F', 30],
 ];
 
-export const columns: TChartColumn[] = [
-    { type: 'text', title: 'Label', width: 120 },
-    { type: 'text', title: 'Value', width: 120, _valueType: EChartColumnType.number },
+export const columns: ChartDataColumn[] = [
+    new ChartDataColumn({
+        type: 'text',
+        title: 'Label',
+        width: 120,
+    }),
+    new ChartDataColumn({
+        type: 'text',
+        title: 'Value',
+        width: 120,
+        _valueType: EChartColumnType.number,
+    }),
 ];

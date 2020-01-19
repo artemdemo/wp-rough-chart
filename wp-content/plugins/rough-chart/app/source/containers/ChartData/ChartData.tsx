@@ -14,7 +14,7 @@ import * as colors from '../../styles/colors';
 import * as inclosedData from './data/inclosedData';
 import * as columnsData from './data/columnsData';
 import * as lineData from './data/lineData';
-import { EChartColumnType } from './chartDataTypes';
+import ChartDataColumn, {EChartColumnType, IJExcelColumn} from './ChartDataColumn';
 
 interface IProps {
     type: TChartTypes;
@@ -25,6 +25,10 @@ interface IProps {
 interface IState {
     error: TGeneralError;
 }
+
+const convertColumnsToJExcel = (list: ChartDataColumn[]): IJExcelColumn[] => {
+    return list.map(column => column.getColumn());
+};
 
 const ChartDataStyle = createGlobalStyle`
     .table-has-error {
@@ -55,7 +59,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
         const chartData = this.getChartDataDefinition();
         this.table = jexcel(this.tableBaseRef.current, {
             data: data || chartData.defaultData,
-            columns: chartData.columns,
+            columns: convertColumnsToJExcel(chartData.columns),
             allowInsertRow: true,
             allowManualInsertRow: true,
             allowInsertColumn: false,
@@ -100,8 +104,8 @@ class ChartData extends React.PureComponent<IProps, IState> {
                     };
                     break;
                 }
-                const columnDefinition = chartData.columns[i];
-                if (columnDefinition._valueType === EChartColumnType.number && !couldBeNumber(item)) {
+                const columnDefinition: ChartDataColumn = chartData.columns[i];
+                if (columnDefinition.isNumberVal() && !couldBeNumber(item)) {
                     error = {
                         msg: t('valuesShouldBeNumbers'),
                     };

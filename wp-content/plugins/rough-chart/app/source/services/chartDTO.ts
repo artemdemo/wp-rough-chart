@@ -1,20 +1,19 @@
 import _isArray from 'lodash/isArray'
 import _get from 'lodash/get'
 import { TChartTable } from '../chartTypes';
-import {EChartColumnType, TChartColumn} from '../containers/ChartData/chartDataTypes';
+import ChartDataColumn from '../containers/ChartData/ChartDataColumn';
 
 export type TJExcel = any[][];
 
-export const fromJExcelToData = (jExcel: TJExcel, columns: TChartColumn[]): TChartTable => {
+export const fromJExcelToData = (jExcel: TJExcel, columns: ChartDataColumn[]): TChartTable => {
     const result: TChartTable = {};
     if (_isArray(jExcel)) {
         jExcel.forEach((row) => {
             for (let i = 0; i < columns.length; i++) {
                 const columnDefinition = columns[i];
-                const label = columnDefinition.title.toLowerCase();
+                const label = columnDefinition.getLabel();
                 const itemRaw = _get(row, `[${i}]`, '');
-                const isNum = columnDefinition._valueType === EChartColumnType.number;
-                const item = isNum && itemRaw !== '' ? parseFloat(itemRaw) : itemRaw;
+                const item = columnDefinition.isNumberVal() && itemRaw !== '' ? parseFloat(itemRaw) : itemRaw;
                 if (result.hasOwnProperty(label)) {
                     result[label].push(item);
                 } else {
@@ -40,7 +39,7 @@ export const fromDataToJExcel = (data?: TChartTable): TJExcel => {
         for (let i = 0; i < maxLength; i++) {
             const row: any[] = [];
             keysList.forEach((key) => {
-                row.push(_get(data, `[key][${i}]`, ''));
+                row.push(_get(data, `[${key}][${i}]`, ''));
             });
             result.push(row);
         }
