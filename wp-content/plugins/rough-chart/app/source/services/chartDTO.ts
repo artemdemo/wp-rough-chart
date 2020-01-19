@@ -1,80 +1,47 @@
 import _isArray from 'lodash/isArray'
 import _get from 'lodash/get'
 import { TChartTable } from '../chartTypes';
+import {EChartColumnType, TChartColumn} from '../containers/ChartData/chartDataTypes';
 
 export type TJExcel = any[][];
 
-export const fromJExcelToGeneralLine = (jExcel?: TJExcel): TChartTable => {
-    const labels: string[] = [];
-    const values: number[] = [];
-
-    if (jExcel && _isArray(jExcel)) {
-        jExcel.forEach((item) => {
-            labels.push(_get(item, '[0]', ''));
-            values.push(_get(item, '[1]', ''));
+export const fromJExcelToData = (jExcel: TJExcel, columns: TChartColumn[]): TChartTable => {
+    const result: TChartTable = {};
+    if (_isArray(jExcel)) {
+        jExcel.forEach((row) => {
+            for (let i = 0; i < columns.length; i++) {
+                const columnDefinition = columns[i];
+                const label = columnDefinition.title.toLowerCase();
+                const itemRaw = _get(row, `[${i}]`, '');
+                const isNum = columnDefinition._valueType === EChartColumnType.number;
+                const item = isNum && itemRaw !== '' ? parseFloat(itemRaw) : itemRaw;
+                if (result.hasOwnProperty(label)) {
+                    result[label].push(item);
+                } else {
+                    result[label] = [ item ];
+                }
+            }
         });
-    }
-
-    return {
-        labels,
-        values,
-    };
-};
-
-export const fromGeneralLineToJExcel = (pieData?: TChartTable): TJExcel => {
-    const result: TJExcel = [];
-    if (pieData) {
-        const length = Math.max(
-            pieData.labels.length,
-            pieData.values.length,
-        );
-        for (let i = 0; i < length; i++) {
-            const row = [
-                _get(pieData, `labels[${i}]`, ''),
-                _get(pieData, `values[${i}]`, ''),
-            ];
-            result.push(row);
-        }
     }
     return result;
 };
 
-export const fromJExcelToPie = (jExcel?: TJExcel): TChartTable => {
-    const labels: string[] = [];
-    const values: number[] = [];
-    const colors: string[] = [];
-
-    if (jExcel && _isArray(jExcel)) {
-        jExcel.forEach((item) => {
-            labels.push(_get(item, '[0]', ''));
-            values.push(_get(item, '[1]', ''));
-            colors.push(_get(item, '[2]', ''));
-        });
-    }
-
-    return {
-        labels,
-        values,
-        colors,
-    };
-};
-
-export const fromPieToJExcel = (pieData?: TChartTable): TJExcel => {
+export const fromDataToJExcel = (data?: TChartTable): TJExcel => {
     const result: TJExcel = [];
-    if (pieData) {
-        const length = Math.max(
-            pieData.labels.length,
-            pieData.values.length,
-            _get(pieData, 'colors.length', 0),
-        );
-        for (let i = 0; i < length; i++) {
-            const row = [
-                _get(pieData, `labels[${i}]`, ''),
-                _get(pieData, `values[${i}]`, ''),
+    if (data) {
+        const keysList = Object.keys(data);
+        const lengthArgs: number[] = keysList.reduce((acc, key) => {
+            return [
+                ...acc,
+                data[key].length,
             ];
-            if (_isArray(pieData.colors)) {
-                row.push(_get(pieData, `colors[${i}]`, ''));
-            }
+        }, []);
+        const maxLength = Math.max(...lengthArgs);
+        for (let i = 0; i < maxLength; i++) {
+            const row: any[] = [];
+            keysList.forEach((key) => {
+                row.push(_get(data, `[key][${i}]`, ''));
+            });
             result.push(row);
         }
     }

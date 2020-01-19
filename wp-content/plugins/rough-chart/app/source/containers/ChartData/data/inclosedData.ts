@@ -7,7 +7,22 @@ export const defaultData: any[][] = [
 ];
 
 export const columns: TChartColumn[] = [
-    { type: 'text', title: 'Label', width: 120 },
-    { type: 'text', title: 'Value', width: 120, _valueType: EChartColumnType.number },
-    { type: 'color', title: 'Fill', width: 100, render: 'square' },
+    {
+        type: 'text',
+        title: 'Label',
+        width: 120,
+    },
+    {
+        type: 'text',
+        title: 'Value',
+        width: 120,
+        _valueType: EChartColumnType.number,
+    },
+    {
+        type: 'color',
+        title: 'Fill',
+        width: 100,
+        render: 'square',
+        _label: 'color',
+    },
 ];

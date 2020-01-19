@@ -7,7 +7,7 @@ import GridCell from '../../components/Grid/GridCell';
 import FormTable from '../../components/FormTable/FormTable';
 import { defaultLegend } from '../formProps/Legend';
 import BasicFields, { IBasicFieldsProps, IBasicFieldsState, IChartProps } from './BasicFields';
-import { fromJExcelToPie, fromPieToJExcel, TJExcel } from '../../services/chartDTO';
+import { fromDataToJExcel, TJExcel } from '../../services/chartDTO';
 
 interface IPieChartFieldsOutput extends IChartProps {
     chart_type: string;
@@ -82,9 +82,7 @@ class PieChartFields extends BasicFields<IProps, IState> {
         if (this.chartDataRef?.current?.getData) {
             const tableData = this.chartDataRef.current.getData();
             if (!tableData.error) {
-                return fromJExcelToPie(
-                    tableData.data,
-                );
+                return tableData.data;
             }
         }
         return null;
@@ -93,7 +91,7 @@ class PieChartFields extends BasicFields<IProps, IState> {
     provideChartData(): TJExcel|undefined {
         const { chartProps } = this.props;
         const hasData = !!chartProps?.chart?.data;
-        return hasData ? fromPieToJExcel(chartProps.chart.data || undefined) : undefined;
+        return hasData ? fromDataToJExcel(chartProps.chart.data || undefined) : undefined;
     }
 
     updateProp(propKey: string, value: any) {

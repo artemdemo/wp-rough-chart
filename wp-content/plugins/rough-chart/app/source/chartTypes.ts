@@ -19,9 +19,7 @@ export type TChartShortcode = {
 
 // General chart data as it returned from the table of values
 export interface TChartTable {
-    labels: string[];
-    values: number[];
-    colors?: string[];
+    [key: string]: any[];
 }
 
 export type TChartSettings = {

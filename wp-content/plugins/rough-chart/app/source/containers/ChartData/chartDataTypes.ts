@@ -15,4 +15,7 @@ export type TChartColumn = {
     // Synthetic property, used only inside of my app
     // Will define how to parse the value
     _valueType?: EChartColumnType;
+    // Label will be used for creating data object out of jExcel array
+    // If not provided, then `title` will be used
+    _label?: string;
 };

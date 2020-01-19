@@ -5,9 +5,9 @@ import { createGlobalStyle } from 'styled-components';
 import 'jexcel/dist/jexcel.css';
 import Description from '../../components/Description/Description';
 import ErrorBubble from '../../components/Error/ErrorBubble';
-import { TChartTypes, TGeneralError } from '../../chartTypes';
+import {TChartTable, TChartTypes, TGeneralError} from '../../chartTypes';
 import { t } from '../../services/i18n';
-import { TJExcel } from '../../services/chartDTO';
+import { TJExcel, fromJExcelToData } from '../../services/chartDTO';
 import { couldBeNumber } from '../../services/utils';
 import contextMenu from './contextMenu';
 import * as colors from '../../styles/colors';
@@ -87,11 +87,11 @@ class ChartData extends React.PureComponent<IProps, IState> {
         return chartData;
     }
 
-    public getData(): { data: TJExcel; error: TGeneralError; } {
+    public getData(): { data: TChartTable; error: TGeneralError; } {
         let error: TGeneralError = null;
         const jExcelData = this.table.getData();
+        const chartData = this.getChartDataDefinition();
         for (const row of jExcelData) {
-            const chartData = this.getChartDataDefinition();
             for (let i = 0; i < row.length; i++) {
                 const item = row[i];
                 if (item === '') {
@@ -112,17 +112,7 @@ class ChartData extends React.PureComponent<IProps, IState> {
         }
         this.setState({ error });
         return {
-            data: jExcelData.map((row) => {
-                if (row.length > 1) {
-                    return [
-                        row[0],
-                        parseFloat(row[1]),
-                    ];
-                }
-                return [
-                    parseFloat(row[0]),
-                ];
-            }),
+            data: fromJExcelToData(jExcelData, chartData.columns),
             error,
         };
     }

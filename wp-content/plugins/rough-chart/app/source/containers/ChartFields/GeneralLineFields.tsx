@@ -8,7 +8,7 @@ import GridCell from '../../components/Grid/GridCell';
 import Grid from '../../components/Grid/Grid';
 import BasicFields, {IBasicFieldsProps, IBasicFieldsState, IChartProps} from './BasicFields';
 import {TChartTable, TChartTypes} from '../../chartTypes';
-import {fromGeneralLineToJExcel, fromJExcelToGeneralLine, TJExcel} from '../../services/chartDTO';
+import {fromDataToJExcel, TJExcel} from '../../services/chartDTO';
 
 interface IGeneralLineFieldsOutput extends IChartProps {
     chart_type: string;
@@ -109,9 +109,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
         if (this.chartDataRef?.current?.getData) {
             const tableData = this.chartDataRef.current.getData();
             if (!tableData.error) {
-                return fromJExcelToGeneralLine(
-                    tableData.data,
-                );
+                return tableData.data;
             }
         }
         return null;
@@ -120,7 +118,7 @@ class GeneralLineFields extends BasicFields<IProps, IState> {
     provideChartData(): TJExcel|undefined {
         const { chartProps } = this.props;
         const hasData = !!chartProps?.chart?.data;
-        return hasData ? fromGeneralLineToJExcel(chartProps.chart.data || undefined) : undefined;
+        return hasData ? fromDataToJExcel(chartProps.chart.data || undefined) : undefined;
     }
 
     updateProp(propKey: string, value: any) {
