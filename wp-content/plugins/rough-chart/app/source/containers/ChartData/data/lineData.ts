@@ -16,6 +16,7 @@ export const columns: ChartDataColumn[] = [
         type: 'text',
         title: 'Value',
         width: 120,
+        _label: 'values',
         _valueType: EChartColumnType.number,
     }),
 ];

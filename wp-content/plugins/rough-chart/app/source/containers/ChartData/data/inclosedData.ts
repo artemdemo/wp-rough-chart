@@ -10,12 +10,14 @@ export const columns: ChartDataColumn[] = [
     new ChartDataColumn({
         type: 'text',
         title: 'Label',
+        _label: 'labels',
         width: 120,
     }),
     new ChartDataColumn({
         type: 'text',
         title: 'Value',
         width: 120,
+        _label: 'values',
         _valueType: EChartColumnType.number,
     }),
     new ChartDataColumn({
