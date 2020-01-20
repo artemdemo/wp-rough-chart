@@ -9,6 +9,9 @@ type TAdminAppData = {
     ajax_url: string;
     plugin_url: string;
     build_folder: string;
+    i18n: {
+        [key: string]: string;
+    };
 }
 
 export const getAppData = (): TAdminAppData => {

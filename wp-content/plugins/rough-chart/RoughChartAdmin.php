@@ -1,10 +1,12 @@
 <?php
 
 require_once( 'views/View.php' );
+require_once( 'services/Translations.php' );
 
 use roughChart\models\DB;
 use roughChart\models\ErrorMsg;
 use roughChart\views\View;
+use roughChart\services\Translations;
 
 /**
  * Class RoughChartAdmin
@@ -65,6 +67,7 @@ class RoughChartAdmin {
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'plugin_url' => menu_page_url( self::$menu_slug, false ),
                 'build_folder' => $build_folder,
+                'i18n' => Translations::getTranslations(),
             )
         );
     }
@@ -79,7 +82,7 @@ class RoughChartAdmin {
     public static function add_plugin_page_settings_link( $links ) {
         $settings_link = '<a href="' .
                    admin_url( 'themes.php?page=' . RoughChartAdmin::$menu_slug ) .
-                   '">' . __('Settings') . '</a>';
+                   '">' . __( 'Settings', View::$text_domain ) . '</a>';
         array_unshift( $links, $settings_link );
         return $links;
     }
