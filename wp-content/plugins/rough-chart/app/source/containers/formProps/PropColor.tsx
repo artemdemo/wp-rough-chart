@@ -58,6 +58,7 @@ class PropColor extends React.PureComponent<IProps, IState> {
                     defaultColor={this.state.color}
                     onChange={this.onChangeColor}
                     disabled={disabled}
+                    ref={this.colorPickerRef}
                 />
                 <span
                     className={classnames({
