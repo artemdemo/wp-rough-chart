@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import iro from '@jaames/iro';
+import ClickOutside from '../ClickOutside/ClickOutside';
 import ColorPickerPopup from './ColorPickerPopup';
 
 import './ColorPicker.less';
@@ -68,10 +69,20 @@ class ColorPicker extends React.PureComponent<IProps, IState> {
         }
     };
 
+    handleClickOutside = () => {
+        const { disabled } = this.props;
+        if (!disabled) {
+            this.setState({ showPopup: false });
+        }
+    };
+
     render() {
         const { className, defaultColor, disabled } = this.props;
         return (
-            <React.Fragment>
+            <ClickOutside
+                className='color-picker-wrapper'
+                onClickOutside={this.handleClickOutside}
+            >
                 <div
                     className={classnames(className, {
                         'color-picker-display': true,
@@ -89,7 +100,7 @@ class ColorPicker extends React.PureComponent<IProps, IState> {
                         <div ref={this.pickerRef} />
                     </ColorPickerPopup>
                 </div>
-            </React.Fragment>
+            </ClickOutside>
         );
     }
 }
