@@ -25,6 +25,6 @@ export const columns: ChartDataColumn[] = [
         title: 'Fill',
         width: 100,
         render: 'square',
-        _label: 'color',
+        _label: 'colors',
     }),
 ];
