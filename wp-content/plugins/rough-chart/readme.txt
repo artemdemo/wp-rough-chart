@@ -30,8 +30,9 @@ or you can use it to add unique look and feel to your website.
 
 == Screenshots ==
 
-1. Rough-Chart UI
-2. Rough-Chart Settings
+1. List of charts
+2. Pie chart settings
+3. Columns chart settings
 
 == Changelog ==
 
