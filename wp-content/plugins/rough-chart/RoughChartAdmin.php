@@ -97,9 +97,11 @@ class RoughChartAdmin {
             $chart = json_decode(
                 stripcslashes( $_POST[ 'chart' ] ),
                 true,
-                512,
-                JSON_THROW_ON_ERROR
+                512
             );
+            if ($chart == null) {
+                throw new Exception('Chart data can\'t be parsed');
+            }
             $title = isset( $chart[ 'title' ] ) ? $chart[ 'title' ] : null;
             $chart_type = isset( $chart[ 'chart_type' ] ) ? $chart[ 'chart_type' ] : null;
             $result = DB::add_chart(
