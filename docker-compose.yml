@@ -5,9 +5,10 @@ services:
       - db
     # Docker hub for wordpress: https://hub.docker.com/_/wordpress/
     # Tested with following versions:
+    #  - 5.3.2
     #  - 5.3.0
     #  - 5.0.1 (there is no images lower than this one)
-    image: wordpress:5.3.0
+    image: wordpress:5.3.2
     restart: always
     volumes:
       - ./wp-content:/var/www/html/wp-content

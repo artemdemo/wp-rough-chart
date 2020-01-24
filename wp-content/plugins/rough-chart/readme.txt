@@ -1,7 +1,7 @@
 === Rough Chart ===
 Tags: chart, sketch chart, graph, rough, rough chart
-Requires at least: 5.0
-Tested up to: 5.2
+Requires at least: 5.0.1
+Tested up to: 5.3.2
 Stable tag: 1.0.0
 License: GPLv3 or later
 
@@ -20,6 +20,18 @@ or you can use it to add unique look and feel to your website.
 * Select chart styling
 * Choose whether show legend or not
 * Custom chart title and axis names
+
+*Shortcodes*
+
+In order to add chart into your post - you need to use its shortcode.
+The shortcode can be found in the list of you charts: WordPress Admin -> Appearance -> Rough Charts
+
+For example: [roughchart id="XX"]
+Where "XX" is the id number of your chart.
+
+You can also override charts title by adding "title" property to your shortcode.
+
+For example: [roughchart id="XX" title="New title"]
 
 == Installation ==
 

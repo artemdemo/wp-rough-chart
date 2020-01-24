@@ -41,7 +41,7 @@ ini_set( 'display_errors', 1 );
 
 
 define( 'ROUGH_CHART_VERSION', '1.0.0' );
-define( 'ROUGH_CHART_MINIMUM_WP_VERSION', '5.0' );
+define( 'ROUGH_CHART_MINIMUM_WP_VERSION', '5.0.1' );
 define( 'ROUGH_CHART_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ROUGH_CHART_BASENAME', plugin_basename( __FILE__ ) );
 
