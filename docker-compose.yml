@@ -3,10 +3,14 @@ services:
   wordpress:
     depends_on:
       - db
+    # Docker hub for wordpress: https://hub.docker.com/_/wordpress/
+    # Test versions:
+    #   5.3.0
+    #
     image: wordpress:5.3.0
     restart: always
     volumes:
-      - ./wp-content:/var/www/html/wp-content 
+      - ./wp-content:/var/www/html/wp-content
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_PASSWORD: p4ssw0rd!
