@@ -1,5 +1,7 @@
 === Rough Chart ===
+Contributors: artemdemo
 Tags: chart, sketch chart, graph, rough, rough chart
+Requires PHP: 7.0
 Requires at least: 5.0.1
 Tested up to: 5.3.2
 Stable tag: 1.0.0
@@ -39,6 +41,12 @@ For example: [roughchart id="XX" title="New title"]
 2. Click 'Activate' in the Plugins admin panel
 3. Create new Rough-Chart into:
 	- WordPress Admin -> Appearance -> Rough Charts
+
+== Frequently Asked Questions ==
+
+= Can I use "title" prop in shortcode for a chart that already has title? =
+
+Yes you can. In this case "title" from the shortcode will be used.
 
 == Screenshots ==
 
