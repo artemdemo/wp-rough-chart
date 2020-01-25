@@ -36,8 +36,8 @@ if ( !function_exists( 'add_action') ) {
 
 // Allow debugging messages.
 // All the configuration is taken from: `wp-includes/load.php`
-error_reporting( E_ALL );
-ini_set( 'display_errors', 1 );
+//error_reporting( E_ALL );
+//ini_set( 'display_errors', 1 );
 
 
 define( 'ROUGH_CHART_VERSION', '1.0.0' );
